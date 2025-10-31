@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\",
+  "WorkspaceRootPath": "C:\\Users\\Owner\\Documents\\GitHub\\ITI-GR-Project-backened\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\hp\\documents\\github\\iti-gr-project-backened\\iti pharmacy api\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\owner\\documents\\github\\iti-gr-project-backened\\iti pharmacy api\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -14,20 +14,28 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\Owner\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\WeatherForecastController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\WeatherForecastController.cs",
-              "ToolTip": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\Owner\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\WeatherForecastController.cs",
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\WeatherForecastController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-31T15:05:12.711Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             }
           ]
         }
