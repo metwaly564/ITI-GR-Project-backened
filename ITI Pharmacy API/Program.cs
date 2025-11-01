@@ -25,7 +25,7 @@ namespace ITI_Pharmacy_API
 
             app.UseAuthorization();
 
-
+            Console.WriteLine("hello");
             app.MapControllers();
 
             app.Run();
