@@ -1,3 +1,5 @@
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ITI.Pharmacy.API.DTOs
@@ -22,15 +24,22 @@ namespace ITI.Pharmacy.API.DTOs
     {
         [Required]
         public string Name { get; set; }
+
         public string Description { get; set; }
 
         [Required]
         public decimal Price { get; set; }
+
         public decimal? DiscountPrice { get; set; }
+
         public bool IsPrescriptionRequired { get; set; }
 
         [Required]
         public int CategoryId { get; set; }
+
+        // ✅ إضافة ImageUrl كـ Required
+        [Required]
+        public string ImageUrl { get; set; }
     }
 
     public class UpdateProductDTO
@@ -42,5 +51,6 @@ namespace ITI.Pharmacy.API.DTOs
         public bool? IsPrescriptionRequired { get; set; }
         public int? CategoryId { get; set; }
         public bool? IsActive { get; set; }
+        public string ImageUrl { get; set; } // لو حابة تغييره أثناء التحديث
     }
 }
