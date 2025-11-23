@@ -8,16 +8,16 @@ namespace ITI.Pharmacy.API.DTOs
         public int Id { get; set; }
 
         [JsonPropertyName("productName")]
-        public string ProductName { get; set; } = string.Empty;
+        public required string ProductName { get; set; } = string.Empty;
 
         [JsonPropertyName("productImage")]
-        public string ProductImage { get; set; } = string.Empty;
+        public required string ProductImage { get; set; } = string.Empty;
 
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
 
         [JsonPropertyName("description")]
-        public string Description { get; set; } = string.Empty;
+        public required string Description { get; set; } = string.Empty;
 
         [JsonPropertyName("isPrescriptionRequired")]
         public bool IsPrescriptionRequired { get; set; }
@@ -32,7 +32,7 @@ namespace ITI.Pharmacy.API.DTOs
         public int CategoryId { get; set; }
 
         [JsonPropertyName("categoryName")]
-        public string CategoryName { get; set; } = string.Empty;
+        public required string CategoryName { get; set; } = string.Empty;
 
         [JsonPropertyName("createdAt")]
         public DateTime CreatedAt { get; set; }
@@ -44,16 +44,16 @@ namespace ITI.Pharmacy.API.DTOs
     public class CreateProductDTO
     {
         [JsonPropertyName("productName")]
-        public required string ProductName { get; set; }
+        public required string ProductName { get; set; } = string.Empty;
 
         [JsonPropertyName("productImage")]
-        public required string ProductImage { get; set; }
+        public required string ProductImage { get; set; } = string.Empty;
 
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
 
         [JsonPropertyName("description")]
-        public required string Description { get; set; }
+        public required string Description { get; set; } = string.Empty;
 
         [JsonPropertyName("isPrescriptionRequired")]
         public bool IsPrescriptionRequired { get; set; }
@@ -95,5 +95,3 @@ namespace ITI.Pharmacy.API.DTOs
         public bool? IsActive { get; set; }
     }
 }
-
-   

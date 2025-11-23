@@ -2,6 +2,8 @@
 using ITI.Pharmacy.API.Services;
 using ITI.Pharmacy.API.Utilities;
 using ITI.Pharmacy.API.Hubs;
+using ITI.Pharmacy.API.Repositories;
+using ITI.Pharmacy.API.Repositories.Implementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +12,6 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -43,9 +44,9 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
@@ -59,6 +60,9 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddDefaultTokenProviders();
 
 
+builder.Services.AddScoped<IOrderRepository, MockOrderRepository>();
+
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -66,15 +70,21 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
+    var jwtKey = builder.Configuration["Jwt:Key"];
+    if (string.IsNullOrEmpty(jwtKey))
+    {
+        throw new InvalidOperationException("JWT Key is not configured");
+    }
+
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        ValidIssuer = builder.Configuration["Jwt:Issuer"] ?? "ITIPharmacyAPI",
+        ValidAudience = builder.Configuration["Jwt:Audience"] ?? "ITIPharmacyClient",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
     };
 });
 
@@ -86,7 +96,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IBannerService, BannerService>();
-builder.Services.AddScoped<IFrontBannerService, FrontBannerService>(); // Front-end service
+builder.Services.AddScoped<IFrontBannerService, FrontBannerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 builder.Services.AddScoped<IExcelService, ExcelService>();
@@ -114,7 +124,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -131,6 +141,7 @@ app.MapControllers();
 // SignalR Hub
 app.MapHub<NotificationHub>("/notificationHub");
 
+// Database seeding
 try
 {
     using (var scope = app.Services.CreateScope())

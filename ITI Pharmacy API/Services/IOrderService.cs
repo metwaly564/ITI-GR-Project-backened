@@ -10,8 +10,6 @@ namespace ITI.Pharmacy.API.Services
         Task<List<OrderDTO>> GetAllOrdersAsync();
         Task<List<OrderDTO>> GetOrdersByBranchAsync(int branchId);
         Task<bool> CancelOrderAsync(int id, string userId);
-
-    
         Task<bool> UpdateOrderStatusAsync(int id, UpdateOrderStatusDTO dto);
     }
 }

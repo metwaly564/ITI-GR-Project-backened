@@ -18,7 +18,7 @@ namespace ITI.Pharmacy.API.Services
             _mapper = mapper;
         }
 
-        public async Task<ProductDTO?> GetProductByIdAsync(int id)
+        public async Task<ProductDTO> GetProductByIdAsync(int id)
         {
             var product = await _context.Products
                 .Include(p => p.Category)
@@ -26,10 +26,10 @@ namespace ITI.Pharmacy.API.Services
                     .ThenInclude(ps => ps.Branch)
                 .FirstOrDefaultAsync(p => p.Id == id && p.IsActive);
 
-            return product != null ? _mapper.Map<ProductDTO>(product) : null;
+            return product != null ? _mapper.Map<ProductDTO>(product) : null!;
         }
 
-        public async Task<ProductDTO?> CreateProductAsync(CreateProductDTO dto, IFormFile? image)
+        public async Task<ProductDTO> CreateProductAsync(CreateProductDTO dto, IFormFile? image = null)
         {
             try
             {
@@ -40,7 +40,6 @@ namespace ITI.Pharmacy.API.Services
                     Price = dto.Price,
                     Description = dto.Description,
                     IsPrescriptionRequired = dto.IsPrescriptionRequired,
-                 
                     CategoryId = dto.CategoryId,
                     IsActive = dto.IsActive,
                     CreatedAt = DateTime.UtcNow
@@ -53,11 +52,11 @@ namespace ITI.Pharmacy.API.Services
             }
             catch (Exception)
             {
-                return null;
+                return null!;
             }
         }
 
-        public async Task<ProductDTO?> UpdateProductAsync(int id, UpdateProductDTO dto, IFormFile? image)
+        public async Task<ProductDTO> UpdateProductAsync(int id, UpdateProductDTO dto, IFormFile? image = null)
         {
             try
             {
@@ -66,9 +65,8 @@ namespace ITI.Pharmacy.API.Services
                     .Include(p => p.ProductStocks)
                     .FirstOrDefaultAsync(p => p.Id == id);
 
-                if (product == null) return null;
+                if (product == null) return null!;
 
-    
                 if (!string.IsNullOrEmpty(dto.ProductName))
                     product.Name = dto.ProductName;
 
@@ -98,7 +96,7 @@ namespace ITI.Pharmacy.API.Services
             }
             catch (Exception)
             {
-                return null;
+                return null!;
             }
         }
 
@@ -135,10 +133,11 @@ namespace ITI.Pharmacy.API.Services
 
         public async Task<List<ProductDTO>> GetFeaturedProductsAsync()
         {
+
             var products = await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.ProductStocks)
-
+                .Where(p => p.IsActive)
                 .OrderByDescending(p => p.CreatedAt)
                 .Take(10)
                 .ToListAsync();
@@ -160,7 +159,6 @@ namespace ITI.Pharmacy.API.Services
 
         public async Task<PaginationResponse<ProductDTO>> GetProductsPaginatedAsync(int page, int pageSize, string? search = null)
         {
-            // التحقق من المدخلات
             if (page < 1) page = 1;
             if (pageSize < 1) pageSize = 10;
             if (pageSize > 100) pageSize = 100;
@@ -195,20 +193,13 @@ namespace ITI.Pharmacy.API.Services
             };
         }
 
-        public async Task<List<ProductDTO>> SearchProductsAsync(string searchTerm, int? categoryId = null)
+        public async Task<List<ProductDTO>> SearchProductsAsync(string searchTerm)
         {
-            var query = _context.Products
+            var products = await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.ProductStocks)
                 .Where(p => p.IsActive &&
-                           (p.Name.Contains(searchTerm) || p.Description.Contains(searchTerm)));
-
-            if (categoryId.HasValue)
-            {
-                query = query.Where(p => p.CategoryId == categoryId.Value);
-            }
-
-            var products = await query
+                           (p.Name.Contains(searchTerm) || p.Description.Contains(searchTerm)))
                 .OrderBy(p => p.Name)
                 .Take(20)
                 .ToListAsync();
@@ -218,21 +209,8 @@ namespace ITI.Pharmacy.API.Services
 
         public async Task<bool> ToggleFeaturedStatusAsync(int id)
         {
-            try
-            {
-                var product = await _context.Products.FindAsync(id);
-                if (product == null) return false;
-
-          
-                product.UpdatedAt = DateTime.UtcNow;
-
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+      
+            return await Task.FromResult(true);
         }
 
         public async Task<int> GetProductsCountAsync(bool? isActive = null)
@@ -245,6 +223,130 @@ namespace ITI.Pharmacy.API.Services
             }
 
             return await query.CountAsync();
+        }
+
+ 
+        public async Task<List<ProductStockDTO>> GetLowStockProductsAsync()
+        {
+      
+            const int lowStockThreshold = 10;
+
+            var lowStockProducts = await _context.ProductStocks
+                .Include(ps => ps.Product)
+                .Include(ps => ps.Branch)
+                .Where(ps => ps.Quantity <= lowStockThreshold && ps.Quantity > 0)
+                .Select(ps => new ProductStockDTO
+                {
+                    ProductId = ps.ProductId,
+                    ProductName = ps.Product.Name ?? string.Empty,
+                    BranchId = ps.BranchId,
+                    BranchName = ps.Branch.Name ?? string.Empty,
+                    Quantity = ps.Quantity
+                })
+                .ToListAsync();
+
+            return lowStockProducts;
+        }
+
+        public async Task<List<ProductStockDTO>> GetOutOfStockProductsAsync()
+        {
+            var outOfStockProducts = await _context.ProductStocks
+                .Include(ps => ps.Product)
+                .Include(ps => ps.Branch)
+                .Where(ps => ps.Quantity == 0)
+                .Select(ps => new ProductStockDTO
+                {
+                    ProductId = ps.ProductId,
+                    ProductName = ps.Product.Name ?? string.Empty,
+                    BranchId = ps.BranchId,
+                    BranchName = ps.Branch.Name ?? string.Empty,
+                    Quantity = ps.Quantity
+                })
+                .ToListAsync();
+
+            return outOfStockProducts;
+        }
+
+        public async Task<ProductStockDTO> UpdateStockAsync(UpdateStockDTO dto)
+        {
+            try
+            {
+                var productStock = await _context.ProductStocks
+                    .FirstOrDefaultAsync(ps => ps.ProductId == dto.ProductId && ps.BranchId == dto.BranchId);
+
+                if (productStock == null)
+                {
+                    productStock = new ProductStock
+                    {
+                        ProductId = dto.ProductId,
+                        BranchId = dto.BranchId,
+                        Quantity = dto.Quantity
+                    };
+                    _context.ProductStocks.Add(productStock);
+                }
+                else
+                {
+                    productStock.Quantity = dto.Quantity;
+                }
+
+                await _context.SaveChangesAsync();
+
+                return new ProductStockDTO
+                {
+                    ProductId = productStock.ProductId,
+                    BranchId = productStock.BranchId,
+                    Quantity = productStock.Quantity
+                };
+            }
+            catch (Exception)
+            {
+                return null!;
+            }
+        }
+
+        public async Task<ProductDTO> ToggleProductActiveAsync(int id)
+        {
+            try
+            {
+                var product = await _context.Products.FindAsync(id);
+                if (product == null) return null!;
+
+                product.IsActive = !product.IsActive;
+                product.UpdatedAt = DateTime.UtcNow;
+
+                await _context.SaveChangesAsync();
+
+                return await GetProductByIdAsync(id);
+            }
+            catch (Exception)
+            {
+                return null!;
+            }
+        }
+
+        public async Task<InventoryAnalyticsDTO> GetInventoryAnalyticsAsync()
+        {
+            var totalProducts = await _context.Products.CountAsync();
+            var activeProducts = await _context.Products.CountAsync(p => p.IsActive);
+
+            var outOfStockCount = await _context.ProductStocks.CountAsync(ps => ps.Quantity == 0);
+            var lowStockCount = await _context.ProductStocks.CountAsync(ps => ps.Quantity > 0 && ps.Quantity <= 10);
+
+            var totalCategories = await _context.Categories.CountAsync();
+
+            var totalStockValue = await _context.ProductStocks
+                .Include(ps => ps.Product)
+                .SumAsync(ps => ps.Quantity * ps.Product.Price);
+
+            return new InventoryAnalyticsDTO
+            {
+                TotalProducts = totalProducts,
+                ActiveProducts = activeProducts,
+                OutOfStockProducts = outOfStockCount,
+                LowStockProducts = lowStockCount,
+                TotalStockValue = totalStockValue,
+                CategoriesCount = totalCategories
+            };
         }
     }
 }

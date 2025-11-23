@@ -1,20 +1,43 @@
+using System.Text.Json.Serialization;
+
 namespace ITI.Pharmacy.API.DTOs
 {
     public class NotificationDTO
     {
+        [JsonPropertyName("id")]
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string Message { get; set; }
+
+        [JsonPropertyName("title")]
+        public required string Title { get; set; } = string.Empty;
+
+        [JsonPropertyName("message")]
+        public required string Message { get; set; } = string.Empty;
+
+        [JsonPropertyName("isRead")]
         public bool IsRead { get; set; }
-        public string Type { get; set; }
+
+        [JsonPropertyName("type")]
+        public required string Type { get; set; } = string.Empty;
+
+        [JsonPropertyName("createdAt")]
         public DateTime CreatedAt { get; set; }
+
+        [JsonPropertyName("userId")]
+        public required string UserId { get; set; } = string.Empty;
     }
 
     public class CreateNotificationDTO
     {
-        public string Title { get; set; }
-        public string Message { get; set; }
-        public string Type { get; set; }
-        public string UserId { get; set; }
+        [JsonPropertyName("title")]
+        public required string Title { get; set; } = string.Empty;
+
+        [JsonPropertyName("message")]
+        public required string Message { get; set; } = string.Empty;
+
+        [JsonPropertyName("type")]
+        public required string Type { get; set; } = string.Empty;
+
+        [JsonPropertyName("userId")]
+        public required string UserId { get; set; } = string.Empty;
     }
 }
