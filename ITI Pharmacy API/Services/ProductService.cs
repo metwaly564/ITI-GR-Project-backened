@@ -1,8 +1,9 @@
-﻿using AutoMapper;
-using ITI.Pharmacy.API.DTOs;
+﻿using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.DTOs.Responses;
 using ITI.Pharmacy.API.Models;
-using ITI.Pharmacy.API.Utilities;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace ITI.Pharmacy.API.Services
 {
@@ -10,13 +11,114 @@ namespace ITI.Pharmacy.API.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        private readonly IWebHostEnvironment _environment;
 
-        public ProductService(ApplicationDbContext context, IMapper mapper, IWebHostEnvironment environment)
+        public ProductService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _environment = environment;
+        }
+
+        public async Task<ProductDTO?> GetProductByIdAsync(int id)
+        {
+            var product = await _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.ProductStocks)
+                    .ThenInclude(ps => ps.Branch)
+                .FirstOrDefaultAsync(p => p.Id == id && p.IsActive);
+
+            return product != null ? _mapper.Map<ProductDTO>(product) : null;
+        }
+
+        public async Task<ProductDTO?> CreateProductAsync(CreateProductDTO dto, IFormFile? image)
+        {
+            try
+            {
+                var product = new Product
+                {
+                    Name = dto.ProductName,
+                    ImageUrl = dto.ProductImage,
+                    Price = dto.Price,
+                    Description = dto.Description,
+                    IsPrescriptionRequired = dto.IsPrescriptionRequired,
+                 
+                    CategoryId = dto.CategoryId,
+                    IsActive = dto.IsActive,
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                _context.Products.Add(product);
+                await _context.SaveChangesAsync();
+
+                return _mapper.Map<ProductDTO>(product);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<ProductDTO?> UpdateProductAsync(int id, UpdateProductDTO dto, IFormFile? image)
+        {
+            try
+            {
+                var product = await _context.Products
+                    .Include(p => p.Category)
+                    .Include(p => p.ProductStocks)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+
+                if (product == null) return null;
+
+    
+                if (!string.IsNullOrEmpty(dto.ProductName))
+                    product.Name = dto.ProductName;
+
+                if (!string.IsNullOrEmpty(dto.ProductImage))
+                    product.ImageUrl = dto.ProductImage;
+
+                if (dto.Price.HasValue)
+                    product.Price = dto.Price.Value;
+
+                if (!string.IsNullOrEmpty(dto.Description))
+                    product.Description = dto.Description;
+
+                if (dto.IsPrescriptionRequired.HasValue)
+                    product.IsPrescriptionRequired = dto.IsPrescriptionRequired.Value;
+
+                if (dto.CategoryId.HasValue)
+                    product.CategoryId = dto.CategoryId.Value;
+
+                if (dto.IsActive.HasValue)
+                    product.IsActive = dto.IsActive.Value;
+
+                product.UpdatedAt = DateTime.UtcNow;
+
+                await _context.SaveChangesAsync();
+
+                return _mapper.Map<ProductDTO>(product);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<bool> DeleteProductAsync(int id)
+        {
+            try
+            {
+                var product = await _context.Products.FindAsync(id);
+                if (product == null) return false;
+
+                product.IsActive = false;
+                product.UpdatedAt = DateTime.UtcNow;
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task<List<ProductDTO>> GetAllProductsAsync()
@@ -24,173 +126,11 @@ namespace ITI.Pharmacy.API.Services
             var products = await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.ProductStocks)
-                .ThenInclude(ps => ps.Branch)
                 .Where(p => p.IsActive)
-                .ToListAsync();
-
-            return products.Select(p => new ProductDTO
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Description = p.Description,
-                Price = p.Price,
-                DiscountPrice = p.DiscountPrice,
-                ImageUrl = p.ImageUrl,
-                IsPrescriptionRequired = p.IsPrescriptionRequired,
-                IsActive = p.IsActive,
-                CategoryId = p.CategoryId,
-                CategoryName = p.Category.Name,
-                CreatedAt = p.CreatedAt,
-                Stock = p.ProductStocks.Select(ps => new ProductStockDTO
-                {
-                    ProductId = ps.ProductId,
-                    BranchId = ps.BranchId,
-                    BranchName = ps.Branch.Name,
-                    Quantity = ps.Quantity,
-                    MinimumStockLevel = ps.MinimumStockLevel,
-                    MaximumStockLevel = ps.MaximumStockLevel,
-                    LastRestocked = ps.LastRestocked
-                }).ToList()
-            }).ToList();
-        }
-
-        public async Task<ProductDTO> GetProductByIdAsync(int id)
-        {
-            var product = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.ProductStocks)
-                .ThenInclude(ps => ps.Branch)
-                .FirstOrDefaultAsync(p => p.Id == id && p.IsActive);
-
-            if (product == null) return null;
-
-            return new ProductDTO
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                DiscountPrice = product.DiscountPrice,
-                ImageUrl = product.ImageUrl,
-                IsPrescriptionRequired = product.IsPrescriptionRequired,
-                IsActive = product.IsActive,
-                CategoryId = product.CategoryId,
-                CategoryName = product.Category.Name,
-                CreatedAt = product.CreatedAt,
-                Stock = product.ProductStocks.Select(ps => new ProductStockDTO
-                {
-                    ProductId = ps.ProductId,
-                    BranchId = ps.BranchId,
-                    BranchName = ps.Branch.Name,
-                    Quantity = ps.Quantity,
-                    MinimumStockLevel = ps.MinimumStockLevel,
-                    MaximumStockLevel = ps.MaximumStockLevel,
-                    LastRestocked = ps.LastRestocked
-                }).ToList()
-            };
-        }
-
-        public async Task<List<ProductDTO>> GetProductsByCategoryAsync(int categoryId)
-        {
-            var products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.ProductStocks)
-                .Where(p => p.CategoryId == categoryId && p.IsActive)
+                .OrderBy(p => p.Name)
                 .ToListAsync();
 
             return _mapper.Map<List<ProductDTO>>(products);
-        }
-
-        public async Task<List<ProductDTO>> SearchProductsAsync(string searchTerm)
-        {
-            if (string.IsNullOrWhiteSpace(searchTerm))
-                return new List<ProductDTO>();
-
-            var products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.ProductStocks)
-                .Where(p => p.IsActive &&
-                           (p.Name.Contains(searchTerm) ||
-                            p.Description.Contains(searchTerm) ||
-                            p.Category.Name.Contains(searchTerm)))
-                .ToListAsync();
-
-            return _mapper.Map<List<ProductDTO>>(products);
-        }
-
-        public async Task<ProductDTO> CreateProductAsync(CreateProductDTO dto, IFormFile image)
-        {
-            var product = _mapper.Map<Product>(dto);
-
-            if (image != null)
-            {
-                var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "products");
-                product.ImageUrl = await FileHelper.SaveFileAsync(image, uploadsFolder, new[] { ".jpg", ".jpeg", ".png", ".gif" });
-            }
-
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-
-            // Create stock entries for all branches
-            var branches = await _context.PharmacyBranches.Where(b => b.IsActive).ToListAsync();
-            foreach (var branch in branches)
-            {
-                var stock = new ProductStock
-                {
-                    ProductId = product.Id,
-                    BranchId = branch.Id,
-                    Quantity = 0,
-                    MinimumStockLevel = 10,
-                    MaximumStockLevel = 100
-                };
-                _context.ProductStocks.Add(stock);
-            }
-
-            await _context.SaveChangesAsync();
-            return await GetProductByIdAsync(product.Id);
-        }
-
-        public async Task<ProductDTO> UpdateProductAsync(int id, UpdateProductDTO dto, IFormFile image)
-        {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null) return null;
-
-            if (!string.IsNullOrEmpty(dto.Name)) product.Name = dto.Name;
-            if (!string.IsNullOrEmpty(dto.Description)) product.Description = dto.Description;
-            if (dto.Price.HasValue) product.Price = dto.Price.Value;
-            if (dto.DiscountPrice.HasValue) product.DiscountPrice = dto.DiscountPrice.Value;
-            if (dto.IsPrescriptionRequired.HasValue) product.IsPrescriptionRequired = dto.IsPrescriptionRequired.Value;
-            if (dto.CategoryId.HasValue) product.CategoryId = dto.CategoryId.Value;
-            if (dto.IsActive.HasValue) product.IsActive = dto.IsActive.Value;
-
-            product.UpdatedAt = DateTime.UtcNow;
-
-            if (image != null)
-            {
-                // Delete old image
-                if (!string.IsNullOrEmpty(product.ImageUrl))
-                {
-                    var oldImagePath = Path.Combine(_environment.WebRootPath, "images", "products", product.ImageUrl);
-                    FileHelper.DeleteFile(oldImagePath);
-                }
-
-                var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "products");
-                product.ImageUrl = await FileHelper.SaveFileAsync(image, uploadsFolder, new[] { ".jpg", ".jpeg", ".png", ".gif" });
-            }
-
-            await _context.SaveChangesAsync();
-            return await GetProductByIdAsync(product.Id);
-        }
-
-        public async Task<bool> DeleteProductAsync(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null) return false;
-
-            product.IsActive = false;
-            product.UpdatedAt = DateTime.UtcNow;
-            await _context.SaveChangesAsync();
-            return true;
         }
 
         public async Task<List<ProductDTO>> GetFeaturedProductsAsync()
@@ -198,24 +138,113 @@ namespace ITI.Pharmacy.API.Services
             var products = await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.ProductStocks)
-                .Where(p => p.IsActive && p.DiscountPrice.HasValue)
-                .OrderByDescending(p => p.DiscountPrice)
+
+                .OrderByDescending(p => p.CreatedAt)
                 .Take(10)
                 .ToListAsync();
 
             return _mapper.Map<List<ProductDTO>>(products);
         }
 
-        public async Task<List<ProductDTO>> GetProductsWithLowStockAsync(int branchId)
+        public async Task<List<ProductDTO>> GetProductsByCategoryAsync(int categoryId)
         {
             var products = await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.ProductStocks)
-                .Where(p => p.IsActive &&
-                           p.ProductStocks.Any(ps => ps.BranchId == branchId && ps.Quantity <= ps.MinimumStockLevel))
+                .Where(p => p.IsActive && p.CategoryId == categoryId)
+                .OrderBy(p => p.Name)
                 .ToListAsync();
 
             return _mapper.Map<List<ProductDTO>>(products);
+        }
+
+        public async Task<PaginationResponse<ProductDTO>> GetProductsPaginatedAsync(int page, int pageSize, string? search = null)
+        {
+            // التحقق من المدخلات
+            if (page < 1) page = 1;
+            if (pageSize < 1) pageSize = 10;
+            if (pageSize > 100) pageSize = 100;
+
+            var query = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.ProductStocks)
+                    .ThenInclude(ps => ps.Branch)
+                .Where(p => p.IsActive)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(p => p.Name.Contains(search) || p.Description.Contains(search));
+            }
+
+            var totalCount = await query.CountAsync();
+            var products = await query
+                .OrderBy(p => p.Name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var productDTOs = _mapper.Map<List<ProductDTO>>(products);
+
+            return new PaginationResponse<ProductDTO>
+            {
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                Items = productDTOs
+            };
+        }
+
+        public async Task<List<ProductDTO>> SearchProductsAsync(string searchTerm, int? categoryId = null)
+        {
+            var query = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.ProductStocks)
+                .Where(p => p.IsActive &&
+                           (p.Name.Contains(searchTerm) || p.Description.Contains(searchTerm)));
+
+            if (categoryId.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == categoryId.Value);
+            }
+
+            var products = await query
+                .OrderBy(p => p.Name)
+                .Take(20)
+                .ToListAsync();
+
+            return _mapper.Map<List<ProductDTO>>(products);
+        }
+
+        public async Task<bool> ToggleFeaturedStatusAsync(int id)
+        {
+            try
+            {
+                var product = await _context.Products.FindAsync(id);
+                if (product == null) return false;
+
+          
+                product.UpdatedAt = DateTime.UtcNow;
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<int> GetProductsCountAsync(bool? isActive = null)
+        {
+            var query = _context.Products.AsQueryable();
+
+            if (isActive.HasValue)
+            {
+                query = query.Where(p => p.IsActive == isActive.Value);
+            }
+
+            return await query.CountAsync();
         }
     }
 }

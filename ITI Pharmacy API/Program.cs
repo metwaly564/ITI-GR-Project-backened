@@ -11,11 +11,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Swagger configuration with JWT support
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pharmacy API", Version = "v1" });
@@ -42,6 +42,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -77,7 +78,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
+// SignalR
 builder.Services.AddSignalR();
 
 
@@ -85,6 +86,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IBannerService, BannerService>();
+builder.Services.AddScoped<IFrontBannerService, FrontBannerService>(); // Front-end service
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 builder.Services.AddScoped<IExcelService, ExcelService>();
@@ -96,9 +98,10 @@ builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<IPharmacyBranchService, PharmacyBranchService>();
 builder.Services.AddScoped<DataSeederService>();
 
+// AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
-// CORS configuration
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -125,16 +128,14 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-
+// SignalR Hub
 app.MapHub<NotificationHub>("/notificationHub");
-
 
 try
 {
     using (var scope = app.Services.CreateScope())
     {
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
         await db.Database.MigrateAsync();
 
         var seeder = scope.ServiceProvider.GetRequiredService<DataSeederService>();

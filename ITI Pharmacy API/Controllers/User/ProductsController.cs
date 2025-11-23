@@ -41,7 +41,7 @@ namespace ITI.Pharmacy.API.Controllers.User
         public async Task<ActionResult<List<ProductDTO>>> SearchProducts([FromQuery] string term)
         {
             if (string.IsNullOrWhiteSpace(term))
-                return BadRequest("Search term is required");
+                return BadRequest(new { message = "Search term is required" });
 
             var products = await _productService.SearchProductsAsync(term);
             return Ok(products);

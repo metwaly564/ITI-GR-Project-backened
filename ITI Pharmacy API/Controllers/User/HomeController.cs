@@ -1,6 +1,7 @@
 using ITI.Pharmacy.API.DTOs;
 using ITI.Pharmacy.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ITI.Pharmacy.API.Controllers.User
 {
@@ -16,10 +17,14 @@ namespace ITI.Pharmacy.API.Controllers.User
         }
 
         [HttpGet]
-        public async Task<ActionResult<HomeDataDTO>> GetHomeData()
+        public async Task<IActionResult> GetHomeData(
+            int branchId,
+            int page = 1,
+            int limit = 10,
+            string? sort = "newest")
         {
-            var homeData = await _homeService.GetHomeDataAsync();
-            return Ok(homeData);
+            var result = await _homeService.GetHomeDataAsync(branchId, page, limit, sort);
+            return Ok(result);
         }
     }
 }

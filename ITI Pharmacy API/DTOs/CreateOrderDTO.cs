@@ -1,0 +1,9 @@
+﻿public class CreateOrderDTO
+{
+    public required string ShippingAddress { get; set; } = string.Empty;
+    public required string CustomerNotes { get; set; } = string.Empty;
+    public required string PrescriptionImageUrl { get; set; } = string.Empty;
+    public required string PaymentMethod { get; set; } = string.Empty;
+    public int BranchId { get; set; }
+
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Ignore Visual Studio temporary files, build results, and user-specific files
 
 # User-specific files
@@ -73,3 +74,6 @@ App_Code/
 App_GlobalResources/
 App_LocalResources/
 App_WebReferences/
+=======
+.vs/
+>>>>>>> 22f2b585b18d713609c760b96554672e436551af

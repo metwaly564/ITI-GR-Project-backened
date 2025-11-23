@@ -15,15 +15,13 @@ namespace ITI.Pharmacy.API.Controllers.User
             _branchService = branchService;
         }
 
-        // GET: api/branches
         [HttpGet]
-        public async Task<ActionResult<List<PharmacyBranchDTO>>> GetBranches()
+        public async Task<ActionResult<List<PharmacyBranchDTO>>> GetAllBranches()
         {
             var branches = await _branchService.GetAllBranchesAsync();
             return Ok(branches);
         }
 
-        // GET: api/branches/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<PharmacyBranchDTO>> GetBranch(int id)
         {
@@ -32,42 +30,11 @@ namespace ITI.Pharmacy.API.Controllers.User
             return Ok(branch);
         }
 
-    
-        [HttpGet("nearby")]
-        public async Task<ActionResult<List<PharmacyBranchDTO>>> GetNearbyBranches(double latitude, double longitude, double radius = 10.0)
+        [HttpGet("{id}/stock")]
+        public async Task<ActionResult<List<ProductStockDTO>>> GetBranchStock(int id)
         {
-            var branches = await _branchService.GetAllBranchesAsync();
-
-            var nearbyBranches = branches.Where(b =>
-            {
-                var distance = CalculateDistanceHaversine(latitude, longitude, b.Latitude, b.Longitude);
-                return distance <= radius;
-            }).ToList();
-
-            return Ok(nearbyBranches);
-        }
-
-
-   
-        private double CalculateDistanceHaversine(double lat1, double lon1, double lat2, double lon2) ////ان شاء الله لمانوسع المشروع نقدر نستخدم  قاعده البيانات 
-        {
-            double R = 6371; // Radius of Earth in km
-            double dLat = DegreesToRadians(lat2 - lat1);
-            double dLon = DegreesToRadians(lon2 - lon1);
-
-            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                       Math.Cos(DegreesToRadians(lat1)) * Math.Cos(DegreesToRadians(lat2)) *
-                       Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
-
-            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            double distance = R * c;
-
-            return distance;
-        }
-
-        private double DegreesToRadians(double deg)
-        {
-            return deg * (Math.PI / 180);
+            var stock = await _branchService.GetBranchStockAsync(id);
+            return Ok(stock);
         }
     }
 }

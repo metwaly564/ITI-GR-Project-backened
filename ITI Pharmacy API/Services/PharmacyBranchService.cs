@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.DTOs.Responses;
 using ITI.Pharmacy.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,7 @@ namespace ITI.Pharmacy.API.Services
             _mapper = mapper;
         }
 
-   
+        // ================== Branch CRUD ==================
         public async Task<List<PharmacyBranchDTO>> GetAllBranchesAsync()
         {
             var branches = await _context.PharmacyBranches
@@ -26,10 +27,12 @@ namespace ITI.Pharmacy.API.Services
             return _mapper.Map<List<PharmacyBranchDTO>>(branches);
         }
 
-        public async Task<PharmacyBranchDTO> GetBranchByIdAsync(int id)
+        public async Task<PharmacyBranchDTO?> GetBranchByIdAsync(int id)
         {
             var branch = await _context.PharmacyBranches
                 .FirstOrDefaultAsync(b => b.Id == id && b.IsActive);
+
+            if (branch == null) return null;
 
             return _mapper.Map<PharmacyBranchDTO>(branch);
         }
@@ -42,7 +45,7 @@ namespace ITI.Pharmacy.API.Services
             return _mapper.Map<PharmacyBranchDTO>(branch);
         }
 
-        public async Task<PharmacyBranchDTO> UpdateBranchAsync(int id, CreatePharmacyBranchDTO dto)
+        public async Task<PharmacyBranchDTO?> UpdateBranchAsync(int id, CreatePharmacyBranchDTO dto)
         {
             var branch = await _context.PharmacyBranches.FindAsync(id);
             if (branch == null) return null;
@@ -61,7 +64,9 @@ namespace ITI.Pharmacy.API.Services
             await _context.SaveChangesAsync();
             return true;
         }
-       public async Task<List<ProductStockDTO>> GetBranchStockAsync(int branchId)
+
+        // ================== Branch Stock ==================
+        public async Task<List<ProductStockDTO>> GetBranchStockAsync(int branchId)
         {
             var stock = await _context.ProductStocks
                 .Include(ps => ps.Product)
@@ -72,9 +77,9 @@ namespace ITI.Pharmacy.API.Services
             return stock.Select(ps => new ProductStockDTO
             {
                 ProductId = ps.ProductId,
-                ProductName = ps.Product.Name,
+                ProductName = ps.Product?.Name ?? string.Empty,
                 BranchId = ps.BranchId,
-                BranchName = ps.Branch.Name,
+                BranchName = ps.Branch?.Name ?? string.Empty,
                 Quantity = ps.Quantity,
                 MinimumStockLevel = ps.MinimumStockLevel,
                 MaximumStockLevel = ps.MaximumStockLevel,
@@ -111,9 +116,9 @@ namespace ITI.Pharmacy.API.Services
             return new ProductStockDTO
             {
                 ProductId = stock.ProductId,
-                ProductName = stock.Product.Name,
+                ProductName = stock.Product?.Name ?? string.Empty,
                 BranchId = stock.BranchId,
-                BranchName = stock.Branch.Name,
+                BranchName = stock.Branch?.Name ?? string.Empty,
                 Quantity = stock.Quantity,
                 MinimumStockLevel = stock.MinimumStockLevel,
                 MaximumStockLevel = stock.MaximumStockLevel,
@@ -135,11 +140,11 @@ namespace ITI.Pharmacy.API.Services
             {
                 Id = st.Id,
                 ProductId = st.ProductId,
-                ProductName = st.Product.Name,
+                ProductName = st.Product?.Name ?? string.Empty,
                 FromBranchId = st.FromBranchId,
-                FromBranchName = st.FromBranch.Name,
+                FromBranchName = st.FromBranch?.Name ?? string.Empty,
                 ToBranchId = st.ToBranchId,
-                ToBranchName = st.ToBranch.Name,
+                ToBranchName = st.ToBranch?.Name ?? string.Empty,
                 Quantity = st.Quantity,
                 Reason = st.Reason,
                 Status = st.Status,
@@ -147,9 +152,10 @@ namespace ITI.Pharmacy.API.Services
             }).ToList();
         }
 
- 
+        // ================== Filter + Pagination ==================
         public async Task<PaginationResponse<PharmacyBranchDTO>> FilterBranchesWithPaginationAsync(
-            int page, int pageSize,
+            int page,
+            int pageSize,
             string? search = null,
             string sortBy = "Name",
             string sortDirection = "ASC")

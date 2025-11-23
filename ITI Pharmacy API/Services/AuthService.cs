@@ -48,14 +48,13 @@ namespace ITI.Pharmacy.API.Services
             if (!result.Succeeded)
                 throw new Exception($"User creation failed! {string.Join(", ", result.Errors.Select(e => e.Description))}");
 
-            // Add to User role
+  
             await _userManager.AddToRoleAsync(user, "User");
 
-            // Create cart for user
             var cart = new Cart { UserId = user.Id };
             _context.Carts.Add(cart);
 
-            // Create wishlist for user
+     
             var wishlist = new Wishlist { UserId = user.Id };
             _context.Wishlists.Add(wishlist);
 
@@ -68,7 +67,7 @@ namespace ITI.Pharmacy.API.Services
             return new AuthResponseDTO
             {
                 Token = token,
-                Expiration = DateTime.Now.AddDays(Convert.ToDouble(_configuration["Jwt:ExpireDays"])),
+               
                 User = userDto
             };
         }
@@ -91,7 +90,7 @@ namespace ITI.Pharmacy.API.Services
             return new AuthResponseDTO
             {
                 Token = token,
-                Expiration = DateTime.Now.AddDays(Convert.ToDouble(_configuration["Jwt:ExpireDays"])),
+          //////////////////////////////////////////
                 User = userDto
             };
         }

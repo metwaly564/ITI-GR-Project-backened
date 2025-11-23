@@ -34,14 +34,14 @@ namespace ITI.Pharmacy.API.Controllers.Admin
             return Ok(order);
         }
 
-        [HttpPut("{id:int}/status")]
-        public async Task<IActionResult> UpdateOrderStatus(int id, UpdateOrderStatusDTO dto)
+        [HttpPut("{id:int}/cancel")]
+        public async Task<IActionResult> CancelOrder(int id)
         {
-            var result = await _orderService.UpdateOrderStatusAsync(id, dto);
+            var result = await _orderService.CancelOrderAsync(id, "admin");
             if (!result)
-                return NotFound("Order not found.");
+                return NotFound("Order not found or cannot be cancelled.");
 
-            return Ok("Order status updated successfully.");
+            return Ok("Order cancelled successfully.");
         }
 
         [HttpGet("branch/{branchId:int}")]

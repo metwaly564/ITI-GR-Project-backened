@@ -1,46 +1,99 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.Text.Json.Serialization;
 
 namespace ITI.Pharmacy.API.DTOs
 {
     public class ProductDTO
     {
+        [JsonPropertyName("id")]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+
+        [JsonPropertyName("productName")]
+        public string ProductName { get; set; } = string.Empty;
+
+        [JsonPropertyName("productImage")]
+        public string ProductImage { get; set; } = string.Empty;
+
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
-        public decimal? DiscountPrice { get; set; }
-        public string ImageUrl { get; set; }
+
+        [JsonPropertyName("description")]
+        public string Description { get; set; } = string.Empty;
+
+        [JsonPropertyName("isPrescriptionRequired")]
         public bool IsPrescriptionRequired { get; set; }
+
+        [JsonPropertyName("isActive")]
         public bool IsActive { get; set; }
+
+        [JsonPropertyName("isFeatured")]
+        public bool IsFeatured { get; set; }
+
+        [JsonPropertyName("categoryId")]
         public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+
+        [JsonPropertyName("categoryName")]
+        public string CategoryName { get; set; } = string.Empty;
+
+        [JsonPropertyName("createdAt")]
         public DateTime CreatedAt { get; set; }
-        public List<ProductStockDTO> Stock { get; set; } = new();
+
+        [JsonPropertyName("stock")]
+        public List<ProductStockDTO> Stock { get; set; } = new List<ProductStockDTO>();
     }
 
     public class CreateProductDTO
     {
-        [Required]
-        public string Name { get; set; }
-        public string Description { get; set; }
+        [JsonPropertyName("productName")]
+        public required string ProductName { get; set; }
 
-        [Required]
+        [JsonPropertyName("productImage")]
+        public required string ProductImage { get; set; }
+
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
-        public decimal? DiscountPrice { get; set; }
+
+        [JsonPropertyName("description")]
+        public required string Description { get; set; }
+
+        [JsonPropertyName("isPrescriptionRequired")]
         public bool IsPrescriptionRequired { get; set; }
 
-        [Required]
+        [JsonPropertyName("isFeatured")]
+        public bool IsFeatured { get; set; }
+
+        [JsonPropertyName("categoryId")]
         public int CategoryId { get; set; }
+
+        [JsonPropertyName("isActive")]
+        public bool IsActive { get; set; } = true;
     }
 
     public class UpdateProductDTO
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        [JsonPropertyName("productName")]
+        public string? ProductName { get; set; }
+
+        [JsonPropertyName("productImage")]
+        public string? ProductImage { get; set; }
+
+        [JsonPropertyName("price")]
         public decimal? Price { get; set; }
-        public decimal? DiscountPrice { get; set; }
+
+        [JsonPropertyName("description")]
+        public string? Description { get; set; }
+
+        [JsonPropertyName("isPrescriptionRequired")]
         public bool? IsPrescriptionRequired { get; set; }
+
+        [JsonPropertyName("isFeatured")]
+        public bool? IsFeatured { get; set; }
+
+        [JsonPropertyName("categoryId")]
         public int? CategoryId { get; set; }
+
+        [JsonPropertyName("isActive")]
         public bool? IsActive { get; set; }
     }
 }
+
+   

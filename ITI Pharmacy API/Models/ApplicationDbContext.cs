@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml.Style;
-using System.Reflection;
+using System;
 
 namespace ITI.Pharmacy.API.Models
 {
@@ -29,6 +28,9 @@ namespace ITI.Pharmacy.API.Models
         {
             base.OnModelCreating(builder);
 
+            var seedDate = new DateTime(2025, 11, 21);
+
+            // --- Relationships ---
             builder.Entity<Product>()
                 .HasOne(p => p.Category)
                 .WithMany(c => c.Products)
@@ -87,6 +89,73 @@ namespace ITI.Pharmacy.API.Models
                 .WithMany(b => b.IncomingTransfers)
                 .HasForeignKey(st => st.ToBranchId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // --- Disable Identity for Seed IDs ---
+            builder.Entity<Category>().Property(c => c.Id).ValueGeneratedNever();
+            builder.Entity<Product>().Property(p => p.Id).ValueGeneratedNever();
+            builder.Entity<Banner>().Property(b => b.Id).ValueGeneratedNever();
+
+            // --- Seed Data ---
+            builder.Entity<Category>().HasData(
+                new Category { Id = 1, Name = "Medicines", Description = "All kinds of medicines", IsActive = true, CreatedAt = seedDate },
+                new Category { Id = 2, Name = "Baby Care", Description = "Products for babies", IsActive = true, CreatedAt = seedDate }
+            );
+
+            builder.Entity<Product>().HasData(
+                new Product
+                {
+                    Id = 1,
+                    Name = "Paracetamol",
+                    Description = "Pain reliever",
+                    Price = 10,
+                    DiscountPrice = 8,
+                    CategoryId = 1,
+                    IsActive = true,
+                    IsPrescriptionRequired = false,
+                    ImageUrl = "images/default-product.png",
+                    CreatedAt = seedDate,
+                    UpdatedAt = seedDate
+                },
+                new Product
+                {
+                    Id = 2,
+                    Name = "Baby Shampoo",
+                    Description = "Gentle shampoo for babies",
+                    Price = 25,
+                    DiscountPrice = 20,
+                    CategoryId = 2,
+                    IsActive = true,
+                    IsPrescriptionRequired = false,
+                    ImageUrl = "images/default-product.png",
+                    CreatedAt = seedDate,
+                    UpdatedAt = seedDate
+                }
+            );
+
+            builder.Entity<Banner>().HasData(
+                new Banner
+                {
+                    Id = 1,
+                    Title = "Winter Sale",
+                    Description = "Up to 50% off",
+                    DisplayOrder = 1,
+                    IsActive = true,
+                    Link = "/sale",
+                    ImageUrl = "images/default-banner.png",
+                    CreatedAt = seedDate
+                },
+                new Banner
+                {
+                    Id = 2,
+                    Title = "New Arrivals",
+                    Description = "Check out our new products",
+                    DisplayOrder = 2,
+                    IsActive = true,
+                    Link = "/new",
+                    ImageUrl = "images/default-banner.png",
+                    CreatedAt = seedDate
+                }
+            );
         }
     }
 }
