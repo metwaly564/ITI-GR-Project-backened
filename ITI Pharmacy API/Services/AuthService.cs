@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ITI.Pharmacy.API.DTOs;
 using ITI.Pharmacy.API.Models;
+using ITI.Pharmacy.API.Models.Responses;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -28,11 +29,11 @@ namespace ITI.Pharmacy.API.Services
             _context = context;
         }
 
-        public async Task<AuthResponseDTO> RegisterAsync(RegisterDTO model)
+        public async Task<AdvancedApiResponse<AuthResponseDTO>> RegisterAsync(RegisterDTO model)
         {
             var userExists = await _userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
-                throw new Exception("User already exists!");
+                return AdvancedApiResponse<AuthResponseDTO>.CreateError("User already exists!");
 
             var user = new User
             {
@@ -41,45 +42,50 @@ namespace ITI.Pharmacy.API.Services
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString(),
+                IsActive = true
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                throw new Exception($"User creation failed! {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                return AdvancedApiResponse<AuthResponseDTO>.CreateError(
+                    "User creation failed", result.Errors.Select(e => e.Description).ToList()
+                );
 
-  
+            // Ensure the "User" role exists
+            if (!await _roleManager.RoleExistsAsync("User"))
+                await _roleManager.CreateAsync(new IdentityRole("User"));
+
             await _userManager.AddToRoleAsync(user, "User");
 
-            var cart = new Cart { UserId = user.Id };
-            _context.Carts.Add(cart);
-
-     
-            var wishlist = new Wishlist { UserId = user.Id };
-            _context.Wishlists.Add(wishlist);
-
+            // Create cart & wishlist
+            _context.Carts.Add(new Cart { UserId = user.Id });
+            _context.Wishlists.Add(new Wishlist { UserId = user.Id });
             await _context.SaveChangesAsync();
 
             var token = await GenerateJwtToken(user);
             var userDto = _mapper.Map<UserDTO>(user);
             userDto.Roles = new List<string> { "User" };
 
-            return new AuthResponseDTO
+            var authResponse = new AuthResponseDTO
             {
+                Success = true,
+                Message = "Registration successful",
                 Token = token,
-               
                 User = userDto
             };
+
+            return AdvancedApiResponse<AuthResponseDTO>.CreateSuccess(authResponse);
         }
 
-        public async Task<AuthResponseDTO> LoginAsync(LoginDTO model)
+        public async Task<AdvancedApiResponse<AuthResponseDTO>> LoginAsync(LoginDTO model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
-                throw new Exception("Invalid credentials!");
+                return AdvancedApiResponse<AuthResponseDTO>.CreateError("Invalid credentials!");
 
             if (!user.IsActive)
-                throw new Exception("Account is deactivated!");
+                return AdvancedApiResponse<AuthResponseDTO>.CreateError("Account is deactivated!");
 
             var userRoles = await _userManager.GetRolesAsync(user);
             var token = await GenerateJwtToken(user);
@@ -87,30 +93,35 @@ namespace ITI.Pharmacy.API.Services
             var userDto = _mapper.Map<UserDTO>(user);
             userDto.Roles = userRoles.ToList();
 
-            return new AuthResponseDTO
+            var authResponse = new AuthResponseDTO
             {
+                Success = true,
+                Message = "Login successful",
                 Token = token,
-          //////////////////////////////////////////
                 User = userDto
             };
+
+            return AdvancedApiResponse<AuthResponseDTO>.CreateSuccess(authResponse);
         }
 
-        public async Task<UserDTO> GetUserProfileAsync(string userId)
+        public async Task<AdvancedApiResponse<UserDTO>> GetUserProfileAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user == null) throw new Exception("User not found!");
+            if (user == null)
+                return AdvancedApiResponse<UserDTO>.CreateError("User not found!");
 
             var roles = await _userManager.GetRolesAsync(user);
             var userDto = _mapper.Map<UserDTO>(user);
             userDto.Roles = roles.ToList();
 
-            return userDto;
+            return AdvancedApiResponse<UserDTO>.CreateSuccess(userDto);
         }
 
-        public async Task<bool> UpdateUserProfileAsync(string userId, UserDTO model)
+        public async Task<AdvancedApiResponse<bool>> UpdateUserProfileAsync(string userId, UserDTO model)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user == null) throw new Exception("User not found!");
+            if (user == null)
+                return AdvancedApiResponse<bool>.CreateError("User not found!");
 
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
@@ -118,7 +129,13 @@ namespace ITI.Pharmacy.API.Services
             user.UpdatedAt = DateTime.UtcNow;
 
             var result = await _userManager.UpdateAsync(user);
-            return result.Succeeded;
+            if (!result.Succeeded)
+                return AdvancedApiResponse<bool>.CreateError(
+                    "Failed to update user profile",
+                    result.Errors.Select(e => e.Description).ToList()
+                );
+
+            return AdvancedApiResponse<bool>.CreateSuccess(true, "Profile updated successfully");
         }
 
         private async Task<string> GenerateJwtToken(User user)
@@ -143,7 +160,7 @@ namespace ITI.Pharmacy.API.Services
             var token = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
-                expires: DateTime.Now.AddDays(Convert.ToDouble(_configuration["Jwt:ExpireDays"])),
+                expires: DateTime.UtcNow.AddDays(Convert.ToDouble(_configuration["Jwt:ExpireDays"])),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
             );

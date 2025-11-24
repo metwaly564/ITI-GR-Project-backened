@@ -1,12 +1,13 @@
 using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.Models.Responses;
 
 namespace ITI.Pharmacy.API.Services
 {
     public interface IAuthService
     {
-        Task<AuthResponseDTO> RegisterAsync(RegisterDTO model);
-        Task<AuthResponseDTO> LoginAsync(LoginDTO model);
-        Task<UserDTO> GetUserProfileAsync(string userId);
-        Task<bool> UpdateUserProfileAsync(string userId, UserDTO model);
+        Task<AdvancedApiResponse<AuthResponseDTO>> RegisterAsync(RegisterDTO model);
+        Task<AdvancedApiResponse<AuthResponseDTO>> LoginAsync(LoginDTO model);
+        Task<AdvancedApiResponse<UserDTO>> GetUserProfileAsync(string userId);
+        Task<AdvancedApiResponse<bool>> UpdateUserProfileAsync(string userId, UserDTO model);
     }
 }

@@ -9,13 +9,13 @@ namespace ITI.Pharmacy.API.DTOs
         public int Id { get; set; }
 
         [JsonPropertyName("name")]
-        public required string Name { get; set; } = string.Empty;
+        public required string Name { get; set; }
 
         [JsonPropertyName("description")]
-        public required string Description { get; set; } = string.Empty;
+        public required string Description { get; set; }
 
         [JsonPropertyName("imageUrl")]
-        public required string ImageUrl { get; set; } = string.Empty;
+        public required string ImageUrl { get; set; }
 
         [JsonPropertyName("isActive")]
         public bool IsActive { get; set; }
@@ -28,13 +28,13 @@ namespace ITI.Pharmacy.API.DTOs
     {
         [Required]
         [JsonPropertyName("name")]
-        public required string Name { get; set; } = string.Empty;
+        public required string Name { get; set; }
 
         [JsonPropertyName("description")]
-        public required string Description { get; set; } = string.Empty;
+        public required string Description { get; set; }
 
         [JsonPropertyName("imageUrl")]
-        public string ImageUrl { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; } 
     }
 
     public class UpdateCategoryDTO

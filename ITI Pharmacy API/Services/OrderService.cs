@@ -15,117 +15,102 @@ namespace ITI.Pharmacy.API.Services
             _logger = logger;
         }
 
-        public async Task<OrderDTO> CreateOrderAsync(string userId, CreateOrderDTO dto)
+        private async Task<T> ExecuteAsync<T>(Func<Task<T>> action, string errorMessage)
         {
-            if (string.IsNullOrEmpty(userId))
+            try
+            {
+                return await action();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, errorMessage);
+                throw;
+            }
+        }
+
+        public Task<OrderDTO> CreateOrderAsync(string userId, CreateOrderDTO dto)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentNullException(nameof(userId), "UserId is required.");
+
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto), "Order data is required.");
+
+            if (dto.Items == null || !dto.Items.Any())
+                throw new ArgumentException("Order must contain at least one item.", nameof(dto));
+
+            foreach (var item in dto.Items)
+            {
+                if (item.ProductId <= 0)
+                    throw new ArgumentException("Invalid ProductId in order items.", nameof(dto));
+                if (item.Quantity <= 0)
+                    throw new ArgumentException("Quantity must be greater than 0 in order items.", nameof(dto));
+            }
+
+            return ExecuteAsync(() => _orderRepository.CreateOrderAsync(userId, dto),
+                $"Error creating order for user {userId}");
+        }
+
+        public Task<List<OrderDTO>> GetUserOrdersAsync(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
                 throw new ArgumentNullException(nameof(userId));
+
+            return ExecuteAsync(() => _orderRepository.GetUserOrdersAsync(userId),
+                $"Error getting orders for user {userId}");
+        }
+
+        public Task<OrderDTO> GetOrderByIdAsync(int id, string userId = null)
+        {
+            if (id <= 0)
+                throw new ArgumentException("Invalid order id.", nameof(id));
+
+            return ExecuteAsync(() =>
+                string.IsNullOrWhiteSpace(userId)
+                    ? _orderRepository.GetOrderByIdAsync(id)
+                    : _orderRepository.GetUserOrderByIdAsync(id, userId),
+                $"Error getting order {id}");
+        }
+
+        public Task<List<OrderDTO>> GetAllOrdersAsync()
+        {
+            return ExecuteAsync(() => _orderRepository.GetAllOrdersAsync(), "Error getting all orders");
+        }
+
+        public Task<List<OrderDTO>> GetOrdersByBranchAsync(int branchId)
+        {
+            if (branchId <= 0)
+                throw new ArgumentException("Invalid branch id.", nameof(branchId));
+
+            return ExecuteAsync(() => _orderRepository.GetOrdersByBranchAsync(branchId),
+                $"Error getting orders for branch {branchId}");
+        }
+
+        public Task<bool> CancelOrderAsync(int id, string userId)
+        {
+            if (id <= 0)
+                throw new ArgumentException("Invalid order id.", nameof(id));
+
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentNullException(nameof(userId));
+
+            return ExecuteAsync(() => _orderRepository.CancelOrderAsync(id, userId),
+                $"Error cancelling order {id} for user {userId}");
+        }
+
+        public Task<bool> UpdateOrderStatusAsync(int id, UpdateOrderStatusDTO dto)
+        {
+            if (id <= 0)
+                throw new ArgumentException("Invalid order id.", nameof(id));
 
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
 
-            try
-            {
-                return await _orderRepository.CreateOrderAsync(userId, dto);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error creating order for user {UserId}", userId);
-                throw;
-            }
-        }
+            if (string.IsNullOrWhiteSpace(dto.Status))
+                throw new ArgumentException("Status is required.", nameof(dto));
 
-        public async Task<List<OrderDTO>> GetUserOrdersAsync(string userId)
-        {
-            if (string.IsNullOrEmpty(userId))
-                throw new ArgumentNullException(nameof(userId));
-
-            try
-            {
-                return await _orderRepository.GetUserOrdersAsync(userId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error getting orders for user {UserId}", userId);
-                throw;
-            }
-        }
-
-        public async Task<OrderDTO> GetOrderByIdAsync(int id, string userId = null)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(userId))
-                {
-                    return await _orderRepository.GetOrderByIdAsync(id);
-                }
-                else
-                {
-                    return await _orderRepository.GetUserOrderByIdAsync(id, userId);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error getting order {OrderId}", id);
-                throw;
-            }
-        }
-
-        public async Task<List<OrderDTO>> GetAllOrdersAsync()
-        {
-            try
-            {
-                return await _orderRepository.GetAllOrdersAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error getting all orders");
-                throw;
-            }
-        }
-
-        public async Task<List<OrderDTO>> GetOrdersByBranchAsync(int branchId)
-        {
-            try
-            {
-                return await _orderRepository.GetOrdersByBranchAsync(branchId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error getting orders for branch {BranchId}", branchId);
-                throw;
-            }
-        }
-
-        public async Task<bool> CancelOrderAsync(int id, string userId)
-        {
-            if (string.IsNullOrEmpty(userId))
-                throw new ArgumentNullException(nameof(userId));
-
-            try
-            {
-                return await _orderRepository.CancelOrderAsync(id, userId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error cancelling order {OrderId} for user {UserId}", id, userId);
-                throw;
-            }
-        }
-
-        public async Task<bool> UpdateOrderStatusAsync(int id, UpdateOrderStatusDTO dto)
-        {
-            if (dto == null)
-                throw new ArgumentNullException(nameof(dto));
-
-            try
-            {
-                return await _orderRepository.UpdateOrderStatusAsync(id, dto);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error updating status for order {OrderId}", id);
-                throw;
-            }
+            return ExecuteAsync(() => _orderRepository.UpdateOrderStatusAsync(id, dto),
+                $"Error updating status for order {id}");
         }
     }
 }

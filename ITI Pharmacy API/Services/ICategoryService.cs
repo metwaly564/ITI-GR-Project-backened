@@ -1,13 +1,11 @@
 using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.Models.Responses;
 
-namespace ITI.Pharmacy.API.Services
+public interface ICategoryService
 {
-    public interface ICategoryService
-    {
-        Task<List<CategoryDTO>> GetAllCategoriesAsync();
-        Task<CategoryDTO> GetCategoryByIdAsync(int id);
-        Task<CategoryDTO> CreateCategoryAsync(CreateCategoryDTO dto, IFormFile image);
-        Task<CategoryDTO> UpdateCategoryAsync(int id, UpdateCategoryDTO dto, IFormFile image);
-        Task<bool> DeleteCategoryAsync(int id);
-    }
+    Task<AdvancedApiResponse<List<CategoryDTO>>> GetAllCategoriesAsync();
+    Task<AdvancedApiResponse<CategoryDTO>> GetCategoryByIdAsync(int id);
+    Task<AdvancedApiResponse<CategoryDTO>> CreateCategoryAsync(CreateCategoryDTO dto, IFormFile image);
+    Task<AdvancedApiResponse<CategoryDTO>> UpdateCategoryAsync(int id, UpdateCategoryDTO dto, IFormFile image);
+    Task<AdvancedApiResponse<bool>> DeleteCategoryAsync(int id);
 }

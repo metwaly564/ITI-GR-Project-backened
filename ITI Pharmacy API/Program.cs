@@ -13,10 +13,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-
+// Swagger with JWT support
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pharmacy API", Version = "v1" });
@@ -44,10 +45,11 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
+// Identity
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
@@ -59,10 +61,10 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
-
+// Repositories
 builder.Services.AddScoped<IOrderRepository, MockOrderRepository>();
 
-
+// Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -72,9 +74,7 @@ builder.Services.AddAuthentication(options =>
 {
     var jwtKey = builder.Configuration["Jwt:Key"];
     if (string.IsNullOrEmpty(jwtKey))
-    {
         throw new InvalidOperationException("JWT Key is not configured");
-    }
 
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -91,7 +91,7 @@ builder.Services.AddAuthentication(options =>
 // SignalR
 builder.Services.AddSignalR();
 
-
+// Services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -124,14 +124,13 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+// Configure middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pharmacy API v1"));
 }
 
-// Middleware
 app.UseCors("AllowAll");
 app.UseStaticFiles();
 app.UseAuthentication();
@@ -141,12 +140,14 @@ app.MapControllers();
 // SignalR Hub
 app.MapHub<NotificationHub>("/notificationHub");
 
-// Database seeding
+// Database migration & seeding
 try
 {
     using (var scope = app.Services.CreateScope())
     {
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+      
         await db.Database.MigrateAsync();
 
         var seeder = scope.ServiceProvider.GetRequiredService<DataSeederService>();
@@ -157,7 +158,7 @@ try
 }
 catch (Exception ex)
 {
-    Console.WriteLine($"❌ Database seeding failed: {ex.Message}");
+    Console.WriteLine($"❌ Database migration/seeding failed: {ex.Message}");
     if (ex.InnerException != null)
         Console.WriteLine($"   Inner: {ex.InnerException.Message}");
 }

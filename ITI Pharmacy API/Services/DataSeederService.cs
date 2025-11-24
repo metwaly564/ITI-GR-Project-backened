@@ -139,12 +139,21 @@ namespace ITI.Pharmacy.API.Services
             {
                 var defaultCategory = await _context.Categories.FirstOrDefaultAsync(c => c.Name == "Medicines");
                 var babyCategory = await _context.Categories.FirstOrDefaultAsync(c => c.Name == "Baby Care");
-                var branch = await _context.PharmacyBranches.FirstAsync();
+                var branch = await _context.PharmacyBranches.FirstOrDefaultAsync();
 
                 if (defaultCategory == null || babyCategory == null)
-                    throw new Exception("Required categories not found in database.");
+                {
+                    Console.WriteLine("⚠️ Required categories missing, skipping product seeding.");
+                    return;
+                }
 
-                var products = new[]
+                if (branch == null)
+                {
+                    Console.WriteLine("⚠️ No branches found, skipping ProductStock seeding.");
+                    return;
+                }
+
+                var products = new List<Product>
                 {
                     new Product
                     {
@@ -173,7 +182,6 @@ namespace ITI.Pharmacy.API.Services
                 await _context.Products.AddRangeAsync(products);
                 await _context.SaveChangesAsync();
 
-                // Add stock for products
                 var productStocks = products.Select(p => new ProductStock
                 {
                     ProductId = p.Id,

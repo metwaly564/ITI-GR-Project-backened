@@ -1,4 +1,5 @@
 using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.Models.Responses;
 using ITI.Pharmacy.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,54 +19,52 @@ namespace ITI.Pharmacy.API.Controllers.Admin
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<BannerDTO>>> GetBanners()
+        public async Task<IActionResult> GetBanners()
         {
-            var banners = await _bannerService.GetAllBannersAsync();
-            return Ok(banners);
+            var response = await _bannerService.GetAllBannersAsync();
+            if (response?.Data == null || response.Data.Count == 0)
+                return NotFound(new { message = response?.Message ?? "No banners found" });
+
+            return Ok(response.Data);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<BannerDTO>> GetBanner(int id)
+        public async Task<IActionResult> GetBanner(int id)
         {
-            var banner = await _bannerService.GetBannerByIdAsync(id);
-            if (banner == null) return NotFound();
-            return Ok(banner);
+            var response = await _bannerService.GetBannerByIdAsync(id);
+            if (response?.Data == null)
+                return NotFound(new { message = response?.Message ?? $"Banner with id {id} not found" });
+
+            return Ok(response.Data);
         }
 
         [HttpPost]
-        public async Task<ActionResult<BannerDTO>> CreateBanner([FromForm] CreateBannerDTO dto, IFormFile image)
+        public async Task<IActionResult> CreateBanner([FromForm] CreateBannerDTO dto, [FromForm] IFormFile image)
         {
-            try
-            {
-                var banner = await _bannerService.CreateBannerAsync(dto, image);
-                return CreatedAtAction(nameof(GetBanner), new { id = banner.Id }, banner);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
+            var response = await _bannerService.CreateBannerAsync(dto, image);
+            if (response?.Data == null)
+                return BadRequest(new { message = response?.Message ?? "Failed to create banner" });
+
+            return CreatedAtAction(nameof(GetBanner), new { id = response.Data.Id }, response.Data);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<BannerDTO>> UpdateBanner(int id, [FromForm] UpdateBannerDTO dto, IFormFile image)
+        public async Task<IActionResult> UpdateBanner(int id, [FromForm] UpdateBannerDTO dto, [FromForm] IFormFile image)
         {
-            try
-            {
-                var banner = await _bannerService.UpdateBannerAsync(id, dto, image);
-                if (banner == null) return NotFound();
-                return Ok(banner);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
+            var response = await _bannerService.UpdateBannerAsync(id, dto, image);
+            if (response?.Data == null)
+                return NotFound(new { message = response?.Message ?? $"Banner with id {id} not found" });
+
+            return Ok(response.Data);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBanner(int id)
         {
-            var result = await _bannerService.DeleteBannerAsync(id);
-            if (!result) return NotFound();
+            var response = await _bannerService.DeleteBannerAsync(id);
+            if (response?.Data == null || response.Data == false)
+                return NotFound(new { message = response?.Message ?? $"Banner with id {id} not found" });
+
             return NoContent();
         }
     }

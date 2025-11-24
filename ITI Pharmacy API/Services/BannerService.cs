@@ -2,6 +2,7 @@
 using ITI.Pharmacy.API.DTOs;
 using ITI.Pharmacy.API.DTOs.Responses;
 using ITI.Pharmacy.API.Models;
+using ITI.Pharmacy.API.Models.Responses;
 using ITI.Pharmacy.API.Utilities;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,41 +21,52 @@ namespace ITI.Pharmacy.API.Services
             _environment = environment;
         }
 
-        public async Task<List<BannerDTO>> GetAllBannersAsync()
+        public async Task<AdvancedApiResponse<List<BannerDTO>>> GetAllBannersAsync()
         {
-            var banners = await _context.Banners
-                .OrderBy(b => b.DisplayOrder)
-                .ToListAsync();
-
-            return _mapper.Map<List<BannerDTO>>(banners);
+            var banners = await _context.Banners.OrderBy(b => b.DisplayOrder).ToListAsync();
+            var mapped = _mapper.Map<List<BannerDTO>>(banners);
+            return AdvancedApiResponse<List<BannerDTO>>.CreateSuccess(mapped);
         }
 
-        public async Task<BannerDTO> GetBannerByIdAsync(int id)
+        public async Task<AdvancedApiResponse<BannerDTO>> GetBannerByIdAsync(int id)
         {
             var banner = await _context.Banners.FindAsync(id);
-            return _mapper.Map<BannerDTO>(banner);
+            if (banner == null)
+                return AdvancedApiResponse<BannerDTO>.CreateNotFound("Banner");
+
+            var mapped = _mapper.Map<BannerDTO>(banner);
+            return AdvancedApiResponse<BannerDTO>.CreateSuccess(mapped);
         }
 
-        public async Task<BannerDTO> CreateBannerAsync(CreateBannerDTO dto, IFormFile image)
+        public async Task<AdvancedApiResponse<BannerDTO>> CreateBannerAsync(CreateBannerDTO dto, IFormFile image)
         {
+            if (image == null)
+                return AdvancedApiResponse<BannerDTO>.CreateError("Banner image is required");
+
             var banner = _mapper.Map<Banner>(dto);
 
-            if (image == null)
-                throw new Exception("Banner image is required");
+            try
+            {
+                var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "banners");
+                banner.ImageUrl = await FileHelper.SaveFileAsync(image, uploadsFolder, new[] { ".jpg", ".jpeg", ".png", ".gif" });
 
-            var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "banners");
-            banner.ImageUrl = await FileHelper.SaveFileAsync(image, uploadsFolder, new[] { ".jpg", ".jpeg", ".png", ".gif" });
+                _context.Banners.Add(banner);
+                await _context.SaveChangesAsync();
 
-            _context.Banners.Add(banner);
-            await _context.SaveChangesAsync();
-
-            return _mapper.Map<BannerDTO>(banner);
+                var mapped = _mapper.Map<BannerDTO>(banner);
+                return AdvancedApiResponse<BannerDTO>.CreateSuccess(mapped, "Banner created successfully");
+            }
+            catch (Exception ex)
+            {
+                return AdvancedApiResponse<BannerDTO>.CreateError("Failed to create banner: " + ex.Message);
+            }
         }
 
-        public async Task<BannerDTO> UpdateBannerAsync(int id, UpdateBannerDTO dto, IFormFile image)
+        public async Task<AdvancedApiResponse<BannerDTO>> UpdateBannerAsync(int id, UpdateBannerDTO dto, IFormFile image)
         {
             var banner = await _context.Banners.FindAsync(id);
-            if (banner == null) return null;
+            if (banner == null)
+                return AdvancedApiResponse<BannerDTO>.CreateNotFound("Banner");
 
             if (!string.IsNullOrEmpty(dto.Title)) banner.Title = dto.Title;
             if (!string.IsNullOrEmpty(dto.Description)) banner.Description = dto.Description;
@@ -64,24 +76,33 @@ namespace ITI.Pharmacy.API.Services
 
             if (image != null)
             {
-                if (!string.IsNullOrEmpty(banner.ImageUrl))
+                try
                 {
-                    var oldImagePath = Path.Combine(_environment.WebRootPath, "images", "banners", banner.ImageUrl);
-                    FileHelper.DeleteFile(oldImagePath);
-                }
+                    if (!string.IsNullOrEmpty(banner.ImageUrl))
+                    {
+                        var oldImagePath = Path.Combine(_environment.WebRootPath, "images", "banners", banner.ImageUrl);
+                        FileHelper.DeleteFile(oldImagePath);
+                    }
 
-                var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "banners");
-                banner.ImageUrl = await FileHelper.SaveFileAsync(image, uploadsFolder, new[] { ".jpg", ".jpeg", ".png", ".gif" });
+                    var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "banners");
+                    banner.ImageUrl = await FileHelper.SaveFileAsync(image, uploadsFolder, new[] { ".jpg", ".jpeg", ".png", ".gif" });
+                }
+                catch (Exception ex)
+                {
+                    return AdvancedApiResponse<BannerDTO>.CreateError("Failed to update banner image: " + ex.Message);
+                }
             }
 
             await _context.SaveChangesAsync();
-            return _mapper.Map<BannerDTO>(banner);
+            var mapped = _mapper.Map<BannerDTO>(banner);
+            return AdvancedApiResponse<BannerDTO>.CreateSuccess(mapped, "Banner updated successfully");
         }
 
-        public async Task<bool> DeleteBannerAsync(int id)
+        public async Task<AdvancedApiResponse<bool>> DeleteBannerAsync(int id)
         {
             var banner = await _context.Banners.FindAsync(id);
-            if (banner == null) return false;
+            if (banner == null)
+                return AdvancedApiResponse<bool>.CreateNotFound("Banner");
 
             if (!string.IsNullOrEmpty(banner.ImageUrl))
             {
@@ -91,35 +112,32 @@ namespace ITI.Pharmacy.API.Services
 
             _context.Banners.Remove(banner);
             await _context.SaveChangesAsync();
-            return true;
+
+            return AdvancedApiResponse<bool>.CreateSuccess(true, "Banner deleted successfully");
         }
 
-        public async Task<List<FrontBannerResponse>> GetActiveBannersAsync()
+        public async Task<AdvancedApiResponse<List<FrontBannerResponse>>> GetActiveBannersAsync()
         {
-            var banners = await _context.Banners
-                .Where(b => b.IsActive)
-                .OrderBy(b => b.DisplayOrder)
-                .ToListAsync();
-
-            return _mapper.Map<List<FrontBannerResponse>>(banners);
+            var banners = await _context.Banners.Where(b => b.IsActive).OrderBy(b => b.DisplayOrder).ToListAsync();
+            var mapped = _mapper.Map<List<FrontBannerResponse>>(banners);
+            return AdvancedApiResponse<List<FrontBannerResponse>>.CreateSuccess(mapped);
         }
 
-        public async Task<PaginationResponse<FrontBannerResponse>> GetActiveBannersPaginatedAsync(int page = 1, int pageSize = 10)
+        public async Task<AdvancedApiResponse<PaginationResponse<FrontBannerResponse>>> GetActiveBannersPaginatedAsync(int page = 1, int pageSize = 10)
         {
-            var query = _context.Banners
-                .Where(b => b.IsActive)
-                .OrderBy(b => b.DisplayOrder);
-
+            var query = _context.Banners.Where(b => b.IsActive).OrderBy(b => b.DisplayOrder);
             var totalCount = await query.CountAsync();
             var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
-            return new PaginationResponse<FrontBannerResponse>
+            var pagination = new PaginationResponse<FrontBannerResponse>
             {
                 CurrentPage = page,
                 PageSize = pageSize,
                 TotalCount = totalCount,
                 Items = _mapper.Map<List<FrontBannerResponse>>(items)
             };
+
+            return AdvancedApiResponse<PaginationResponse<FrontBannerResponse>>.CreateSuccess(pagination);
         }
     }
 }

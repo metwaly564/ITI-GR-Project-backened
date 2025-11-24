@@ -7,6 +7,7 @@
         public required string PrescriptionImageUrl { get; set; } = string.Empty;
         public required string PaymentMethod { get; set; } = string.Empty;
         public int BranchId { get; set; }
-  
+
+        public List<OrderItemDTO> Items { get; set; } = new List<OrderItemDTO>();
     }
 }

@@ -23,9 +23,8 @@ namespace ITI.Pharmacy.API.Services
         {
             try
             {
-                if (page < 1) page = 1;
-                if (limit < 1) limit = 10;
-                if (limit > 100) limit = 100;
+                page = Math.Max(page, 1);
+                limit = Math.Clamp(limit, 1, 100);
 
                 var query = _context.Products
                     .Include(p => p.Category)
@@ -33,23 +32,21 @@ namespace ITI.Pharmacy.API.Services
                     .Where(p => p.IsActive)
                     .AsQueryable();
 
-           
                 if (branchId > 0)
                 {
                     query = query.Where(p => p.ProductStocks.Any(s => s.BranchId == branchId && s.Quantity > 0));
                 }
 
-         
-       
+                // Apply sorting
+                query = ApplySorting(query, sort, branchId);
+
                 var totalCount = await query.CountAsync();
 
-           
                 var products = await query
                     .Skip((page - 1) * limit)
                     .Take(limit)
                     .ToListAsync();
 
-   
                 var productsDTO = _mapper.Map<List<ProductDTO>>(products);
 
                 var pagination = new PaginationResponse<ProductDTO>
@@ -60,7 +57,6 @@ namespace ITI.Pharmacy.API.Services
                     Items = productsDTO
                 };
 
-          
                 return new AdvancedApiResponse<PaginationResponse<ProductDTO>>
                 {
                     Success = true,
@@ -71,7 +67,6 @@ namespace ITI.Pharmacy.API.Services
             }
             catch (Exception ex)
             {
-            
                 return new AdvancedApiResponse<PaginationResponse<ProductDTO>>
                 {
                     Success = false,
@@ -93,10 +88,9 @@ namespace ITI.Pharmacy.API.Services
                 "name_desc" => query.OrderByDescending(p => p.Name),
                 "newest" => query.OrderByDescending(p => p.CreatedAt),
                 "popular" => query.OrderByDescending(p => p.ProductStocks
-                    .Where(s => branchId == 0 || s.BranchId == branchId)
+                    .Where(s => (branchId == 0 || s.BranchId == branchId) && s.Quantity > 0)
                     .Sum(s => s.Quantity)),
-              
-                _ => query.OrderBy(p => p.Name) 
+                _ => query.OrderBy(p => p.Name)
             };
         }
     }

@@ -19,7 +19,7 @@ namespace ITI.Pharmacy.API.Controllers.Admin
             _analyticsService = analyticsService;
         }
 
-        // GET: api/admin/adminanalytics?startDate=2025-01-01&endDate=2025-01-31
+    
         [HttpGet]
         public async Task<ActionResult<AdvancedApiResponse<AnalyticsDTO>>> GetAnalytics(
             [FromQuery] DateTime? startDate,
@@ -49,7 +49,7 @@ namespace ITI.Pharmacy.API.Controllers.Admin
             }
         }
 
-        // GET: api/admin/adminanalytics/dashboard
+ 
         [HttpGet("dashboard")]
         public async Task<ActionResult<AdvancedApiResponse<DashboardStatsDTO>>> GetDashboardStats()
         {
@@ -77,7 +77,7 @@ namespace ITI.Pharmacy.API.Controllers.Admin
             }
         }
 
-        // GET: api/admin/adminanalytics/revenue-trend?days=30
+        // GET: api/admin/adminanalytics/revenue-trend?days=30 ???? 
         [HttpGet("revenue-trend")]
         public async Task<ActionResult<AdvancedApiResponse<List<OrderTrendDTO>>>> GetRevenueTrend([FromQuery] int days = 30)
         {
@@ -115,9 +115,7 @@ namespace ITI.Pharmacy.API.Controllers.Admin
                 });
             }
         }
-
-        // GET: api/admin/adminanalytics/top-products?top=10&startDate=2025-01-01&endDate=2025-01-31
-        [HttpGet("top-products")]
+  [HttpGet("top-products")]
         public async Task<ActionResult<AdvancedApiResponse<List<ProductSalesDTO>>>> GetTopSellingProducts(
             [FromQuery] int top = 10,
             [FromQuery] DateTime? startDate = null,
@@ -158,32 +156,25 @@ namespace ITI.Pharmacy.API.Controllers.Admin
             }
         }
 
-        // GET: api/admin/adminanalytics/stock-alerts
+ 
         [HttpGet("stock-alerts")]
-        public async Task<ActionResult<AdvancedApiResponse<object>>> GetStockAlerts()
+        public async Task<ActionResult<AdvancedApiResponse<StockAlertsDTO>>> GetStockAlerts()
         {
             try
             {
-       /// may be add notification
-                var lowStockCount = 0;
-                var outOfStockCount = 0; 
+                var alerts = await _analyticsService.GetStockAlertsAsync();
 
-                return Ok(new AdvancedApiResponse<object>
+                return Ok(new AdvancedApiResponse<StockAlertsDTO>
                 {
                     Success = true,
                     Message = "Stock alerts retrieved successfully",
-                    Data = new
-                    {
-                        LowStockAlerts = lowStockCount,
-                        OutOfStockAlerts = outOfStockCount,
-                        TotalAlerts = lowStockCount + outOfStockCount
-                    },
+               
                     Timestamp = DateTime.UtcNow
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new AdvancedApiResponse<object>
+                return BadRequest(new AdvancedApiResponse<StockAlertsDTO>
                 {
                     Success = false,
                     Message = "Error retrieving stock alerts",
@@ -193,5 +184,13 @@ namespace ITI.Pharmacy.API.Controllers.Admin
                 });
             }
         }
+    }
+
+
+    public class StockAlertsDTO
+    {
+        public int LowStockAlerts { get; set; }
+        public int OutOfStockAlerts { get; set; }
+        public int TotalAlerts { get; set; }
     }
 }

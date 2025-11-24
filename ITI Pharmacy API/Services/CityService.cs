@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ITI.Pharmacy.API.DTOs;
 using ITI.Pharmacy.API.Models;
+using ITI.Pharmacy.API.Models.Responses;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITI.Pharmacy.API.Services
@@ -16,14 +17,14 @@ namespace ITI.Pharmacy.API.Services
             _mapper = mapper;
         }
 
-        public async Task<List<CityDTO>> GetAllCitiesAsync()
+        public async Task<AdvancedApiResponse<List<CityDTO>>> GetAllCitiesAsync()
         {
             var cities = await _context.Cities
                 .Include(c => c.Zones)
                 .Where(c => c.IsActive)
                 .ToListAsync();
 
-            return cities.Select(c => new CityDTO
+            var dtos = cities.Select(c => new CityDTO
             {
                 Id = c.Id,
                 Name = c.Name,
@@ -36,17 +37,20 @@ namespace ITI.Pharmacy.API.Services
                     IsActive = z.IsActive
                 }).ToList()
             }).ToList();
+
+            return AdvancedApiResponse<List<CityDTO>>.CreateSuccess(dtos);
         }
 
-        public async Task<CityDTO> GetCityByIdAsync(int id)
+        public async Task<AdvancedApiResponse<CityDTO>> GetCityByIdAsync(int id)
         {
             var city = await _context.Cities
                 .Include(c => c.Zones)
                 .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
 
-            if (city == null) return null;
+            if (city == null)
+                return AdvancedApiResponse<CityDTO>.CreateNotFound("City");
 
-            return new CityDTO
+            var dto = new CityDTO
             {
                 Id = city.Id,
                 Name = city.Name,
@@ -59,21 +63,25 @@ namespace ITI.Pharmacy.API.Services
                     IsActive = z.IsActive
                 }).ToList()
             };
+
+            return AdvancedApiResponse<CityDTO>.CreateSuccess(dto);
         }
 
-        public async Task<List<ZoneDTO>> GetZonesByCityAsync(int cityId)
+        public async Task<AdvancedApiResponse<List<ZoneDTO>>> GetZonesByCityAsync(int cityId)
         {
             var zones = await _context.Zones
                 .Where(z => z.CityId == cityId && z.IsActive)
                 .ToListAsync();
 
-            return zones.Select(z => new ZoneDTO
+            var dtos = zones.Select(z => new ZoneDTO
             {
                 Id = z.Id,
                 Name = z.Name,
                 DeliveryFee = z.DeliveryFee,
                 IsActive = z.IsActive
             }).ToList();
+
+            return AdvancedApiResponse<List<ZoneDTO>>.CreateSuccess(dtos);
         }
     }
 }

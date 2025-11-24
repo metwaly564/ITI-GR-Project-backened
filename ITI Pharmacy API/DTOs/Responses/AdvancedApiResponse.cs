@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ITI.Pharmacy.API.Models.Responses
 {
@@ -19,7 +21,7 @@ namespace ITI.Pharmacy.API.Models.Responses
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 
-        // Constructors
+
         public AdvancedApiResponse() { }
 
         public AdvancedApiResponse(bool success, string message, T? data = default)
@@ -30,7 +32,6 @@ namespace ITI.Pharmacy.API.Models.Responses
             Timestamp = DateTime.UtcNow;
         }
 
-        // Static factory methods
         public static AdvancedApiResponse<T> CreateSuccess(T data, string message = "Operation completed successfully")
         {
             return new AdvancedApiResponse<T>(true, message, data);
@@ -58,7 +59,7 @@ namespace ITI.Pharmacy.API.Models.Responses
         }
     }
 
-    // Non-generic version
+
     public class AdvancedApiResponse
     {
         [JsonPropertyName("success")]

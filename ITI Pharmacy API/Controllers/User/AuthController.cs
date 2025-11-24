@@ -1,4 +1,5 @@
 using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.Models.Responses;
 using ITI.Pharmacy.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -48,32 +49,33 @@ namespace ITI.Pharmacy.API.Controllers.User
         [HttpGet("profile")]
         public async Task<ActionResult<UserDTO>> GetProfile()
         {
-            try
-            {
-                var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-                var user = await _authService.GetUserProfileAsync(userId);
-                return Ok(user);
-            }
-            catch (Exception ex)
-            {
-                return NotFound(new { message = ex.Message });
-            }
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized(new { message = "User ID is missing" });
+
+            var response = await _authService.GetUserProfileAsync(userId);
+            if (response?.Data == null)
+                return NotFound(new { message = response?.Message ?? "User not found" });
+
+            return Ok(response.Data);
         }
 
         [Authorize]
         [HttpPut("profile")]
         public async Task<IActionResult> UpdateProfile(UserDTO model)
         {
-            try
-            {
-                var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-                var result = await _authService.UpdateUserProfileAsync(userId, model);
-                return result ? Ok() : BadRequest();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized(new { message = "User ID is missing" });
+
+            var response = await _authService.UpdateUserProfileAsync(userId, model);
+            if (response == null)
+                return BadRequest(new { message = "Update failed" });
+
+            if (response.Success)
+                return Ok(new { message = response.Message });
+            else
+                return BadRequest(new { message = response.Message, errors = response.Errors });
         }
     }
 }

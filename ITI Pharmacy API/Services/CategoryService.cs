@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ITI.Pharmacy.API.DTOs;
 using ITI.Pharmacy.API.Models;
+using ITI.Pharmacy.API.Models.Responses;
 using ITI.Pharmacy.API.Utilities;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,14 +20,14 @@ namespace ITI.Pharmacy.API.Services
             _environment = environment;
         }
 
-        public async Task<List<CategoryDTO>> GetAllCategoriesAsync()
+        public async Task<AdvancedApiResponse<List<CategoryDTO>>> GetAllCategoriesAsync()
         {
             var categories = await _context.Categories
                 .Include(c => c.Products)
                 .Where(c => c.IsActive)
                 .ToListAsync();
 
-            return categories.Select(c => new CategoryDTO
+            var dtos = categories.Select(c => new CategoryDTO
             {
                 Id = c.Id,
                 Name = c.Name,
@@ -35,17 +36,20 @@ namespace ITI.Pharmacy.API.Services
                 IsActive = c.IsActive,
                 ProductCount = c.Products.Count(p => p.IsActive)
             }).ToList();
+
+            return AdvancedApiResponse<List<CategoryDTO>>.CreateSuccess(dtos);
         }
 
-        public async Task<CategoryDTO> GetCategoryByIdAsync(int id)
+        public async Task<AdvancedApiResponse<CategoryDTO>> GetCategoryByIdAsync(int id)
         {
             var category = await _context.Categories
                 .Include(c => c.Products)
                 .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
 
-            if (category == null) return null;
+            if (category == null)
+                return AdvancedApiResponse<CategoryDTO>.CreateNotFound("Category");
 
-            return new CategoryDTO
+            var dto = new CategoryDTO
             {
                 Id = category.Id,
                 Name = category.Name,
@@ -54,58 +58,83 @@ namespace ITI.Pharmacy.API.Services
                 IsActive = category.IsActive,
                 ProductCount = category.Products.Count(p => p.IsActive)
             };
+
+            return AdvancedApiResponse<CategoryDTO>.CreateSuccess(dto);
         }
 
-        public async Task<CategoryDTO> CreateCategoryAsync(CreateCategoryDTO dto, IFormFile image)
+        public async Task<AdvancedApiResponse<CategoryDTO>> CreateCategoryAsync(CreateCategoryDTO dto, IFormFile image)
         {
-            var category = _mapper.Map<Category>(dto);
-
-            if (image != null)
+            try
             {
-                var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "categories");
-                category.ImageUrl = await FileHelper.SaveFileAsync(image, uploadsFolder, new[] { ".jpg", ".jpeg", ".png", ".gif" });
-            }
+                var category = _mapper.Map<Category>(dto);
 
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-
-            return await GetCategoryByIdAsync(category.Id);
-        }
-
-        public async Task<CategoryDTO> UpdateCategoryAsync(int id, UpdateCategoryDTO dto, IFormFile image)
-        {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null) return null;
-
-            if (!string.IsNullOrEmpty(dto.Name)) category.Name = dto.Name;
-            if (!string.IsNullOrEmpty(dto.Description)) category.Description = dto.Description;
-            if (dto.IsActive.HasValue) category.IsActive = dto.IsActive.Value;
-
-            if (image != null)
-            {
-                // Delete old image
-                if (!string.IsNullOrEmpty(category.ImageUrl))
+                if (image != null)
                 {
-                    var oldImagePath = Path.Combine(_environment.WebRootPath, "images", "categories", category.ImageUrl);
-                    FileHelper.DeleteFile(oldImagePath);
+                    var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "categories");
+                    category.ImageUrl = await FileHelper.SaveFileAsync(image, uploadsFolder, new[] { ".jpg", ".jpeg", ".png", ".gif" });
                 }
 
-                var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "categories");
-                category.ImageUrl = await FileHelper.SaveFileAsync(image, uploadsFolder, new[] { ".jpg", ".jpeg", ".png", ".gif" });
-            }
+                _context.Categories.Add(category);
+                await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
-            return await GetCategoryByIdAsync(category.Id);
+                return await GetCategoryByIdAsync(category.Id);
+            }
+            catch (Exception ex)
+            {
+                return AdvancedApiResponse<CategoryDTO>.CreateError($"Failed to create category: {ex.Message}");
+            }
         }
 
-        public async Task<bool> DeleteCategoryAsync(int id)
+        public async Task<AdvancedApiResponse<CategoryDTO>> UpdateCategoryAsync(int id, UpdateCategoryDTO dto, IFormFile image)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null) return false;
+            try
+            {
+                var category = await _context.Categories.FindAsync(id);
+                if (category == null)
+                    return AdvancedApiResponse<CategoryDTO>.CreateNotFound("Category");
 
-            category.IsActive = false;
-            await _context.SaveChangesAsync();
-            return true;
+                if (!string.IsNullOrEmpty(dto.Name)) category.Name = dto.Name;
+                if (!string.IsNullOrEmpty(dto.Description)) category.Description = dto.Description;
+                if (dto.IsActive.HasValue) category.IsActive = dto.IsActive.Value;
+
+                if (image != null)
+                {
+                    if (!string.IsNullOrEmpty(category.ImageUrl))
+                    {
+                        var oldImagePath = Path.Combine(_environment.WebRootPath, "images", "categories", category.ImageUrl);
+                        FileHelper.DeleteFile(oldImagePath);
+                    }
+
+                    var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "categories");
+                    category.ImageUrl = await FileHelper.SaveFileAsync(image, uploadsFolder, new[] { ".jpg", ".jpeg", ".png", ".gif" });
+                }
+
+                await _context.SaveChangesAsync();
+                return await GetCategoryByIdAsync(category.Id);
+            }
+            catch (Exception ex)
+            {
+                return AdvancedApiResponse<CategoryDTO>.CreateError($"Failed to update category: {ex.Message}");
+            }
+        }
+
+        public async Task<AdvancedApiResponse<bool>> DeleteCategoryAsync(int id)
+        {
+            try
+            {
+                var category = await _context.Categories.FindAsync(id);
+                if (category == null)
+                    return AdvancedApiResponse<bool>.CreateNotFound("Category");
+
+                category.IsActive = false;
+                await _context.SaveChangesAsync();
+
+                return AdvancedApiResponse<bool>.CreateSuccess(true, "Category deactivated successfully");
+            }
+            catch (Exception ex)
+            {
+                return AdvancedApiResponse<bool>.CreateError($"Failed to delete category: {ex.Message}");
+            }
         }
     }
 }
