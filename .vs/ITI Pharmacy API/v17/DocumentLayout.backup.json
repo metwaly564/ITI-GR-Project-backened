@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\admin\\adminorderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\admin\\adminorderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\admin\\admininventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\admin\\admininventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\admin\\admincitiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\admin\\admincitiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\admin\\admincategoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\admin\\admincategoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\user\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\user\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\services\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\services\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\services\\ifrontbannerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -41,14 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\dtos\\orderdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\dtos\\orderdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\user\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\user\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\admin\\adminorderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\admin\\adminorderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\user\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -147,20 +159,12 @@
       "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\admin\\adminanalyticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\admin\\admincategoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\admin\\admincategoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\services\\icartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\services\\icartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\dtos\\responses\\advancedapiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\dtos\\responses\\advancedapiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\admin\\admincitiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\admin\\admincitiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\dtos\\responses\\frontbannerresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -233,10 +237,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\admin\\adminnotificationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\admin\\adminnotificationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\admin\\admininventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\controllers\\admin\\admininventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\skynet\\source\\repos\\iti-gr-project-backened\\iti pharmacy api\\controllers\\admin\\admindeliverycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -430,7 +430,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 58,
+          "SelectedChildIndex": 35,
           "Children": [
             {
               "$type": "Bookmark",
@@ -450,7 +450,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 35,
               "Title": "InventoryAnalyticsDTO.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\InventoryAnalyticsDTO.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\InventoryAnalyticsDTO.cs",
@@ -458,8 +458,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\InventoryAnalyticsDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T16:33:52.857Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-23T16:33:52.857Z"
             },
             {
               "$type": "Document",
@@ -487,7 +486,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "MockOrderRepository.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Repositories\\Implementations\\MockOrderRepository.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Repositories\\Implementations\\MockOrderRepository.cs",
@@ -495,12 +494,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Repositories\\Implementations\\MockOrderRepository.cs",
               "ViewState": "AgIAAI0AAAAAAAAAAAAkwLQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T16:04:02.212Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-23T16:04:02.212Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "OrderItemDTO.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\OrderItemDTO.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\OrderItemDTO.cs",
@@ -508,8 +506,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\OrderItemDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T15:57:18.723Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-23T15:57:18.723Z"
             },
             {
               "$type": "Document",
@@ -525,7 +522,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "IOrderRepository.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Repositories\\Interfaces\\IOrderRepository.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Repositories\\Interfaces\\IOrderRepository.cs",
@@ -533,12 +530,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Repositories\\Interfaces\\IOrderRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T15:47:21.837Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-23T15:47:21.837Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "UpdateOrderStatusDTO.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\UpdateOrderStatusDTO.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\UpdateOrderStatusDTO.cs",
@@ -546,8 +542,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\UpdateOrderStatusDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T15:45:33.214Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-23T15:45:33.214Z"
             },
             {
               "$type": "Document",
@@ -563,7 +558,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 28,
               "Title": "CreateOrderDTO.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\CreateOrderDTO.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\CreateOrderDTO.cs",
@@ -571,12 +566,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\CreateOrderDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T03:59:10.816Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-23T03:59:10.816Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "FrontBannerResponse.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\Responses\\FrontBannerResponse.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\Responses\\FrontBannerResponse.cs",
@@ -584,8 +578,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\Responses\\FrontBannerResponse.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAAwCIAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T23:48:39.557Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T23:48:39.557Z"
             },
             {
               "$type": "Document",
@@ -601,7 +594,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 40,
               "Title": "AdvancedApiResponse.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\Responses\\AdvancedApiResponse.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\Responses\\AdvancedApiResponse.cs",
@@ -609,12 +602,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\Responses\\AdvancedApiResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T23:38:28.552Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T23:38:28.552Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "StockDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\StockDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\StockDTOs.cs",
@@ -622,12 +614,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\StockDTOs.cs",
               "ViewState": "AgIAAMAAAAAAAAAAAAAcwN4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T23:32:27.73Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T23:32:27.73Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "ApiResponse.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\Responses\\ApiResponse.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\Responses\\ApiResponse.cs",
@@ -635,12 +626,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\Responses\\ApiResponse.cs",
               "ViewState": "AgIAAEwAAAAAAAAAAAAQwG8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T22:36:41.267Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T22:36:41.267Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 57,
               "Title": "BannersController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Front\\BannersController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Front\\BannersController.cs",
@@ -664,7 +654,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "IFrontBannerService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IFrontBannerService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IFrontBannerService.cs",
@@ -672,8 +662,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\IFrontBannerService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T18:20:28.545Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T18:20:28.545Z"
             },
             {
               "$type": "Document",
@@ -737,7 +726,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 31,
               "Title": "MappingProfile.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\MappingProfile.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\MappingProfile.cs",
@@ -745,12 +734,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\MappingProfile.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAkwBwAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:36:42.849Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:36:42.849Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 56,
               "Title": "CitiesController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Shared\\CitiesController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Shared\\CitiesController.cs",
@@ -762,7 +750,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 1,
               "Title": "AdminInventoryController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminInventoryController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminInventoryController.cs",
@@ -774,7 +762,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 36,
               "Title": "AdminBranchesController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminBranchesController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminBranchesController.cs",
@@ -782,12 +770,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\Admin\\AdminBranchesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:33:17.951Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:33:17.951Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 2,
               "Title": "AdminCitiesController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminCitiesController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminCitiesController.cs",
@@ -795,8 +782,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\Admin\\AdminCitiesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:32:47.597Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:32:47.597Z"
             },
             {
               "$type": "Document",
@@ -812,7 +798,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 58,
               "Title": "AdminNotificationsController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminNotificationsController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminNotificationsController.cs",
@@ -824,7 +810,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 38,
               "Title": "AdminAnalyticsController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminAnalyticsController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminAnalyticsController.cs",
@@ -832,25 +818,24 @@
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\Admin\\AdminAnalyticsController.cs",
               "ViewState": "AgIAAKEAAAAAAAAAAAAAwKoAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:31:57.216Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:31:57.216Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 0,
               "Title": "AdminOrdersController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminOrdersController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminOrdersController.cs",
               "ToolTip": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminOrdersController.cs",
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\Admin\\AdminOrdersController.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAADwvycAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-04T17:31:40.491Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 37,
               "Title": "AdminBannersController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminBannersController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminBannersController.cs",
@@ -858,12 +843,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\Admin\\AdminBannersController.cs",
               "ViewState": "AgIAACAAAAAAAAAAAAAkwEcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:31:21.619Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:31:21.619Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 3,
               "Title": "AdminCategoriesController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminCategoriesController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminCategoriesController.cs",
@@ -871,12 +855,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\Admin\\AdminCategoriesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:30:55.85Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:30:55.85Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "AdminProductsController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminProductsController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminProductsController.cs",
@@ -888,7 +871,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 55,
               "Title": "BranchesController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\User\\BranchesController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\User\\BranchesController.cs",
@@ -900,7 +883,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 54,
               "Title": "NotificationsController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\User\\NotificationsController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\User\\NotificationsController.cs",
@@ -912,7 +895,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 52,
               "Title": "WishlistController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\User\\WishlistController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\User\\WishlistController.cs",
@@ -924,7 +907,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 4,
               "Title": "OrdersController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\User\\OrdersController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\User\\OrdersController.cs",
@@ -932,12 +915,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\User\\OrdersController.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAAwCcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:28:10.891Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:28:10.891Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "CartController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\User\\CartController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\User\\CartController.cs",
@@ -945,12 +927,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\User\\CartController.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAAuwEsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:27:50.194Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:27:50.194Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 53,
               "Title": "ProductsController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\User\\ProductsController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\User\\ProductsController.cs",
@@ -962,7 +943,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\User\\HomeController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\User\\HomeController.cs",
@@ -970,12 +951,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\User\\HomeController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:27:13.938Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:27:13.938Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\User\\AuthController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\User\\AuthController.cs",
@@ -983,8 +963,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Controllers\\User\\AuthController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:26:50.935Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:26:50.935Z"
             },
             {
               "$type": "Document",
@@ -1012,7 +991,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "DataSeederService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\DataSeederService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\DataSeederService.cs",
@@ -1020,8 +999,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\DataSeederService.cs",
               "ViewState": "AgIAAN0AAAAAAAAAAAAkwAQBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:11:21.467Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:11:21.467Z"
             },
             {
               "$type": "Document",
@@ -1037,7 +1015,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "ExcelService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\ExcelService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\ExcelService.cs",
@@ -1045,8 +1023,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\ExcelService.cs",
               "ViewState": "AgIAAEwAAAAAAAAAAAAAwF8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:10:04.486Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:10:04.486Z"
             },
             {
               "$type": "Document",
@@ -1074,7 +1051,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "CartService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\CartService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\CartService.cs",
@@ -1082,8 +1059,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\CartService.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAIwEAAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:08:13.662Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:08:13.662Z"
             },
             {
               "$type": "Document",
@@ -1099,7 +1075,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "AdminAnalyticsService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\AdminAnalyticsService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\AdminAnalyticsService.cs",
@@ -1107,12 +1083,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\AdminAnalyticsService.cs",
               "ViewState": "AgIAACkAAAAAAAAAAAAQwE0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:06:14.961Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:06:14.961Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "HomeService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\HomeService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\HomeService.cs",
@@ -1120,12 +1095,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\HomeService.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAAgwGEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:05:22.415Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:05:22.415Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "OrderService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\OrderService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\OrderService.cs",
@@ -1133,12 +1107,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\OrderService.cs",
               "ViewState": "AgIAABUAAAAAAAAAAAAkwCwAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:04:38.319Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:04:38.319Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "BannerService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\BannerService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\BannerService.cs",
@@ -1146,12 +1119,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\BannerService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:03:20.67Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:03:20.67Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "CategoryService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\CategoryService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\CategoryService.cs",
@@ -1159,8 +1131,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\CategoryService.cs",
               "ViewState": "AgIAAGwAAAAAAAAAAAAkwJMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:02:09.037Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:02:09.037Z"
             },
             {
               "$type": "Document",
@@ -1176,7 +1147,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 34,
               "Title": "AuthService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\AuthService.cs",
@@ -1184,8 +1155,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\AuthService.cs",
               "ViewState": "AgIAAIUAAAAAAAAAAAAgwJwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:00:16.12Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:00:16.12Z"
             },
             {
               "$type": "Document",
@@ -1237,7 +1207,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 39,
               "Title": "ICartService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\ICartService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\ICartService.cs",
@@ -1245,8 +1215,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\ICartService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:55:36.324Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:55:36.324Z"
             },
             {
               "$type": "Document",
@@ -1286,20 +1255,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "IOrderService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IOrderService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IOrderService.cs",
               "ToolTip": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IOrderService.cs",
               "RelativeToolTip": "ITI Pharmacy API\\Services\\IOrderService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:54:07.898Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:54:07.898Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "IBannerService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IBannerService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IBannerService.cs",
@@ -1307,12 +1275,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\IBannerService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:53:29.937Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:53:29.937Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 33,
               "Title": "ICategoryService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\ICategoryService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\ICategoryService.cs",
@@ -1320,8 +1287,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\ICategoryService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:53:15.485Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:53:15.485Z"
             },
             {
               "$type": "Document",
@@ -1337,7 +1303,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 30,
               "Title": "IAuthService.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IAuthService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IAuthService.cs",
@@ -1345,12 +1311,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\IAuthService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:52:40.791Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:52:40.791Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "CityDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\CityDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\CityDTOs.cs",
@@ -1362,7 +1327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "WishlistDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\WishlistDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\WishlistDTOs.cs",
@@ -1370,12 +1335,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\WishlistDTOs.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:51:15.143Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:51:15.143Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "CartDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\CartDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\CartDTOs.cs",
@@ -1387,7 +1351,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "NotificationDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\NotificationDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\NotificationDTOs.cs",
@@ -1395,12 +1359,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\NotificationDTOs.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAkwCoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:50:40.904Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:50:40.904Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "AnalyticsDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\AnalyticsDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\AnalyticsDTOs.cs",
@@ -1408,12 +1371,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\AnalyticsDTOs.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:50:27.93Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:50:27.93Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "HomeDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\HomeDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\HomeDTOs.cs",
@@ -1421,12 +1383,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\HomeDTOs.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:50:12.218Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:50:12.218Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "PharmacyDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\PharmacyDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\PharmacyDTOs.cs",
@@ -1434,12 +1395,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\PharmacyDTOs.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:49:41.294Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:49:41.294Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "OrderDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\OrderDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\OrderDTOs.cs",
@@ -1447,12 +1407,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\OrderDTOs.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:49:01.027Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:49:01.027Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "BannerDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\BannerDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\BannerDTOs.cs",
@@ -1464,7 +1423,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 32,
               "Title": "CategoryDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\CategoryDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\CategoryDTOs.cs",
@@ -1472,12 +1431,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\CategoryDTOs.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAA4wDcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:47:36.078Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:47:36.078Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "ProductDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\ProductDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\ProductDTOs.cs",
@@ -1485,12 +1443,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\ProductDTOs.cs",
               "ViewState": "AgIAAEIAAAAAAAAAAAAcwGAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:47:13.604Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:47:13.604Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "AuthDTOs.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\AuthDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\AuthDTOs.cs",
@@ -1498,8 +1455,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\DTOs\\AuthDTOs.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAkwB8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T16:46:55.224Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T16:46:55.224Z"
             },
             {
               "$type": "Document",
@@ -1599,7 +1555,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 29,
               "Title": "Order.cs",
               "DocumentMoniker": "C:\\Users\\skynet\\source\\repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\Models\\Order.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Models\\Order.cs",
@@ -1607,8 +1563,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\Models\\Order.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAkwCwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T19:23:03.665Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T19:23:03.665Z"
             },
             {
               "$type": "Document",
@@ -1720,7 +1675,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "ITI Pharmacy API.csproj",
               "DocumentMoniker": "C:\\Users\\skynet\\Source\\Repos\\ITI-GR-Project-backened\\ITI Pharmacy API\\ITI Pharmacy API.csproj",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\ITI Pharmacy API.csproj",
@@ -1728,8 +1683,7 @@
               "RelativeToolTip": "ITI Pharmacy API\\ITI Pharmacy API.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-11-01T15:53:22.476Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-01T15:53:22.476Z"
             },
             {
               "$type": "Document",

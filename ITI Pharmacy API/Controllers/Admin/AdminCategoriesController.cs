@@ -40,7 +40,10 @@ namespace ITI.Pharmacy.API.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task<ActionResult<CategoryDTO>> CreateCategory([FromForm] CreateCategoryDTO dto, [FromForm] IFormFile? image)
+        [Consumes("multipart/form-data")] 
+        public async Task<ActionResult<CategoryDTO>> CreateCategory(
+            [FromForm] CreateCategoryDTO dto,
+            [FromForm] IFormFile? image) 
         {
             var response = await _categoryService.CreateCategoryAsync(dto, image);
             if (response.Data == null)
@@ -50,7 +53,11 @@ namespace ITI.Pharmacy.API.Controllers.Admin
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<CategoryDTO>> UpdateCategory(int id, [FromForm] UpdateCategoryDTO dto, [FromForm] IFormFile? image)
+        [Consumes("multipart/form-data")] 
+        public async Task<ActionResult<CategoryDTO>> UpdateCategory(
+            int id,
+            [FromForm] UpdateCategoryDTO dto,
+            [FromForm] IFormFile? image)
         {
             var response = await _categoryService.UpdateCategoryAsync(id, dto, image);
             if (response.Data == null)
