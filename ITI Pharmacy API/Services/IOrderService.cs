@@ -1,15 +1,13 @@
 using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.Models.Responses;
 
-namespace ITI.Pharmacy.API.Services
+public interface IOrderService
 {
-    public interface IOrderService
-    {
-        Task<OrderDTO> CreateOrderAsync(string userId, CreateOrderDTO dto);
-        Task<List<OrderDTO>> GetUserOrdersAsync(string userId);
-        Task<OrderDTO> GetOrderByIdAsync(int id, string userId = null);
-        Task<List<OrderDTO>> GetAllOrdersAsync();
-        Task<List<OrderDTO>> GetOrdersByBranchAsync(int branchId);
-        Task<bool> CancelOrderAsync(int id, string userId);
-        Task<bool> UpdateOrderStatusAsync(int id, UpdateOrderStatusDTO dto);
-    }
+    Task<AdvancedApiResponse<OrderDTO>> CreateOrderAsync(CreateOrderDTO dto, IFormFile? prescriptionImage);
+    Task<AdvancedApiResponse<OrderDTO>> GetOrderByIdAsync(int id);
+    Task<AdvancedApiResponse<List<OrderDTO>>> GetAllOrdersAsync();
+
+  
+    Task<AdvancedApiResponse<bool>> CancelOrderAsync(int id, string userId);
+    Task<AdvancedApiResponse<List<OrderDTO>>> GetOrdersByBranchAsync(int branchId);
 }

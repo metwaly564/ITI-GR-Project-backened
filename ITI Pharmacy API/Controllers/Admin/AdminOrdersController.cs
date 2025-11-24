@@ -18,37 +18,43 @@ namespace ITI.Pharmacy.API.Controllers.Admin
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OrderDTO>>> GetOrders()
+        public async Task<IActionResult> GetOrders()
         {
-            var orders = await _orderService.GetAllOrdersAsync();
-            return Ok(orders);
+            var response = await _orderService.GetAllOrdersAsync();
+            if (!response.Success)
+                return BadRequest(response.Message);
+
+            return Ok(response.Data);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<OrderDTO>> GetOrder(int id)
+        public async Task<IActionResult> GetOrder(int id)
         {
-            var order = await _orderService.GetOrderByIdAsync(id);
-            if (order == null)
-                return NotFound("Order not found.");
+            var response = await _orderService.GetOrderByIdAsync(id);
+            if (!response.Success)
+                return NotFound(response.Message);
 
-            return Ok(order);
+            return Ok(response.Data);
         }
 
         [HttpPut("{id:int}/cancel")]
         public async Task<IActionResult> CancelOrder(int id)
         {
-            var result = await _orderService.CancelOrderAsync(id, "admin");
-            if (!result)
-                return NotFound("Order not found or cannot be cancelled.");
+            var response = await _orderService.CancelOrderAsync(id, "admin");
+            if (!response.Success)
+                return NotFound(response.Message ?? "Order not found or cannot be cancelled.");
 
             return Ok("Order cancelled successfully.");
         }
 
         [HttpGet("branch/{branchId:int}")]
-        public async Task<ActionResult<List<OrderDTO>>> GetOrdersByBranch(int branchId)
+        public async Task<IActionResult> GetOrdersByBranch(int branchId)
         {
-            var orders = await _orderService.GetOrdersByBranchAsync(branchId);
-            return Ok(orders);
+            var response = await _orderService.GetOrdersByBranchAsync(branchId);
+            if (!response.Success)
+                return NotFound(response.Message);
+
+            return Ok(response.Data);
         }
     }
 }

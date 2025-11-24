@@ -1,116 +1,60 @@
 ﻿using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.Models.Responses;
 using ITI.Pharmacy.API.Repositories;
-using Microsoft.Extensions.Logging;
 
 namespace ITI.Pharmacy.API.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly IOrderRepository _orderRepository;
-        private readonly ILogger<OrderService> _logger;
+        private readonly IOrderRepository _repository;
 
-        public OrderService(IOrderRepository orderRepository, ILogger<OrderService> logger)
+        public OrderService(IOrderRepository repository)
         {
-            _orderRepository = orderRepository;
-            _logger = logger;
+            _repository = repository;
         }
 
-        private async Task<T> ExecuteAsync<T>(Func<Task<T>> action, string errorMessage)
+        public async Task<AdvancedApiResponse<OrderDTO>> CreateOrderAsync(CreateOrderDTO dto, IFormFile? prescriptionImage)
         {
             try
             {
-                return await action();
+                // هنا إذا كنت تستخدم ملفات صور، يمكنك تعديل DTO لإضافة PrescriptionImageUrl
+                var order = await _repository.CreateOrderAsync("mock-user-id", dto);
+                return AdvancedApiResponse<OrderDTO>.CreateSuccess(order);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, errorMessage);
-                throw;
+                return AdvancedApiResponse<OrderDTO>.CreateError($"Failed to create order: {ex.Message}");
             }
         }
 
-        public Task<OrderDTO> CreateOrderAsync(string userId, CreateOrderDTO dto)
+        public async Task<AdvancedApiResponse<OrderDTO>> GetOrderByIdAsync(int id)
         {
-            if (string.IsNullOrWhiteSpace(userId))
-                throw new ArgumentNullException(nameof(userId), "UserId is required.");
+            var order = await _repository.GetOrderByIdAsync(id);
+            if (order == null)
+                return AdvancedApiResponse<OrderDTO>.CreateNotFound("Order");
 
-            if (dto == null)
-                throw new ArgumentNullException(nameof(dto), "Order data is required.");
-
-            if (dto.Items == null || !dto.Items.Any())
-                throw new ArgumentException("Order must contain at least one item.", nameof(dto));
-
-            foreach (var item in dto.Items)
-            {
-                if (item.ProductId <= 0)
-                    throw new ArgumentException("Invalid ProductId in order items.", nameof(dto));
-                if (item.Quantity <= 0)
-                    throw new ArgumentException("Quantity must be greater than 0 in order items.", nameof(dto));
-            }
-
-            return ExecuteAsync(() => _orderRepository.CreateOrderAsync(userId, dto),
-                $"Error creating order for user {userId}");
+            return AdvancedApiResponse<OrderDTO>.CreateSuccess(order);
         }
 
-        public Task<List<OrderDTO>> GetUserOrdersAsync(string userId)
+        public async Task<AdvancedApiResponse<List<OrderDTO>>> GetAllOrdersAsync()
         {
-            if (string.IsNullOrWhiteSpace(userId))
-                throw new ArgumentNullException(nameof(userId));
-
-            return ExecuteAsync(() => _orderRepository.GetUserOrdersAsync(userId),
-                $"Error getting orders for user {userId}");
+            var orders = await _repository.GetAllOrdersAsync();
+            return AdvancedApiResponse<List<OrderDTO>>.CreateSuccess(orders);
         }
 
-        public Task<OrderDTO> GetOrderByIdAsync(int id, string userId = null)
+        //  Repository
+        public async Task<AdvancedApiResponse<bool>> CancelOrderAsync(int id, string userId)
         {
-            if (id <= 0)
-                throw new ArgumentException("Invalid order id.", nameof(id));
-
-            return ExecuteAsync(() =>
-                string.IsNullOrWhiteSpace(userId)
-                    ? _orderRepository.GetOrderByIdAsync(id)
-                    : _orderRepository.GetUserOrderByIdAsync(id, userId),
-                $"Error getting order {id}");
+            var result = await _repository.CancelOrderAsync(id, userId);
+            return result
+                ? AdvancedApiResponse<bool>.CreateSuccess(true)
+                : AdvancedApiResponse<bool>.CreateError("Failed to cancel order");
         }
 
-        public Task<List<OrderDTO>> GetAllOrdersAsync()
+        public async Task<AdvancedApiResponse<List<OrderDTO>>> GetOrdersByBranchAsync(int branchId)
         {
-            return ExecuteAsync(() => _orderRepository.GetAllOrdersAsync(), "Error getting all orders");
-        }
-
-        public Task<List<OrderDTO>> GetOrdersByBranchAsync(int branchId)
-        {
-            if (branchId <= 0)
-                throw new ArgumentException("Invalid branch id.", nameof(branchId));
-
-            return ExecuteAsync(() => _orderRepository.GetOrdersByBranchAsync(branchId),
-                $"Error getting orders for branch {branchId}");
-        }
-
-        public Task<bool> CancelOrderAsync(int id, string userId)
-        {
-            if (id <= 0)
-                throw new ArgumentException("Invalid order id.", nameof(id));
-
-            if (string.IsNullOrWhiteSpace(userId))
-                throw new ArgumentNullException(nameof(userId));
-
-            return ExecuteAsync(() => _orderRepository.CancelOrderAsync(id, userId),
-                $"Error cancelling order {id} for user {userId}");
-        }
-
-        public Task<bool> UpdateOrderStatusAsync(int id, UpdateOrderStatusDTO dto)
-        {
-            if (id <= 0)
-                throw new ArgumentException("Invalid order id.", nameof(id));
-
-            if (dto == null)
-                throw new ArgumentNullException(nameof(dto));
-
-            if (string.IsNullOrWhiteSpace(dto.Status))
-                throw new ArgumentException("Status is required.", nameof(dto));
-
-            return ExecuteAsync(() => _orderRepository.UpdateOrderStatusAsync(id, dto),
-                $"Error updating status for order {id}");
+            var orders = await _repository.GetOrdersByBranchAsync(branchId);
+            return AdvancedApiResponse<List<OrderDTO>>.CreateSuccess(orders);
         }
     }
 }

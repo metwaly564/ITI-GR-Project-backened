@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Http; 
 
-namespace ITI.Pharmacy.API.DTOs
+namespace ITI_Pharmacy_API.DTOs
 {
     public class CategoryDTO
     {
@@ -33,8 +34,8 @@ namespace ITI.Pharmacy.API.DTOs
         [JsonPropertyName("description")]
         public required string Description { get; set; }
 
-        [JsonPropertyName("imageUrl")]
-        public string? ImageUrl { get; set; } 
+        [JsonPropertyName("image")]
+        public IFormFile? Image { get; set; }  
     }
 
     public class UpdateCategoryDTO
@@ -45,8 +46,8 @@ namespace ITI.Pharmacy.API.DTOs
         [JsonPropertyName("description")]
         public string? Description { get; set; }
 
-        [JsonPropertyName("imageUrl")]
-        public string? ImageUrl { get; set; }
+        [JsonPropertyName("image")]
+        public IFormFile? Image { get; set; } 
 
         [JsonPropertyName("isActive")]
         public bool? IsActive { get; set; }

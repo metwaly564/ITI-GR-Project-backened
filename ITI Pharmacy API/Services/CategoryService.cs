@@ -3,7 +3,14 @@ using ITI.Pharmacy.API.DTOs;
 using ITI.Pharmacy.API.Models;
 using ITI.Pharmacy.API.Models.Responses;
 using ITI.Pharmacy.API.Utilities;
+using ITI_Pharmacy_API.DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ITI.Pharmacy.API.Services
 {
@@ -62,7 +69,7 @@ namespace ITI.Pharmacy.API.Services
             return AdvancedApiResponse<CategoryDTO>.CreateSuccess(dto);
         }
 
-        public async Task<AdvancedApiResponse<CategoryDTO>> CreateCategoryAsync(CreateCategoryDTO dto, IFormFile image)
+        public async Task<AdvancedApiResponse<CategoryDTO>> CreateCategoryAsync(CreateCategoryDTO dto, IFormFile? image)
         {
             try
             {
@@ -85,7 +92,7 @@ namespace ITI.Pharmacy.API.Services
             }
         }
 
-        public async Task<AdvancedApiResponse<CategoryDTO>> UpdateCategoryAsync(int id, UpdateCategoryDTO dto, IFormFile image)
+        public async Task<AdvancedApiResponse<CategoryDTO>> UpdateCategoryAsync(int id, UpdateCategoryDTO dto, IFormFile? image)
         {
             try
             {
