@@ -1,8 +1,6 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ITI.Pharmacy.API.DTOs;
-using ITI.Pharmacy.API.DTOs.Responses;
 using ITI.Pharmacy.API.Models;
-using ITI.Pharmacy.API.Models.Responses;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITI.Pharmacy.API.Services
@@ -18,85 +16,103 @@ namespace ITI.Pharmacy.API.Services
             _mapper = mapper;
         }
 
-        public async Task<AdvancedApiResponse<PaginationResponse<ProductDTO>>> GetHomeDataAsync(
-            int branchId, int page, int limit, string? sort)
+        public async Task<HomeDataDTO> GetHomeDataAsync(int branchId = 0)
         {
-            try
+            // Get all active categories
+            var categories = await _context.Categories
+                .Where(c => c.IsActive)
+                .Include(c => c.Products)
+                .ToListAsync();
+
+            var categoriesDTO = categories.Select(c => new CategoryDTO
             {
-                if (page < 1) page = 1;
-                if (limit < 1) limit = 10;
-                if (limit > 100) limit = 100;
+                Id = c.Id,
+                Name = c.Name,
+                Description = c.Description,
+                ImageUrl = c.ImageUrl,
+                IsActive = c.IsActive,
+                ProductCount = c.Products.Count(p => p.IsActive)
+            }).ToList();
 
-                var query = _context.Products
-                    .Include(p => p.Category)
-                    .Include(p => p.ProductStocks)
-                    .Where(p => p.IsActive)
-                    .AsQueryable();
+            // Get active banners
+            var banners = await _context.Banners
+                .Where(b => b.IsActive)
+                .OrderBy(b => b.DisplayOrder)
+                .ToListAsync();
 
-           
-                if (branchId > 0)
-                {
-                    query = query.Where(p => p.ProductStocks.Any(s => s.BranchId == branchId && s.Quantity > 0));
-                }
+            var bannersDTO = _mapper.Map<List<BannerDTO>>(banners);
 
-         
-       
-                var totalCount = await query.CountAsync();
+            // Get featured products (products with high rating or special flag)
+            var featuredProductsQuery = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.ProductStocks)
+                .Where(p => p.IsActive && p.Rating.HasValue && p.Rating >= 4.0);
 
-           
-                var products = await query
-                    .Skip((page - 1) * limit)
-                    .Take(limit)
-                    .ToListAsync();
-
-   
-                var productsDTO = _mapper.Map<List<ProductDTO>>(products);
-
-                var pagination = new PaginationResponse<ProductDTO>
-                {
-                    CurrentPage = page,
-                    PageSize = limit,
-                    TotalCount = totalCount,
-                    Items = productsDTO
-                };
-
-          
-                return new AdvancedApiResponse<PaginationResponse<ProductDTO>>
-                {
-                    Success = true,
-                    Message = "تم جلب المنتجات بنجاح",
-                    Data = pagination,
-                    Timestamp = DateTime.UtcNow
-                };
+            if (branchId > 0)
+            {
+                featuredProductsQuery = featuredProductsQuery.Where(p => 
+                    p.ProductStocks.Any(s => s.BranchId == branchId && s.Quantity > 0));
             }
-            catch (Exception ex)
-            {
-            
-                return new AdvancedApiResponse<PaginationResponse<ProductDTO>>
-                {
-                    Success = false,
-                    Message = "حدث خطأ أثناء جلب البيانات",
-                    Errors = new List<string> { ex.Message },
-                    Data = null,
-                    Timestamp = DateTime.UtcNow
-                };
-            }
-        }
 
-        private IQueryable<Product> ApplySorting(IQueryable<Product> query, string? sort, int branchId)
-        {
-            return sort?.ToLower() switch
+            var featuredProducts = await featuredProductsQuery
+                .OrderByDescending(p => p.Rating)
+                .ThenByDescending(p => p.ReviewCount)
+                .Take(8)
+                .ToListAsync();
+
+            var featuredProductsDTO = _mapper.Map<List<ProductDTO>>(featuredProducts);
+
+            // Get popular products (products with most stock or most reviews)
+            var popularProductsQuery = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.ProductStocks)
+                .Where(p => p.IsActive);
+
+            if (branchId > 0)
             {
-                "price_asc" => query.OrderBy(p => p.Price),
-                "price_desc" => query.OrderByDescending(p => p.Price),
-                "name_asc" => query.OrderBy(p => p.Name),
-                "name_desc" => query.OrderByDescending(p => p.Name),
-                "newest" => query.OrderByDescending(p => p.CreatedAt),
-                "popular" => query.OrderByDescending(p => p.ProductStocks
+                popularProductsQuery = popularProductsQuery.Where(p => 
+                    p.ProductStocks.Any(s => s.BranchId == branchId && s.Quantity > 0));
+            }
+
+            var popularProducts = await popularProductsQuery
+                .OrderByDescending(p => p.ReviewCount)
+                .ThenByDescending(p => p.ProductStocks
                     .Where(s => branchId == 0 || s.BranchId == branchId)
-                    .Sum(s => s.Quantity)),
-              
-                _ => query.OrderBy(p => p.Name) 
+                    .Sum(s => s.Quantity))
+                .Take(8)
+                .ToListAsync();
+
+            var popularProductsDTO = _mapper.Map<List<ProductDTO>>(popularProducts);
+
+            // Get all products (for the main product list)
+            var allProductsQuery = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.ProductStocks)
+                .Where(p => p.IsActive);
+
+            if (branchId > 0)
+            {
+                allProductsQuery = allProductsQuery.Where(p => 
+                    p.ProductStocks.Any(s => s.BranchId == branchId && s.Quantity > 0));
+            }
+
+            var allProducts = await allProductsQuery
+                .OrderByDescending(p => p.CreatedAt)
+                .Take(20)
+                .ToListAsync();
+
+            var allProductsDTO = _mapper.Map<List<ProductDTO>>(allProducts);
+
+            return new HomeDataDTO
+            {
+                Categories = categoriesDTO,
+                Banners = bannersDTO,
+                FeaturedProducts = featuredProductsDTO,
+                PopularProducts = popularProductsDTO,
+                Products = allProductsDTO,
+                TotalCount = allProductsDTO.Count,
+                Page = 1,
+                Limit = 20
             };
         }
     }

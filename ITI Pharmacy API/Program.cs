@@ -1,4 +1,4 @@
-﻿using ITI.Pharmacy.API.Models;
+using ITI.Pharmacy.API.Models;
 using ITI.Pharmacy.API.Services;
 using ITI.Pharmacy.API.Utilities;
 using ITI.Pharmacy.API.Hubs;
@@ -12,7 +12,12 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    });
 builder.Services.AddEndpointsApiExplorer();
 
 

@@ -17,15 +17,11 @@ namespace ITI.Pharmacy.API.Controllers.User
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetHomeData(
-            int branchId,
-            int page = 1,
-            int limit = 10,
-            string? sort = "newest")
+        public async Task<IActionResult> GetHomeData(int branchId = 0)
         {
             try
             {
-                var result = await _homeService.GetHomeDataAsync(branchId, page, limit, sort);
+                var result = await _homeService.GetHomeDataAsync(branchId);
                 return Ok(result);
             }
             catch (Exception ex)
