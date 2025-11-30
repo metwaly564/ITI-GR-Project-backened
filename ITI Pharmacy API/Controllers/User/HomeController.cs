@@ -23,20 +23,15 @@ namespace ITI.Pharmacy.API.Controllers.User
             int limit = 10,
             string? sort = "newest")
         {
-<<<<<<< Updated upstream:ITI Pharmacy API/Controllers/User/HomeController.cs
-            var result = await _homeService.GetHomeDataAsync(branchId, page, limit, sort);
-            return Ok(result);
-=======
             try
             {
-                var homeData = await _homeService.GetHomeDataAsync();
-                return Ok(homeData);
+                var result = await _homeService.GetHomeDataAsync(branchId, page, limit, sort);
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Error retrieving home data", error = ex.Message });
             }
->>>>>>> Stashed changes:Controllers/User/HomeController.cs
         }
     }
 }
