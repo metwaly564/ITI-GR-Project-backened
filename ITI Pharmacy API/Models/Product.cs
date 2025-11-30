@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ITI.Pharmacy.API.Models.Enums;
 
 namespace ITI.Pharmacy.API.Models
 {
@@ -23,7 +24,7 @@ namespace ITI.Pharmacy.API.Models
         public decimal? DiscountPrice { get; set; }
 
         [StringLength(500)]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
         public bool IsPrescriptionRequired { get; set; } = false;
         public bool IsActive { get; set; } = true;
@@ -32,7 +33,21 @@ namespace ITI.Pharmacy.API.Models
 
         public int CategoryId { get; set; }
 
- 
+        // Recommendation fields (optional - for skincare products)
+        [Column(TypeName = "nvarchar(max)")]
+        public string? SuitableForSkinTypes { get; set; } // JSON array of SkinType values
+
+        [Column(TypeName = "nvarchar(max)")]
+        public string? Benefits { get; set; } // JSON array of strings
+
+        [Column(TypeName = "nvarchar(max)")]
+        public string? Ingredients { get; set; } // JSON array of strings
+
+        [Column(TypeName = "decimal(3,2)")]
+        public decimal? Rating { get; set; }
+
+        public int? ReviewCount { get; set; } = 0;
+
         public virtual Category Category { get; set; }
         public virtual ICollection<ProductStock> ProductStocks { get; set; } = new List<ProductStock>();
     }

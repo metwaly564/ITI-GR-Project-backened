@@ -151,6 +151,7 @@ namespace ITI.Pharmacy.API.Services
                         Name = "Panadol Extra",
                         Description = "Pain relief tablets",
                         Price = 25.50m,
+                        ImageUrl = "https://via.placeholder.com/300x300?text=Panadol+Extra",
                         CategoryId = defaultCategory.Id
                     },
                     new Product
@@ -159,6 +160,7 @@ namespace ITI.Pharmacy.API.Services
                         Description = "Immune support vitamins",
                         Price = 89.99m,
                         DiscountPrice = 79.99m,
+                        ImageUrl = "https://via.placeholder.com/300x300?text=Vitamin+C",
                         CategoryId = defaultCategory.Id
                     },
                     new Product
@@ -166,6 +168,7 @@ namespace ITI.Pharmacy.API.Services
                         Name = "Baby Diapers Size M",
                         Description = "Comfortable baby diapers",
                         Price = 120.00m,
+                        ImageUrl = "https://via.placeholder.com/300x300?text=Baby+Diapers",
                         CategoryId = babyCategory.Id
                     }
                 };

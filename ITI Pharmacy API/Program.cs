@@ -96,6 +96,8 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IWishlistService, WishlistService>();
 builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<IPharmacyBranchService, PharmacyBranchService>();
+builder.Services.AddScoped<ProductRecommender>();
+builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddScoped<DataSeederService>();
 
 // AutoMapper
