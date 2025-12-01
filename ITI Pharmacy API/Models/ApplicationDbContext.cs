@@ -90,9 +90,7 @@ namespace ITI.Pharmacy.API.Models
                 .HasForeignKey(st => st.ToBranchId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // --- Disable Identity for Seed IDs ---
-            builder.Entity<Category>().Property(c => c.Id).ValueGeneratedNever();
-            builder.Entity<Product>().Property(p => p.Id).ValueGeneratedNever();
+            // --- Disable Identity for Seed IDs (only for banners; categories/products use DB identity) ---
             builder.Entity<Banner>().Property(b => b.Id).ValueGeneratedNever();
 
             // --- Seed Data ---

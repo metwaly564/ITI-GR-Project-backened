@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace ITI.Pharmacy.API.DTOs
 {
@@ -37,6 +37,12 @@ namespace ITI.Pharmacy.API.DTOs
         [JsonPropertyName("createdAt")]
         public DateTime CreatedAt { get; set; }
 
+        [JsonPropertyName("rank")]
+        public int? Rank { get; set; }
+
+        [JsonPropertyName("maxOrderQuantity")]
+        public int? MaxOrderQuantity { get; set; }
+
         [JsonPropertyName("stock")]
         public List<ProductStockDTO> Stock { get; set; } = new List<ProductStockDTO>();
     }
@@ -66,6 +72,12 @@ namespace ITI.Pharmacy.API.DTOs
 
         [JsonPropertyName("isActive")]
         public bool IsActive { get; set; } = true;
+
+        [JsonPropertyName("rank")]
+        public int? Rank { get; set; }
+
+        [JsonPropertyName("maxOrderQuantity")]
+        public int? MaxOrderQuantity { get; set; }
     }
 
     public class UpdateProductDTO
@@ -93,6 +105,12 @@ namespace ITI.Pharmacy.API.DTOs
 
         [JsonPropertyName("isActive")]
         public bool? IsActive { get; set; }
+
+        [JsonPropertyName("rank")]
+        public int? Rank { get; set; }
+
+        [JsonPropertyName("maxOrderQuantity")]
+        public int? MaxOrderQuantity { get; set; }
     }
 }
 

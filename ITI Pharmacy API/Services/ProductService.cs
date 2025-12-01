@@ -40,9 +40,10 @@ namespace ITI.Pharmacy.API.Services
                     Price = dto.Price,
                     Description = dto.Description,
                     IsPrescriptionRequired = dto.IsPrescriptionRequired,
-                 
                     CategoryId = dto.CategoryId,
                     IsActive = dto.IsActive,
+                    Rank = dto.Rank,
+                    MaxOrderQuantity = dto.MaxOrderQuantity,
                     CreatedAt = DateTime.UtcNow
                 };
 
@@ -89,6 +90,12 @@ namespace ITI.Pharmacy.API.Services
 
                 if (dto.IsActive.HasValue)
                     product.IsActive = dto.IsActive.Value;
+
+                if (dto.Rank.HasValue)
+                    product.Rank = dto.Rank.Value;
+
+                if (dto.MaxOrderQuantity.HasValue)
+                    product.MaxOrderQuantity = dto.MaxOrderQuantity.Value;
 
                 product.UpdatedAt = DateTime.UtcNow;
 

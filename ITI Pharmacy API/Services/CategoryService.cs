@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ITI.Pharmacy.API.DTOs;
 using ITI.Pharmacy.API.Models;
 using ITI.Pharmacy.API.Utilities;
@@ -33,7 +33,8 @@ namespace ITI.Pharmacy.API.Services
                 Description = c.Description,
                 ImageUrl = c.ImageUrl,
                 IsActive = c.IsActive,
-                ProductCount = c.Products.Count(p => p.IsActive)
+                ProductCount = c.Products.Count(p => p.IsActive),
+                Rank = c.Rank
             }).ToList();
         }
 
@@ -52,13 +53,15 @@ namespace ITI.Pharmacy.API.Services
                 Description = category.Description,
                 ImageUrl = category.ImageUrl,
                 IsActive = category.IsActive,
-                ProductCount = category.Products.Count(p => p.IsActive)
+                ProductCount = category.Products.Count(p => p.IsActive),
+                Rank = category.Rank
             };
         }
 
         public async Task<CategoryDTO> CreateCategoryAsync(CreateCategoryDTO dto, IFormFile image)
         {
             var category = _mapper.Map<Category>(dto);
+            category.Rank = dto.Rank;
 
             if (image != null)
             {
@@ -80,6 +83,7 @@ namespace ITI.Pharmacy.API.Services
             if (!string.IsNullOrEmpty(dto.Name)) category.Name = dto.Name;
             if (!string.IsNullOrEmpty(dto.Description)) category.Description = dto.Description;
             if (dto.IsActive.HasValue) category.IsActive = dto.IsActive.Value;
+            if (dto.Rank.HasValue) category.Rank = dto.Rank.Value;
 
             if (image != null)
             {

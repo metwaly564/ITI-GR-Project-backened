@@ -20,6 +20,8 @@ namespace ITI.Pharmacy.API.Models
         public bool IsActive { get; set; } = true;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        public int? Rank { get; set; } // Category rank for sorting/display order
+
         public virtual ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

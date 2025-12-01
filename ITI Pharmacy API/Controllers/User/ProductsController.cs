@@ -1,4 +1,5 @@
 using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.DTOs.Responses;
 using ITI.Pharmacy.API.Services;
 using Microsoft.AspNetCore.Mvc;
 

@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.IO.Compression;
+using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -107,6 +108,7 @@ builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<IPharmacyBranchService, PharmacyBranchService>();
 builder.Services.AddScoped<ProductRecommender>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
+builder.Services.AddScoped<IBackupService, BackupService>();
 builder.Services.AddScoped<DataSeederService>();
 
 // Unit of Work
@@ -119,23 +121,11 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddResponseCompression(options =>
 {
     options.EnableForHttps = true;
-    options.Providers.Add<BrotliCompressionProvider>();
-    options.Providers.Add<GZipCompressionProvider>();
-});
-
-builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
-{
-    options.Level = CompressionLevel.Optimal;
-});
-
-builder.Services.Configure<GZipCompressionProviderOptions>(options =>
-{
-    options.Level = CompressionLevel.Optimal;
+    // Use default providers (Brotli and GZip are included by default in .NET 8.0)
 });
 
 // Health Checks
 builder.Services.AddHealthChecks()
-    .AddDbContextCheck<ApplicationDbContext>("database")
     .AddCheck("self", () => Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Healthy());
 
 // CORS

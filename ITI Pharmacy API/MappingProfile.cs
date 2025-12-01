@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ITI.Pharmacy.API.DTOs;
 using ITI.Pharmacy.API.Models;
 
@@ -17,10 +17,23 @@ namespace ITI.Pharmacy.API
 
      
             CreateMap<Product, ProductDTO>()
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.ProductImage, opt => opt.MapFrom(src => src.ImageUrl ?? string.Empty))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
-            CreateMap<CreateProductDTO, Product>();
-            CreateMap<UpdateProductDTO, Product>();
+            CreateMap<CreateProductDTO, Product>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ProductName))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ProductImage));
+            
+            // Note: UpdateProductDTO is handled manually in ProductService.UpdateProductAsync
+            // This mapping is kept for potential future use but is not currently used
+            CreateMap<UpdateProductDTO, Product>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ProductName ?? string.Empty))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ProductImage ?? string.Empty))
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Category, opt => opt.Ignore())
+                .ForMember(dest => dest.ProductStocks, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore());
 
             // Category mappings
             CreateMap<Category, CategoryDTO>()

@@ -48,6 +48,10 @@ namespace ITI.Pharmacy.API.Models
 
         public int? ReviewCount { get; set; } = 0;
 
+        public int? Rank { get; set; } // Item rank for sorting/display order
+
+        public int? MaxOrderQuantity { get; set; } // Maximum quantity that can be ordered
+
         public virtual Category Category { get; set; }
         public virtual ICollection<ProductStock> ProductStocks { get; set; } = new List<ProductStock>();
     }

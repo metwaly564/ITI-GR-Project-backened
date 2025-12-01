@@ -10,6 +10,7 @@ namespace ITI.Pharmacy.API.DTOs
         public string ImageUrl { get; set; } = string.Empty;
         public bool IsActive { get; set; }
         public int ProductCount { get; set; }
+        public int? Rank { get; set; }
     }
 
     public class CreateCategoryDTO
@@ -17,6 +18,7 @@ namespace ITI.Pharmacy.API.DTOs
         [Required]
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public int? Rank { get; set; }
     }
 
     public class UpdateCategoryDTO
@@ -24,5 +26,6 @@ namespace ITI.Pharmacy.API.DTOs
         public string? Name { get; set; }
         public string? Description { get; set; }
         public bool? IsActive { get; set; }
+        public int? Rank { get; set; }
     }
 }
