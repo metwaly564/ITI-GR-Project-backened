@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\hp\\documents\\github\\iti-gr-project-backened\\iti pharmacy api\\services\\homeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\services\\homeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\hp\\documents\\github\\iti-gr-project-backened\\iti pharmacy api\\iti pharmacy api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\iti pharmacy api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -165,10 +169,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\hp\\documents\\github\\iti-gr-project-backened\\iti pharmacy api\\services\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\services\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\hp\\documents\\github\\iti-gr-project-backened\\iti pharmacy api\\services\\homeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|solutionrelative:iti pharmacy api\\services\\homeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6908F7C2-6FDB-4C0E-9966-C24499B1DB84}|ITI Pharmacy API\\ITI Pharmacy API.csproj|c:\\users\\hp\\documents\\github\\iti-gr-project-backened\\iti pharmacy api\\dtos\\responses\\paginationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -406,11 +406,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "ProductSalesDTO.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\ProductSalesDTO.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\ProductSalesDTO.cs",
@@ -422,7 +422,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "OrderTrendDTO.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\OrderTrendDTO.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\OrderTrendDTO.cs",
@@ -446,7 +446,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ITI Pharmacy API.csproj",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\ITI Pharmacy API.csproj",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\ITI Pharmacy API.csproj",
@@ -459,7 +459,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "CreateOrderDTO.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\CreateOrderDTO.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\CreateOrderDTO.cs",
@@ -468,6 +468,19 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-23T03:59:10.816Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HomeService.cs",
+              "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\HomeService.cs",
+              "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\HomeService.cs",
+              "ToolTip": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\HomeService.cs",
+              "RelativeToolTip": "ITI Pharmacy API\\Services\\HomeService.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAewDAAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T17:05:22.415Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -483,7 +496,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "OrderService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\OrderService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\OrderService.cs",
@@ -491,12 +504,11 @@
               "RelativeToolTip": "ITI Pharmacy API\\Services\\OrderService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:04:38.319Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T17:04:38.319Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "UpdateOrderStatusDTO.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\Responses\\UpdateOrderStatusDTO.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\Responses\\UpdateOrderStatusDTO.cs",
@@ -556,7 +568,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "FrontBannerService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\FrontBannerService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\FrontBannerService.cs",
@@ -568,7 +580,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "IFrontBannerService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IFrontBannerService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IFrontBannerService.cs",
@@ -676,7 +688,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "AdminBranchesController.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminBranchesController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminBranchesController.cs",
@@ -724,7 +736,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "AdminAnalyticsController.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminAnalyticsController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminAnalyticsController.cs",
@@ -736,7 +748,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "AdminOrdersController.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\Admin\\AdminOrdersController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\Admin\\AdminOrdersController.cs",
@@ -820,7 +832,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "OrdersController.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Controllers\\User\\OrdersController.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Controllers\\User\\OrdersController.cs",
@@ -904,7 +916,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "DataSeederService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\DataSeederService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\DataSeederService.cs",
@@ -916,7 +928,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "PharmacyBranchService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\PharmacyBranchService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\PharmacyBranchService.cs",
@@ -940,7 +952,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "CityService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\CityService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\CityService.cs",
@@ -952,7 +964,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "WishlistService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\WishlistService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\WishlistService.cs",
@@ -964,7 +976,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "CartService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\CartService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\CartService.cs",
@@ -976,7 +988,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "NotificationService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\NotificationService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\NotificationService.cs",
@@ -988,7 +1000,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "AdminAnalyticsService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\AdminAnalyticsService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\AdminAnalyticsService.cs",
@@ -997,18 +1009,6 @@
               "ViewState": "AgIAAAoAAAAAAAAAAIAywBwAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-04T17:06:14.961Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
-              "Title": "HomeService.cs",
-              "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\HomeService.cs",
-              "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\HomeService.cs",
-              "ToolTip": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\HomeService.cs",
-              "RelativeToolTip": "ITI Pharmacy API\\Services\\HomeService.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAiwFoAAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T17:05:22.415Z"
             },
             {
               "$type": "Document",
@@ -1024,7 +1024,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "CategoryService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\CategoryService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\CategoryService.cs",
@@ -1036,7 +1036,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "ProductService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\ProductService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\ProductService.cs",
@@ -1048,7 +1048,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "AuthService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\AuthService.cs",
@@ -1060,7 +1060,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "IPharmacyBranchService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IPharmacyBranchService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IPharmacyBranchService.cs",
@@ -1084,7 +1084,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "ICityService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\ICityService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\ICityService.cs",
@@ -1096,7 +1096,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "IWishlistService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IWishlistService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IWishlistService.cs",
@@ -1108,7 +1108,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "ICartService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\ICartService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\ICartService.cs",
@@ -1120,7 +1120,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "INotificationService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\INotificationService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\INotificationService.cs",
@@ -1132,7 +1132,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "IAdminAnalyticsService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IAdminAnalyticsService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IAdminAnalyticsService.cs",
@@ -1144,7 +1144,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "IHomeService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IHomeService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IHomeService.cs",
@@ -1156,7 +1156,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "IOrderService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IOrderService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IOrderService.cs",
@@ -1168,7 +1168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "IBannerService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IBannerService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IBannerService.cs",
@@ -1180,7 +1180,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "ICategoryService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\ICategoryService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\ICategoryService.cs",
@@ -1192,7 +1192,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "IProductService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IProductService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IProductService.cs",
@@ -1204,7 +1204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "IAuthService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Services\\IAuthService.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Services\\IAuthService.cs",
@@ -1228,7 +1228,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "WishlistDTOs.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\WishlistDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\WishlistDTOs.cs",
@@ -1252,7 +1252,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "NotificationDTOs.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\NotificationDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\NotificationDTOs.cs",
@@ -1264,7 +1264,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "AnalyticsDTOs.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\AnalyticsDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\AnalyticsDTOs.cs",
@@ -1276,7 +1276,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "HomeDTOs.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\HomeDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\HomeDTOs.cs",
@@ -1300,7 +1300,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "OrderDTOs.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\OrderDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\OrderDTOs.cs",
@@ -1312,7 +1312,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "BannerDTOs.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\DTOs\\BannerDTOs.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\DTOs\\BannerDTOs.cs",
@@ -1588,7 +1588,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\hp\\Documents\\GitHub\\ITI-GR-Project-backened\\ITI Pharmacy API\\Program.cs",
               "RelativeDocumentMoniker": "ITI Pharmacy API\\Program.cs",

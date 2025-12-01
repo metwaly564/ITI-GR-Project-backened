@@ -46,7 +46,7 @@ namespace ITI.Pharmacy.API.Services
             var featuredProductsQuery = _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.ProductStocks)
-                .Where(p => p.IsActive && p.Rating.HasValue && p.Rating >= 4.0);
+                .Where(p => p.IsActive && p.Rating.HasValue && p.Rating.Value >= 4.0m);
 
             if (branchId > 0)
             {
