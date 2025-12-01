@@ -1,4 +1,4 @@
-﻿using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.DTOs;
 using ITI.Pharmacy.API.DTOs.Responses;
 using ITI.Pharmacy.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -245,6 +245,131 @@ namespace ITI.Pharmacy.API.Services
             }
 
             return await query.CountAsync();
+        }
+
+        /// <summary>
+        /// Advanced product query with sorting, filtering by branch/category, pagination, and search
+        /// Perfect for Angular frontend
+        /// </summary>
+        public async Task<PaginationResponse<ProductDTO>> GetProductsAdvancedAsync(ProductQueryDTO query)
+        {
+            // Validate and set defaults
+            if (query.Page < 1) query.Page = 1;
+            if (query.PageSize < 1) query.PageSize = 10;
+            if (query.PageSize > 100) query.PageSize = 100; // Max limit
+
+            var dbQuery = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.ProductStocks)
+                    .ThenInclude(ps => ps.Branch)
+                .AsQueryable();
+
+            // Filter by active status
+            if (query.IsActive.HasValue)
+            {
+                dbQuery = dbQuery.Where(p => p.IsActive == query.IsActive.Value);
+            }
+
+            // Search by name or description
+            if (!string.IsNullOrWhiteSpace(query.Search))
+            {
+                var searchTerm = query.Search.ToLower();
+                dbQuery = dbQuery.Where(p => 
+                    p.Name.ToLower().Contains(searchTerm) || 
+                    p.Description.ToLower().Contains(searchTerm));
+            }
+
+            // Filter by category
+            if (query.CategoryId.HasValue)
+            {
+                dbQuery = dbQuery.Where(p => p.CategoryId == query.CategoryId.Value);
+            }
+
+            // Filter by branch (products that have stock in this branch)
+            if (query.BranchId.HasValue)
+            {
+                dbQuery = dbQuery.Where(p => 
+                    p.ProductStocks.Any(ps => ps.BranchId == query.BranchId.Value));
+            }
+
+            // Filter by price range
+            if (query.MinPrice.HasValue)
+            {
+                dbQuery = dbQuery.Where(p => p.Price >= query.MinPrice.Value);
+            }
+
+            if (query.MaxPrice.HasValue)
+            {
+                dbQuery = dbQuery.Where(p => p.Price <= query.MaxPrice.Value);
+            }
+
+            // Filter by prescription requirement
+            if (query.IsPrescriptionRequired.HasValue)
+            {
+                dbQuery = dbQuery.Where(p => p.IsPrescriptionRequired == query.IsPrescriptionRequired.Value);
+            }
+
+            // Filter by stock availability in branch
+            if (query.InStock.HasValue && query.BranchId.HasValue)
+            {
+                if (query.InStock.Value)
+                {
+                    // Only products with stock > 0 in this branch
+                    dbQuery = dbQuery.Where(p => 
+                        p.ProductStocks.Any(ps => 
+                            ps.BranchId == query.BranchId.Value && ps.Quantity > 0));
+                }
+                else
+                {
+                    // Products with no stock or stock = 0
+                    dbQuery = dbQuery.Where(p => 
+                        !p.ProductStocks.Any(ps => 
+                            ps.BranchId == query.BranchId.Value && ps.Quantity > 0));
+                }
+            }
+
+            // Sorting
+            dbQuery = query.SortBy?.ToLower() switch
+            {
+                "name" => dbQuery.OrderBy(p => p.Name),
+                "nameDesc" => dbQuery.OrderByDescending(p => p.Name),
+                "price" => dbQuery.OrderBy(p => p.Price),
+                "priceDesc" => dbQuery.OrderByDescending(p => p.Price),
+                "date" => dbQuery.OrderBy(p => p.CreatedAt),
+                "dateDesc" => dbQuery.OrderByDescending(p => p.CreatedAt),
+                "rating" => dbQuery.OrderByDescending(p => p.Rating ?? 0),
+                "ratingDesc" => dbQuery.OrderBy(p => p.Rating ?? 0),
+                _ => dbQuery.OrderBy(p => p.Name) // Default: sort by name
+            };
+
+            // Get total count before pagination
+            var totalCount = await dbQuery.CountAsync();
+
+            // Apply pagination
+            var products = await dbQuery
+                .Skip((query.Page - 1) * query.PageSize)
+                .Take(query.PageSize)
+                .ToListAsync();
+
+            // Map to DTOs
+            var productDTOs = _mapper.Map<List<ProductDTO>>(products);
+
+            // If branch filter is applied, filter stock in DTOs to show only that branch's stock
+            if (query.BranchId.HasValue)
+            {
+                foreach (var dto in productDTOs)
+                {
+                    dto.Stock = dto.Stock.Where(s => s.BranchId == query.BranchId.Value).ToList();
+                }
+            }
+
+            return new PaginationResponse<ProductDTO>
+            {
+                CurrentPage = query.Page,
+                PageSize = query.PageSize,
+                TotalCount = totalCount,
+                Items = productDTOs
+            };
         }
     }
 }

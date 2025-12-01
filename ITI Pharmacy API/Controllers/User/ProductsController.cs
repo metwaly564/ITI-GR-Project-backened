@@ -53,5 +53,31 @@ namespace ITI.Pharmacy.API.Controllers.User
             var products = await _productService.GetFeaturedProductsAsync();
             return Ok(products);
         }
+
+        /// <summary>
+        /// Advanced product query endpoint - Perfect for Angular frontend
+        /// Supports: pagination, sorting, filtering by branch/category, search, price range
+        /// Example: /api/Products/query?page=1&pageSize=10&sortBy=price&branchId=1&categoryId=2&search=paracetamol
+        /// </summary>
+        [HttpGet("query")]
+        public async Task<ActionResult<PaginationResponse<ProductDTO>>> GetProductsAdvanced([FromQuery] ProductQueryDTO query)
+        {
+            var result = await _productService.GetProductsAdvancedAsync(query);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Get products with pagination (simplified version)
+        /// Example: /api/Products/paginated?page=1&pageSize=10&search=medicine
+        /// </summary>
+        [HttpGet("paginated")]
+        public async Task<ActionResult<PaginationResponse<ProductDTO>>> GetProductsPaginated(
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string? search = null)
+        {
+            var result = await _productService.GetProductsPaginatedAsync(page, pageSize, search);
+            return Ok(result);
+        }
     }
 }

@@ -17,5 +17,8 @@ namespace ITI.Pharmacy.API.Services
         Task<List<ProductDTO>> SearchProductsAsync(string searchTerm, int? categoryId = null);
         Task<bool> ToggleFeaturedStatusAsync(int id);
         Task<int> GetProductsCountAsync(bool? isActive = null);
+        
+        // Advanced query with sorting, filtering, pagination - Angular-friendly
+        Task<PaginationResponse<ProductDTO>> GetProductsAdvancedAsync(ProductQueryDTO query);
     }
 }

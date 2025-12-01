@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace ITI.Pharmacy.API.DTOs
 {
@@ -27,6 +27,12 @@ namespace ITI.Pharmacy.API.DTOs
 
         [JsonPropertyName("lastRestocked")]
         public DateTime? LastRestocked { get; set; }
+
+        [JsonPropertyName("isLowStock")]
+        public bool IsLowStock => Quantity > 0 && Quantity <= MinimumStockLevel;
+
+        [JsonPropertyName("isOutOfStock")]
+        public bool IsOutOfStock => Quantity == 0;
     }
 
     public class UpdateStockDTO

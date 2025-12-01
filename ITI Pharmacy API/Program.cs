@@ -2,12 +2,16 @@ using ITI.Pharmacy.API.Models;
 using ITI.Pharmacy.API.Services;
 using ITI.Pharmacy.API.Utilities;
 using ITI.Pharmacy.API.Hubs;
+using ITI.Pharmacy.API.Middleware;
+using ITI.Pharmacy.API.Repositories.Interfaces;
+using ITI.Pharmacy.API.Repositories.Implementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.IO.Compression;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -105,8 +109,34 @@ builder.Services.AddScoped<ProductRecommender>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddScoped<DataSeederService>();
 
+// Unit of Work
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
+
+// Response Compression
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<BrotliCompressionProvider>();
+    options.Providers.Add<GZipCompressionProvider>();
+});
+
+builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.Optimal;
+});
+
+builder.Services.Configure<GZipCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.Optimal;
+});
+
+// Health Checks
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<ApplicationDbContext>("database")
+    .AddCheck("self", () => Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Healthy());
 
 // CORS
 builder.Services.AddCors(options =>
@@ -128,12 +158,38 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Middleware
+// Middleware Pipeline (Order matters!)
 app.UseCors("AllowAll");
+
+// Request Logging (should be early in pipeline)
+app.UseMiddleware<RequestLoggingMiddleware>();
+
+// Global Exception Handler (early to catch all exceptions)
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+
+// Response Compression
+app.UseResponseCompression();
+
+// Static Files
 app.UseStaticFiles();
+
+// Authentication & Authorization
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Controllers
 app.MapControllers();
+
+// Health Checks
+app.MapHealthChecks("/health");
+app.MapHealthChecks("/health/ready", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("ready")
+});
+app.MapHealthChecks("/health/live", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = _ => false
+});
 
 // SignalR Hub
 app.MapHub<NotificationHub>("/notificationHub");
