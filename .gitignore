@@ -1,1 +1,162 @@
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Visual Studio directory
 .vs/
+.vscode/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit, xUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+xunit-*.xml
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/wwwroot/dist/
+
+# Build results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+# Files built by Visual Studio
+*.pdb
+*.ipdb
+*.cache
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.tlb
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+# Package Files
+*.nupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# Azure
+[Aa]pplication-[Ii]nsights/
+[Pp]ublish[Pp]rofiles/
+*.azurePubxml
+*.pubxml
+*.publishproj
+
+# Microsoft Fakes
+FakesAssemblies/
+
+# Node.js Tools for Visual Studio
+.ntvs_analysis.dat
+node_modules/
+
+# Logs
+*.log
+logs/
+[Ll]og/
+*.[Ll]og.*
+
+# SQL Server files
+*.mdf
+*.ldf
+*.ndf
+
+# Local development settings
+appsettings.Development.json
+appsettings.Local.json
+appsettings.private.json
+
+# Secrets
+secrets.json
+*.secrets.json
+
+# API-specific ignores
+swagger.json
+swagger.yaml
+*.swagger*
+
+# Entity Framework
+/Migrations/*.Designer.cs
+/Migrations/*.sql
+
+# Docker
+.dockerignore
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Rider IDE
+.idea/
+
+# Code coverage
+coverage.json
+coverage.cobertura.xml
+**/coverage/
+*.coverage
+
+# MSBuild
+*.binlog
+
+# Cake
+tools/
+!tools/packages.config
+
+# Temp files
+temp/
+tmp/
+_temp/
+_tmp/
