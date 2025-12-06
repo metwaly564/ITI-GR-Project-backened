@@ -93,6 +93,32 @@ namespace ITI.Pharmacy.API.Models
             // --- Disable Identity for Seed IDs (only for banners; categories/products use DB identity) ---
             builder.Entity<Banner>().Property(b => b.Id).ValueGeneratedNever();
 
+            // --- Performance Indexes for Products ---
+            // Index on Name for faster search and sorting
+            builder.Entity<Product>()
+                .HasIndex(p => p.Name)
+                .HasDatabaseName("IX_Products_Name");
+
+            // Index on Description for faster search
+            builder.Entity<Product>()
+                .HasIndex(p => p.Description)
+                .HasDatabaseName("IX_Products_Description");
+
+            // Index on CategoryId for faster filtering
+            builder.Entity<Product>()
+                .HasIndex(p => p.CategoryId)
+                .HasDatabaseName("IX_Products_CategoryId");
+
+            // Index on IsActive for faster filtering
+            builder.Entity<Product>()
+                .HasIndex(p => p.IsActive)
+                .HasDatabaseName("IX_Products_IsActive");
+
+            // Composite index for common query patterns (Name + IsActive)
+            builder.Entity<Product>()
+                .HasIndex(p => new { p.Name, p.IsActive })
+                .HasDatabaseName("IX_Products_Name_IsActive");
+
             // --- Seed Data ---
             builder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Medicines", Description = "All kinds of medicines", IsActive = true, CreatedAt = seedDate },

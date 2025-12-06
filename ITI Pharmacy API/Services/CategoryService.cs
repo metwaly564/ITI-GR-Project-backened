@@ -111,5 +111,92 @@ namespace ITI.Pharmacy.API.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<CategoryImageUpdateResponseDTO> UpdateCategoryImageUrlsAsync(List<CategoryImageUpdateDTO> categories)
+        {
+            var response = new CategoryImageUpdateResponseDTO
+            {
+                Success = true,
+                UpdatedCount = 0,
+                SkippedCount = 0,
+                Errors = new List<string>()
+            };
+
+            if (categories == null || !categories.Any())
+            {
+                response.Message = "No categories provided";
+                response.Success = false;
+                return response;
+            }
+
+            // Load all existing categories for matching
+            var existingCategories = await _context.Categories.ToListAsync();
+
+            foreach (var categoryUpdate in categories)
+            {
+                try
+                {
+                    // Skip if no image URL provided
+                    if (string.IsNullOrWhiteSpace(categoryUpdate.ImageUrl))
+                    {
+                        response.SkippedCount++;
+                        continue;
+                    }
+
+                    Category? category = null;
+
+                    // Try to find by ID first if provided
+                    if (categoryUpdate.Id.HasValue)
+                    {
+                        category = existingCategories.FirstOrDefault(c => c.Id == categoryUpdate.Id.Value);
+                    }
+
+                    // If not found by ID, try to find by name (match with nameEn or nameAr)
+                    if (category == null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(categoryUpdate.NameEn))
+                        {
+                            category = existingCategories.FirstOrDefault(c => 
+                                c.Name.Equals(categoryUpdate.NameEn, StringComparison.OrdinalIgnoreCase));
+                        }
+
+                        if (category == null && !string.IsNullOrWhiteSpace(categoryUpdate.NameAr))
+                        {
+                            category = existingCategories.FirstOrDefault(c => 
+                                c.Name.Equals(categoryUpdate.NameAr, StringComparison.OrdinalIgnoreCase));
+                        }
+                    }
+
+                    if (category != null)
+                    {
+                        // Update the image URL
+                        category.ImageUrl = categoryUpdate.ImageUrl.Trim();
+                        response.UpdatedCount++;
+                    }
+                    else
+                    {
+                        response.SkippedCount++;
+                        var categoryName = categoryUpdate.NameEn ?? categoryUpdate.NameAr ?? "Unknown";
+                        response.Errors.Add($"Category '{categoryName}' not found and was skipped");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var categoryName = categoryUpdate.NameEn ?? categoryUpdate.NameAr ?? "Unknown";
+                    response.Errors.Add($"Error updating category '{categoryName}': {ex.Message}");
+                }
+            }
+
+            // Save all changes
+            if (response.UpdatedCount > 0)
+            {
+                await _context.SaveChangesAsync();
+            }
+
+            response.Message = $"Update completed. Updated: {response.UpdatedCount} categories, Skipped: {response.SkippedCount} categories.";
+            response.Success = response.UpdatedCount > 0 || response.SkippedCount > 0;
+
+            return response;
+        }
     }
 }

@@ -28,4 +28,31 @@ namespace ITI.Pharmacy.API.DTOs
         public bool? IsActive { get; set; }
         public int? Rank { get; set; }
     }
+
+    /// <summary>
+    /// DTO for bulk category image URL update
+    /// </summary>
+    public class CategoryImageUpdateDTO
+    {
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public int? Id { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("nameEn")]
+        public string? NameEn { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("nameAr")]
+        public string? NameAr { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ImageUrl")]
+        public string? ImageUrl { get; set; }
+    }
+
+    public class CategoryImageUpdateResponseDTO
+    {
+        public bool Success { get; set; }
+        public string Message { get; set; } = string.Empty;
+        public int UpdatedCount { get; set; }
+        public int SkippedCount { get; set; }
+        public List<string> Errors { get; set; } = new List<string>();
+    }
 }

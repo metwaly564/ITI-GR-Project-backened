@@ -172,19 +172,30 @@ namespace ITI.Pharmacy.API.Services
             if (pageSize < 1) pageSize = 10;
             if (pageSize > 100) pageSize = 100;
 
+            // Optimized query with AsNoTracking for read-only operations
+            // Note: For admin, we show all products (active and inactive)
             var query = _context.Products
+                .AsNoTracking() // Performance: Don't track entities for read-only operations
                 .Include(p => p.Category)
                 .Include(p => p.ProductStocks)
                     .ThenInclude(ps => ps.Branch)
-                .Where(p => p.IsActive)
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(search))
+            // Optimized search - using Contains which is efficient with proper indexing
+            if (!string.IsNullOrWhiteSpace(search))
             {
-                query = query.Where(p => p.Name.Contains(search) || p.Description.Contains(search));
+                var searchTerm = search.Trim();
+                query = query.Where(p => 
+                    p.Name.Contains(searchTerm) || 
+                    p.Description.Contains(searchTerm) ||
+                    (p.Category != null && p.Category.Name.Contains(searchTerm))
+                );
             }
 
+            // Get total count before pagination (more efficient)
             var totalCount = await query.CountAsync();
+
+            // Apply pagination and ordering
             var products = await query
                 .OrderBy(p => p.Name)
                 .Skip((page - 1) * pageSize)

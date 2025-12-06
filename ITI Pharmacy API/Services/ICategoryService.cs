@@ -9,5 +9,6 @@ namespace ITI.Pharmacy.API.Services
         Task<CategoryDTO> CreateCategoryAsync(CreateCategoryDTO dto, IFormFile image);
         Task<CategoryDTO> UpdateCategoryAsync(int id, UpdateCategoryDTO dto, IFormFile image);
         Task<bool> DeleteCategoryAsync(int id);
+        Task<CategoryImageUpdateResponseDTO> UpdateCategoryImageUrlsAsync(List<CategoryImageUpdateDTO> categories);
     }
 }

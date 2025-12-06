@@ -109,6 +109,7 @@ builder.Services.AddScoped<IPharmacyBranchService, PharmacyBranchService>();
 builder.Services.AddScoped<ProductRecommender>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddScoped<IBackupService, BackupService>();
+builder.Services.AddScoped<ICategoryImportService, CategoryImportService>();
 builder.Services.AddScoped<DataSeederService>();
 
 // Unit of Work

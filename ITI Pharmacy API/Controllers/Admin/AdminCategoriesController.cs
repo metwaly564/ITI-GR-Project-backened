@@ -1,4 +1,6 @@
 using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.DTOs.Responses;
+using ITI.Pharmacy.API.Models.Responses;
 using ITI.Pharmacy.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +32,51 @@ namespace ITI.Pharmacy.API.Controllers.Admin
             var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null) return NotFound();
             return Ok(category);
+        }
+
+        /// <summary>
+        /// Bulk update category image URLs from JSON
+        /// Matches categories by nameEn or nameAr, updates ImageUrl if category exists
+        /// </summary>
+        [HttpPost("update-image-urls")]
+        public async Task<ActionResult<AdvancedApiResponse<CategoryImageUpdateResponseDTO>>> UpdateCategoryImageUrls(
+            [FromBody] List<CategoryImageUpdateDTO> categories)
+        {
+            try
+            {
+                if (categories == null || !categories.Any())
+                {
+                    return BadRequest(new AdvancedApiResponse<CategoryImageUpdateResponseDTO>
+                    {
+                        Success = false,
+                        Message = "Category list is required",
+                        Data = null,
+                        Timestamp = DateTime.UtcNow
+                    });
+                }
+
+                var result = await _categoryService.UpdateCategoryImageUrlsAsync(categories);
+
+                return Ok(new AdvancedApiResponse<CategoryImageUpdateResponseDTO>
+                {
+                    Success = result.Success,
+                    Message = result.Message,
+                    Data = result,
+                    Errors = result.Errors.Any() ? result.Errors : null,
+                    Timestamp = DateTime.UtcNow
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new AdvancedApiResponse<CategoryImageUpdateResponseDTO>
+                {
+                    Success = false,
+                    Message = "Error updating category image URLs",
+                    Errors = new List<string> { ex.Message },
+                    Data = null,
+                    Timestamp = DateTime.UtcNow
+                });
+            }
         }
 
         [HttpPost]
