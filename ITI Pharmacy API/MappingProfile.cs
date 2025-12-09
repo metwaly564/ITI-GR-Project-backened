@@ -19,7 +19,8 @@ namespace ITI.Pharmacy.API
             CreateMap<Product, ProductDTO>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.ProductImage, opt => opt.MapFrom(src => src.ImageUrl ?? string.Empty))
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+                .ForMember(dest => dest.DiscountPrice, opt => opt.MapFrom(src => src.DiscountPrice));
 
             CreateMap<CreateProductDTO, Product>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ProductName))
