@@ -34,9 +34,9 @@ namespace ITI.Pharmacy.API.Services
                 ProductCount = c.Products.Count(p => p.IsActive)
             }).ToList();
 
-            // Get active banners
+            // Get active banners with type "Main" for home page slider
             var banners = await _context.Banners
-                .Where(b => b.IsActive)
+                .Where(b => b.IsActive && b.Type == BannerType.Main)
                 .OrderBy(b => b.DisplayOrder)
                 .ToListAsync();
 

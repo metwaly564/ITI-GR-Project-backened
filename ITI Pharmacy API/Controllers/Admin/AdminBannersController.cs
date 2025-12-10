@@ -1,4 +1,5 @@
 using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.Models;
 using ITI.Pharmacy.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace ITI.Pharmacy.API.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task<ActionResult<BannerDTO>> CreateBanner([FromForm] CreateBannerDTO dto, IFormFile image)
+        public async Task<ActionResult<BannerDTO>> CreateBanner([FromForm] CreateBannerDTO dto, [FromForm] IFormFile? image)
         {
             try
             {
@@ -42,22 +43,22 @@ namespace ITI.Pharmacy.API.Controllers.Admin
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message, details = ex.ToString() });
             }
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<BannerDTO>> UpdateBanner(int id, [FromForm] UpdateBannerDTO dto, IFormFile image)
+        public async Task<ActionResult<BannerDTO>> UpdateBanner(int id, [FromForm] UpdateBannerDTO dto, [FromForm] IFormFile? image = null)
         {
             try
             {
                 var banner = await _bannerService.UpdateBannerAsync(id, dto, image);
-                if (banner == null) return NotFound();
+                if (banner == null) return NotFound(new { message = "Banner not found" });
                 return Ok(banner);
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message, details = ex.ToString() });
             }
         }
 
@@ -65,8 +66,8 @@ namespace ITI.Pharmacy.API.Controllers.Admin
         public async Task<IActionResult> DeleteBanner(int id)
         {
             var result = await _bannerService.DeleteBannerAsync(id);
-            if (!result) return NotFound();
-            return NoContent();
+            if (!result) return NotFound(new { message = "Banner not found" });
+            return Ok(new { message = "Banner deleted successfully" });
         }
     }
 }

@@ -203,7 +203,8 @@ namespace ITI.Pharmacy.API.Services
                         Description = "Get up to 50% off on all products",
                         ImageUrl = "banner1.jpg",
                         Link = "/products/sale",
-                        DisplayOrder = 1
+                        DisplayOrder = 1,
+                        Type = BannerType.Main
                     },
                     new Banner
                     {
@@ -211,7 +212,8 @@ namespace ITI.Pharmacy.API.Services
                         Description = "Free delivery on orders over 200 EGP",
                         ImageUrl = "banner2.jpg",
                         Link = "/delivery",
-                        DisplayOrder = 2
+                        DisplayOrder = 2,
+                        Type = BannerType.Middle
                     }
                 };
 

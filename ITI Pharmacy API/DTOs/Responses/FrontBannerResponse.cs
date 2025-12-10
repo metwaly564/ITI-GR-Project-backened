@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using ITI.Pharmacy.API.Models;
 
 namespace ITI.Pharmacy.API.DTOs.Responses
 {
@@ -15,6 +16,9 @@ namespace ITI.Pharmacy.API.DTOs.Responses
 
         [JsonPropertyName("imageUrl")]
         public string ImageUrl { get; set; } = string.Empty;
+
+        [JsonPropertyName("type")]
+        public BannerType Type { get; set; } = BannerType.Main;
 
         [JsonPropertyName("callToAction")]
         public string? CallToAction { get; set; }

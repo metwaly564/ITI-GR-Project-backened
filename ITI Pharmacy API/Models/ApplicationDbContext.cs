@@ -90,8 +90,10 @@ namespace ITI.Pharmacy.API.Models
                 .HasForeignKey(st => st.ToBranchId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // --- Disable Identity for Seed IDs (only for banners; categories/products use DB identity) ---
-            builder.Entity<Banner>().Property(b => b.Id).ValueGeneratedNever();
+            // --- Banner Id Configuration ---
+            // Configure Id to be auto-generated (identity column) for regular inserts
+            // Seed data in HasData() can still specify explicit IDs
+            builder.Entity<Banner>().Property(b => b.Id).ValueGeneratedOnAdd();
 
             // --- Performance Indexes for Products ---
             // Index on Name for faster search and sorting
@@ -166,6 +168,7 @@ namespace ITI.Pharmacy.API.Models
                     IsActive = true,
                     Link = "/sale",
                     ImageUrl = "images/default-banner.png",
+                    Type = BannerType.Main,
                     CreatedAt = seedDate
                 },
                 new Banner
@@ -177,6 +180,7 @@ namespace ITI.Pharmacy.API.Models
                     IsActive = true,
                     Link = "/new",
                     ImageUrl = "images/default-banner.png",
+                    Type = BannerType.Middle,
                     CreatedAt = seedDate
                 }
             );

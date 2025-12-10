@@ -2,6 +2,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ITI.Pharmacy.API.Models
 {
+    public enum BannerType
+    {
+        Main,
+        Middle
+    }
+
     public class Banner
     {
         [Key]
@@ -20,6 +26,9 @@ namespace ITI.Pharmacy.API.Models
 
         [StringLength(200)]
         public string Link { get; set; }
+
+        [Required]
+        public BannerType Type { get; set; } = BannerType.Main;
 
         public bool IsActive { get; set; } = true;
         public int DisplayOrder { get; set; } = 0;
