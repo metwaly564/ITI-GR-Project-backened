@@ -18,8 +18,87 @@ namespace ITI.Pharmacy.API.Services
 
         public async Task<OrderDTO> CreateOrderAsync(string userId, CreateOrderDTO dto)
         {
-            // TODO: Implement order creation logic
-            throw new NotImplementedException("OrderService.CreateOrderAsync is not yet implemented");
+            if (string.IsNullOrEmpty(userId))
+                throw new ArgumentException("User ID is required");
+
+            if (dto.OrderItems == null || dto.OrderItems.Count == 0)
+                throw new ArgumentException("Order must contain at least one item");
+
+            // Verify branch exists
+            var branch = await _context.PharmacyBranches.FindAsync(dto.BranchId);
+            if (branch == null)
+                throw new ArgumentException("Invalid branch ID");
+
+            // Get all products for the order
+            var productIds = dto.OrderItems.Select(oi => oi.ProductId).ToList();
+            var products = await _context.Products
+                .Where(p => productIds.Contains(p.Id) && p.IsActive)
+                .ToListAsync();
+
+            if (products.Count != productIds.Count)
+                throw new ArgumentException("One or more products are invalid or inactive");
+
+            // Create order
+            var order = new Order
+            {
+                UserId = userId,
+                BranchId = dto.BranchId,
+                OrderNumber = GenerateOrderNumber(),
+                ShippingAddress = dto.ShippingAddress,
+                CustomerNotes = dto.CustomerNotes ?? string.Empty,
+                AdminNotes = string.Empty, // Initialize AdminNotes to empty string
+                PrescriptionImageUrl = dto.PrescriptionImageUrl ?? string.Empty,
+                PaymentMethod = dto.PaymentMethod,
+                PaymentStatus = "Pending",
+                Status = "Pending",
+                DeliveryFee = 5.00m, // Default delivery fee
+                CreatedAt = DateTime.UtcNow
+            };
+
+            // Create order items and calculate total
+            decimal totalAmount = 0;
+            foreach (var itemDto in dto.OrderItems)
+            {
+                var product = products.First(p => p.Id == itemDto.ProductId);
+                var unitPrice = product.DiscountPrice ?? product.Price;
+                var totalPrice = unitPrice * itemDto.Quantity;
+
+                var orderItem = new OrderItem
+                {
+                    ProductId = itemDto.ProductId,
+                    Quantity = itemDto.Quantity,
+                    UnitPrice = unitPrice,
+                    TotalPrice = totalPrice,
+                    Order = order
+                };
+
+                order.OrderItems.Add(orderItem);
+                totalAmount += totalPrice;
+            }
+
+            order.TotalAmount = totalAmount + order.DeliveryFee;
+
+            // Save order
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            // Load order with related data for mapping
+            var savedOrder = await _context.Orders
+                .Include(o => o.Branch)
+                .Include(o => o.User)
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Product)
+                .FirstOrDefaultAsync(o => o.Id == order.Id);
+
+            return _mapper.Map<OrderDTO>(savedOrder);
+        }
+
+        private string GenerateOrderNumber()
+        {
+            // Generate unique order number: ORD-YYYYMMDD-HHMMSS-XXXX
+            var timestamp = DateTime.UtcNow.ToString("yyyyMMdd-HHmmss");
+            var random = new Random().Next(1000, 9999);
+            return $"ORD-{timestamp}-{random}";
         }
 
         public async Task<List<OrderDTO>> GetUserOrdersAsync(string userId)
