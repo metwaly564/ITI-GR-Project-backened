@@ -25,6 +25,8 @@ namespace ITI.Pharmacy.API.Models
         public string PaymentMethod { get; set; } = "Cash"; 
 
         public string ShippingAddress { get; set; }
+        public string PhoneNumber { get; set; }
+        public int? CityId { get; set; }
         public string CustomerNotes { get; set; }
         public string AdminNotes { get; set; }
 
@@ -39,6 +41,7 @@ namespace ITI.Pharmacy.API.Models
 
         public virtual User User { get; set; }
         public virtual PharmacyBranch Branch { get; set; }
+        public virtual City City { get; set; }
         public virtual DeliveryBoy DeliveryBoy { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }

@@ -213,5 +213,15 @@ namespace ITI.Pharmacy.API.Services
                 Items = _mapper.Map<List<FrontBannerResponse>>(items)
             };
         }
+
+        public async Task<List<BannerDTO>> GetMiddleBannersAsync()
+        {
+            var banners = await _context.Banners
+                .Where(b => b.IsActive && b.Type == BannerType.Middle)
+                .OrderBy(b => b.DisplayOrder)
+                .ToListAsync();
+
+            return _mapper.Map<List<BannerDTO>>(banners);
+        }
     }
 }

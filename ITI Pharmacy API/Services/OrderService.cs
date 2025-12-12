@@ -29,6 +29,19 @@ namespace ITI.Pharmacy.API.Services
             if (branch == null)
                 throw new ArgumentException("Invalid branch ID");
 
+            // Verify city exists and is active
+            var city = await _context.Cities.FindAsync(dto.CityId);
+            if (city == null || !city.IsActive)
+                throw new ArgumentException("Invalid city ID or city is not active");
+
+            // Validate shipping address
+            if (string.IsNullOrWhiteSpace(dto.ShippingAddress) || dto.ShippingAddress.Trim().Length < 10)
+                throw new ArgumentException("Shipping address must be at least 10 characters long");
+
+            // Validate phone number
+            if (string.IsNullOrWhiteSpace(dto.PhoneNumber) || dto.PhoneNumber.Trim().Length < 8)
+                throw new ArgumentException("Phone number must be at least 8 characters long");
+
             // Get all products for the order
             var productIds = dto.OrderItems.Select(oi => oi.ProductId).ToList();
             var products = await _context.Products
@@ -45,6 +58,8 @@ namespace ITI.Pharmacy.API.Services
                 BranchId = dto.BranchId,
                 OrderNumber = GenerateOrderNumber(),
                 ShippingAddress = dto.ShippingAddress,
+                PhoneNumber = dto.PhoneNumber,
+                CityId = dto.CityId,
                 CustomerNotes = dto.CustomerNotes ?? string.Empty,
                 AdminNotes = string.Empty, // Initialize AdminNotes to empty string
                 PrescriptionImageUrl = dto.PrescriptionImageUrl ?? string.Empty,
@@ -86,6 +101,7 @@ namespace ITI.Pharmacy.API.Services
             var savedOrder = await _context.Orders
                 .Include(o => o.Branch)
                 .Include(o => o.User)
+                .Include(o => o.City)
                 .Include(o => o.OrderItems)
                     .ThenInclude(oi => oi.Product)
                 .FirstOrDefaultAsync(o => o.Id == order.Id);
@@ -106,6 +122,7 @@ namespace ITI.Pharmacy.API.Services
             var orders = await _context.Orders
                 .Include(o => o.Branch)
                 .Include(o => o.User)
+                .Include(o => o.City)
                 .Where(o => o.UserId == userId)
                 .ToListAsync();
 
@@ -117,6 +134,7 @@ namespace ITI.Pharmacy.API.Services
             var query = _context.Orders
                 .Include(o => o.Branch)
                 .Include(o => o.User)
+                .Include(o => o.City)
                 .Include(o => o.OrderItems)
                     .ThenInclude(oi => oi.Product)
                 .AsQueryable();
@@ -135,6 +153,7 @@ namespace ITI.Pharmacy.API.Services
             var orders = await _context.Orders
                 .Include(o => o.Branch)
                 .Include(o => o.User)
+                .Include(o => o.City)
                 .ToListAsync();
 
             return _mapper.Map<List<OrderDTO>>(orders);
@@ -145,6 +164,7 @@ namespace ITI.Pharmacy.API.Services
             var orders = await _context.Orders
                 .Include(o => o.Branch)
                 .Include(o => o.User)
+                .Include(o => o.City)
                 .Where(o => o.BranchId == branchId)
                 .ToListAsync();
 

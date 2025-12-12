@@ -38,6 +38,16 @@ namespace ITI.Pharmacy.API.Controllers.User
             if (category == null) return NotFound();
             return Ok(category);
         }
+
+        /// <summary>
+        /// Get top 10 ranked categories with top 10 products each (in stock, sorted by rank)
+        /// </summary>
+        [HttpGet("top-ranked")]
+        public async Task<ActionResult<List<TopRankedCategoryDTO>>> GetTopRankedCategories()
+        {
+            var categories = await _categoryService.GetTopRankedCategoriesAsync();
+            return Ok(categories);
+        }
     }
 }
 

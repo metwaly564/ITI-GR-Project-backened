@@ -55,6 +55,12 @@ namespace ITI.Pharmacy.API.Models
                 .HasForeignKey(o => o.BranchId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Order>()
+                .HasOne(o => o.City)
+                .WithMany()
+                .HasForeignKey(o => o.CityId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<ProductStock>()
                 .HasKey(ps => new { ps.ProductId, ps.BranchId });
 

@@ -1,4 +1,5 @@
-﻿using ITI.Pharmacy.API.DTOs.Responses;
+﻿using ITI.Pharmacy.API.DTOs;
+using ITI.Pharmacy.API.DTOs.Responses;
 using ITI.Pharmacy.API.Models.Responses;
 using ITI.Pharmacy.API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,16 @@ namespace ITI.Pharmacy.API.Controllers.Front
         {
             var result = await _bannerService.GetActiveBannersPaginatedAsync(pageNumber, pageSize);
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Get middle banners sorted by DisplayOrder (rank)
+        /// </summary>
+        [HttpGet("middle")]
+        public async Task<ActionResult<List<BannerDTO>>> GetMiddleBanners()
+        {
+            var banners = await _bannerService.GetMiddleBannersAsync();
+            return Ok(banners);
         }
     }
 }

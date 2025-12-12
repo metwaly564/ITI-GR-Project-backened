@@ -46,7 +46,8 @@ namespace ITI.Pharmacy.API
         
             CreateMap<Order, OrderDTO>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => $"{src.User.FirstName} {src.User.LastName}"))
-                .ForMember(dest => dest.BranchName, opt => opt.MapFrom(src => src.Branch.Name));
+                .ForMember(dest => dest.BranchName, opt => opt.MapFrom(src => src.Branch.Name))
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.City != null ? src.City.Name : null));
 
         
             CreateMap<Banner, BannerDTO>();

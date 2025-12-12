@@ -198,5 +198,69 @@ namespace ITI.Pharmacy.API.Services
 
             return response;
         }
+
+        public async Task<List<TopRankedCategoryDTO>> GetTopRankedCategoriesAsync()
+        {
+            // Get top 10 categories sorted by Rank (ascending)
+            // Include must come before Take() in EF Core
+            var categories = await _context.Categories
+                .Where(c => c.IsActive)
+                .Include(c => c.Products)
+                    .ThenInclude(p => p.ProductStocks)
+                .OrderBy(c => c.Rank ?? int.MaxValue)
+                .ThenBy(c => c.Id)
+                .Take(10)
+                .ToListAsync();
+
+            var result = new List<TopRankedCategoryDTO>();
+
+            foreach (var category in categories)
+            {
+                // Get top 10 products in stock, sorted by Rank (ascending)
+                var productsInStock = category.Products
+                    .Where(p => p.IsActive && p.ProductStocks.Sum(ps => ps.Quantity) > 0)
+                    .OrderBy(p => p.Rank ?? int.MaxValue)
+                    .ThenBy(p => p.Id)
+                    .Take(10)
+                    .Select(p => new TopRankedProductDTO
+                    {
+                        SkuId = p.Id,
+                        ProductNameEn = p.Name,
+                        ProductNameAr = p.Name, // If you have Arabic names, update this
+                        PriceAfter = p.DiscountPrice ?? p.Price,
+                        PriceBefore = p.DiscountPrice.HasValue ? p.Price : null,
+                        AvailableStock = p.ProductStocks.Sum(ps => ps.Quantity),
+                        ItemRank = p.Rank,
+                        Description = p.Description,
+                        CategoryId = category.Id,
+                        Images = string.IsNullOrEmpty(p.ImageUrl)
+                            ? new List<ProductImageDTO>()
+                            : new List<ProductImageDTO>
+                            {
+                                new ProductImageDTO
+                                {
+                                    ImageUrl = p.ImageUrl,
+                                    ImageRank = 1
+                                }
+                            }
+                    })
+                    .ToList();
+
+                // Only add category if it has products in stock
+                if (productsInStock.Any())
+                {
+                    result.Add(new TopRankedCategoryDTO
+                    {
+                        CategoryId = category.Id,
+                        CategoryNameEn = category.Name,
+                        CategoryNameAr = category.Name, // If you have Arabic names, update this
+                        CategoryRank = category.Rank,
+                        Products = productsInStock
+                    });
+                }
+            }
+
+            return result;
+        }
     }
 }

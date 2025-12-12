@@ -7,6 +7,9 @@ public class OrderDTO
     public decimal TotalAmount { get; set; }
     public DateTime CreatedAt { get; set; }
     public required string ShippingAddress { get; set; } = string.Empty;
+    public required string PhoneNumber { get; set; } = string.Empty;
+    public int? CityId { get; set; }
+    public string? CityName { get; set; }
     public required string CustomerNotes { get; set; } = string.Empty;
     public required string PrescriptionImageUrl { get; set; } = string.Empty;
     public required string PaymentStatus { get; set; } = string.Empty;

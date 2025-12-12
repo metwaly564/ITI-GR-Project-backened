@@ -11,4 +11,5 @@ public interface IBannerService
 
     Task<List<FrontBannerResponse>> GetActiveBannersAsync();
     Task<PaginationResponse<FrontBannerResponse>> GetActiveBannersPaginatedAsync(int page = 1, int pageSize = 10);
+    Task<List<BannerDTO>> GetMiddleBannersAsync();
 }
