@@ -8,16 +8,24 @@ namespace ITI.Pharmacy.API.Services
     {
         public List<Product> RecommendProducts(List<Product> products, SkinType skinType, List<string> concerns)
         {
+            if (products == null || !products.Any())
+                return new List<Product>();
+
             var scoredProducts = products.Select(p => new
             {
                 Product = p,
                 Score = CalculateProductScore(p, skinType, concerns)
             })
-            .Where(x => x.Score > 0)
             .OrderByDescending(x => x.Score)
-            .Take(10)
+            .Take(12) // Take more products to ensure we have recommendations
             .Select(x => x.Product)
             .ToList();
+
+            // If no products scored high enough, return top products anyway (at least 5)
+            if (scoredProducts.Count == 0 && products.Any())
+            {
+                return products.Take(10).ToList();
+            }
 
             return scoredProducts;
         }
@@ -28,24 +36,48 @@ namespace ITI.Pharmacy.API.Services
 
             // Check if product is suitable for skin type
             var suitableSkinTypes = GetSuitableSkinTypes(product);
-            if (suitableSkinTypes.Contains(skinType))
-                score += 30;
+            
+            // If SuitableForSkinTypes is not set, give a base score (more lenient)
+            if (suitableSkinTypes.Count == 0)
+            {
+                // No skin type data - give base score so product can still be recommended
+                score += 20;
+            }
+            else if (suitableSkinTypes.Contains(skinType))
+            {
+                // Perfect match - high score
+                score += 50;
+            }
+            else
+            {
+                // Not suitable for this skin type - but don't completely exclude
+                // Give a small score in case no other products match
+                score += 5;
+            }
 
             // Check if product benefits match concerns
             var benefits = GetBenefits(product);
-            foreach (var concern in concerns)
+            if (concerns != null && concerns.Count > 0)
             {
-                if (benefits.Any(b => b.Contains(concern, StringComparison.OrdinalIgnoreCase)))
-                    score += 20;
+                foreach (var concern in concerns)
+                {
+                    if (benefits.Any(b => !string.IsNullOrWhiteSpace(b) && 
+                        b.Contains(concern, StringComparison.OrdinalIgnoreCase)))
+                        score += 25;
+                }
+            }
+            else
+            {
+                // No specific concerns - give base score for any product
+                score += 10;
             }
 
-            // Add rating score
-            if (product.Rating.HasValue)
-                score += (int)(product.Rating.Value * 2);
+            // Add rating score (if available)
+            if (product.Rating.HasValue && product.Rating.Value > 0)
+                score += (int)(product.Rating.Value * 3);
 
-            // Penalize if not suitable for skin type
-            if (!suitableSkinTypes.Contains(skinType))
-                score -= 50;
+            // Base score for all active products
+            score += 10;
 
             return Math.Max(0, score);
         }

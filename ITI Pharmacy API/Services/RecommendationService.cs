@@ -19,6 +19,17 @@ namespace ITI.Pharmacy.API.Services
 
         public async Task<RecommendationResponseDTO> AnalyzeAndRecommendAsync(RecommendationRequestDTO request, string? userId = null)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request), "Request cannot be null");
+            }
+
+            // Ensure lists are initialized
+            if (request.Symptoms == null)
+                request.Symptoms = new List<string>();
+            if (request.Concerns == null)
+                request.Concerns = new List<string>();
+
             // Analyze symptoms and identify conditions
             var analysisResult = AnalyzeSymptoms(request.Symptoms, request.SkinType);
 
@@ -28,20 +39,38 @@ namespace ITI.Pharmacy.API.Services
                 .Where(p => p.IsActive)
                 .ToListAsync();
 
-            var recommendedProducts = _productRecommender.RecommendProducts(allProducts, request.SkinType, request.Concerns);
+            if (allProducts == null || !allProducts.Any())
+            {
+                // Return response with no products but with analysis
+                return new RecommendationResponseDTO
+                {
+                    AnalysisId = Guid.NewGuid().ToString(),
+                    SkinType = request.SkinType,
+                    IdentifiedConditions = analysisResult.IdentifiedConditions,
+                    AnalysisSummary = analysisResult.Summary + " Note: No products available at this time.",
+                    RecommendedIngredients = analysisResult.RecommendedIngredients,
+                    IngredientsToAvoid = analysisResult.IngredientsToAvoid,
+                    RecommendedProducts = new List<ProductRecommendationDTO>(),
+                    RoutineAdvice = analysisResult.RoutineAdvice,
+                    CreatedAt = DateTime.UtcNow
+                };
+            }
+
+            var recommendedProducts = _productRecommender?.RecommendProducts(allProducts, request.SkinType, request.Concerns) 
+                ?? new List<Product>();
 
             // Map to DTOs
             var productDTOs = recommendedProducts.Select(p => new ProductRecommendationDTO
             {
                 ProductId = p.Id,
-                Name = p.Name,
-                Description = p.Description,
+                Name = p.Name ?? "",
+                Description = p.Description ?? "",
                 CategoryName = p.Category?.Name ?? "",
                 Price = p.Price,
                 DiscountPrice = p.DiscountPrice,
                 ImageUrl = p.ImageUrl ?? "",
                 RecommendationReason = $"Suitable for {request.SkinType} skin and addresses {string.Join(", ", request.Concerns.Take(2))}",
-                KeyIngredients = _productRecommender.GetIngredients(p).Take(5).ToList(),
+                KeyIngredients = _productRecommender?.GetIngredients(p)?.Take(5).ToList() ?? new List<string>(),
                 Benefits = GetBenefitsList(p)
             }).ToList();
 
@@ -89,32 +118,36 @@ namespace ITI.Pharmacy.API.Services
             var recommendedIngredients = new List<string>();
             var avoidIngredients = new List<string>();
 
+            // Ensure symptoms list is not null
+            if (symptoms == null)
+                symptoms = new List<string>();
+
             // Simple rule-based analysis
-            if (symptoms.Any(s => s.Contains("acne", StringComparison.OrdinalIgnoreCase) ||
-                                 s.Contains("pimple", StringComparison.OrdinalIgnoreCase)))
+            if (symptoms.Any(s => !string.IsNullOrWhiteSpace(s) && (s.Contains("acne", StringComparison.OrdinalIgnoreCase) ||
+                                 s.Contains("pimple", StringComparison.OrdinalIgnoreCase))))
             {
                 conditions.Add("Acne");
                 recommendedIngredients.AddRange(new[] { "Salicylic Acid", "Niacinamide", "Benzoyl Peroxide" });
                 avoidIngredients.AddRange(new[] { "Heavy Oils", "Comedogenic Ingredients" });
             }
 
-            if (symptoms.Any(s => s.Contains("dry", StringComparison.OrdinalIgnoreCase) ||
-                                 s.Contains("flaky", StringComparison.OrdinalIgnoreCase)))
+            if (symptoms.Any(s => !string.IsNullOrWhiteSpace(s) && (s.Contains("dry", StringComparison.OrdinalIgnoreCase) ||
+                                 s.Contains("flaky", StringComparison.OrdinalIgnoreCase))))
             {
                 conditions.Add("Dry Skin");
                 recommendedIngredients.AddRange(new[] { "Hyaluronic Acid", "Ceramides", "Glycerin" });
             }
 
-            if (symptoms.Any(s => s.Contains("redness", StringComparison.OrdinalIgnoreCase) ||
-                                 s.Contains("sensitive", StringComparison.OrdinalIgnoreCase)))
+            if (symptoms.Any(s => !string.IsNullOrWhiteSpace(s) && (s.Contains("redness", StringComparison.OrdinalIgnoreCase) ||
+                                 s.Contains("sensitive", StringComparison.OrdinalIgnoreCase))))
             {
                 conditions.Add("Sensitive Skin");
                 recommendedIngredients.AddRange(new[] { "Centella Asiatica", "Niacinamide", "Aloe Vera" });
                 avoidIngredients.AddRange(new[] { "Alcohol", "Fragrance", "Essential Oils" });
             }
 
-            if (symptoms.Any(s => s.Contains("oily", StringComparison.OrdinalIgnoreCase) ||
-                                 s.Contains("greasy", StringComparison.OrdinalIgnoreCase)))
+            if (symptoms.Any(s => !string.IsNullOrWhiteSpace(s) && (s.Contains("oily", StringComparison.OrdinalIgnoreCase) ||
+                                 s.Contains("greasy", StringComparison.OrdinalIgnoreCase))))
             {
                 conditions.Add("Oily Skin");
                 recommendedIngredients.AddRange(new[] { "Niacinamide", "Salicylic Acid", "Clay" });

@@ -24,13 +24,41 @@ namespace ITI.Pharmacy.API.Controllers.User
         {
             try
             {
+                if (request == null)
+                {
+                    return BadRequest(new { message = "Request body is required", error = "Request cannot be null" });
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    var errors = ModelState.Values
+                        .SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage)
+                        .ToList();
+                    return BadRequest(new { message = "Validation failed", errors = errors });
+                }
+
                 var userId = User?.Identity?.Name;
                 var result = await _recommendationService.AnalyzeAndRecommendAsync(request, userId);
+                
+                if (result == null)
+                {
+                    return BadRequest(new { message = "Analysis failed", error = "Service returned null result" });
+                }
+
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = "Analysis failed", error = ex.Message });
+                // Log the exception details for debugging
+                Console.WriteLine($"Error in AnalyzeAndRecommend: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                }
+                
+                return BadRequest(new { message = "Analysis failed", error = ex.Message, details = ex.ToString() });
             }
         }
 
