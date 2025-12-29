@@ -33,14 +33,13 @@ namespace ITI.Pharmacy.API.Controllers.Admin
             if (string.IsNullOrEmpty(dto.Message))
                 return BadRequest("Message is required.");
 
-            var allUsers = await _notificationService.GetAllUserIdsAsync();
+            await _notificationService.SendNotificationToAllAsync(
+                dto.Title ?? "System Notification", 
+                dto.Message, 
+                dto.Type ?? "Announcement"
+            );
 
-            var tasks = allUsers.Select(userId =>
-                _notificationService.CreateNotificationAsync(dto, userId));
-
-            await Task.WhenAll(tasks);
-
-            return Ok($"Notification sent to {allUsers.Count} users successfully.");
+            return Ok("Notification broadcasted successfully.");
         }
     }
 }

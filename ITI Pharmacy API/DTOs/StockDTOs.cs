@@ -27,6 +27,12 @@ namespace ITI.Pharmacy.API.DTOs
 
         [JsonPropertyName("lastRestocked")]
         public DateTime? LastRestocked { get; set; }
+        
+        // [JsonPropertyName("expiryDate")]
+        // public DateTime? ExpiryDate { get; set; }
+
+        // [JsonPropertyName("isExpired")]
+        // public bool IsExpired => ExpiryDate.HasValue && ExpiryDate.Value.Date <= DateTime.UtcNow.Date;
 
         [JsonPropertyName("isLowStock")]
         public bool IsLowStock => Quantity > 0 && Quantity <= MinimumStockLevel;
@@ -45,6 +51,9 @@ namespace ITI.Pharmacy.API.DTOs
 
         [JsonPropertyName("quantity")]
         public int Quantity { get; set; }
+
+        // [JsonPropertyName("expiryDate")]
+        // public DateTime? ExpiryDate { get; set; }
     }
 
     public class StockTransferDTO

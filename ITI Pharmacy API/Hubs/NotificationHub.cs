@@ -23,5 +23,15 @@ namespace ITI.Pharmacy.API.Hubs
             }
             await base.OnDisconnectedAsync(exception);
         }
+
+        public async Task SendMessageToAll(string title, string message, string type)
+        {
+            await Clients.All.SendAsync("ReceiveNotification", new { title, message, type, createdAt = DateTime.UtcNow });
+        }
+
+        public async Task SendMessageToUser(string userId, string title, string message, string type)
+        {
+            await Clients.Group(userId).SendAsync("ReceiveNotification", new { title, message, type, createdAt = DateTime.UtcNow });
+        }
     }
 }

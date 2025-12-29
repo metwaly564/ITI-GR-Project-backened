@@ -10,6 +10,7 @@ namespace ITI.Pharmacy.API.Models
         public int Quantity { get; set; }
         public int MinimumStockLevel { get; set; } = 10;
         public int MaximumStockLevel { get; set; } = 100;
+        // public DateTime? ExpiryDate { get; set; }
         public DateTime LastRestocked { get; set; } = DateTime.UtcNow;
 
         public virtual Product Product { get; set; }

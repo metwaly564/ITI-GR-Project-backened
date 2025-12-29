@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using ITI.Pharmacy.API.DTOs;
 using ITI.Pharmacy.API.DTOs.Responses;
+using ITI.Pharmacy.API.Hubs;
 using ITI.Pharmacy.API.Models;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITI.Pharmacy.API.Services
@@ -10,11 +12,13 @@ namespace ITI.Pharmacy.API.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public PharmacyBranchService(ApplicationDbContext context, IMapper mapper)
+        public PharmacyBranchService(ApplicationDbContext context, IMapper mapper, IHubContext<NotificationHub> hubContext)
         {
             _context = context;
             _mapper = mapper;
+            _hubContext = hubContext;
         }
 
         // ================== Branch CRUD ==================
@@ -83,6 +87,7 @@ namespace ITI.Pharmacy.API.Services
                 Quantity = ps.Quantity,
                 MinimumStockLevel = ps.MinimumStockLevel,
                 MaximumStockLevel = ps.MaximumStockLevel,
+                // ExpiryDate = ps.ExpiryDate,
                 LastRestocked = ps.LastRestocked
             }).ToList();
         }
@@ -101,6 +106,7 @@ namespace ITI.Pharmacy.API.Services
                     ProductId = dto.ProductId,
                     BranchId = dto.BranchId,
                     Quantity = dto.Quantity,
+                    // ExpiryDate = dto.ExpiryDate,
                     LastRestocked = DateTime.UtcNow
                 };
                 _context.ProductStocks.Add(stock);
@@ -108,6 +114,7 @@ namespace ITI.Pharmacy.API.Services
             else
             {
                 stock.Quantity = dto.Quantity;
+                // stock.ExpiryDate = dto.ExpiryDate;
                 stock.LastRestocked = DateTime.UtcNow;
             }
 
@@ -122,6 +129,7 @@ namespace ITI.Pharmacy.API.Services
                 Quantity = stock.Quantity,
                 MinimumStockLevel = stock.MinimumStockLevel,
                 MaximumStockLevel = stock.MaximumStockLevel,
+                // ExpiryDate = stock.ExpiryDate,
                 LastRestocked = stock.LastRestocked
             };
         }
@@ -150,6 +158,58 @@ namespace ITI.Pharmacy.API.Services
                 Status = st.Status,
                 RequestedAt = st.RequestedAt
             }).ToList();
+        }
+
+        public async Task<StockTransferDTO?> InitiateTransferAsync(CreateStockTransferDTO dto, string requestedBy)
+        {
+            var fromStock = await _context.ProductStocks
+                .FirstOrDefaultAsync(ps => ps.ProductId == dto.ProductId && ps.BranchId == dto.FromBranchId);
+            
+            if (fromStock == null || fromStock.Quantity < dto.Quantity)
+                return null;
+
+            var transfer = new StockTransfer
+            {
+                ProductId = dto.ProductId,
+                FromBranchId = dto.FromBranchId,
+                ToBranchId = dto.ToBranchId,
+                Quantity = dto.Quantity,
+                Reason = dto.Reason,
+                Status = "Pending",
+                RequestedAt = DateTime.UtcNow,
+                RequestedBy = requestedBy
+            };
+
+            _context.StockTransfers.Add(transfer);
+            
+            // Deduct from source branch immediately or when approved? 
+            // Usually it's deducted when approved/completed, but the user wants to trigger notification when initiated.
+            
+            await _context.SaveChangesAsync();
+
+            // Notify Admin or Receiving Branch? 
+            // Let's notify "All" for now as per user request to support All/Specific.
+            var product = await _context.Products.FindAsync(dto.ProductId);
+            var toBranch = await _context.PharmacyBranches.FindAsync(dto.ToBranchId);
+            
+            await _hubContext.Clients.All.SendAsync("ReceiveNotification", new {
+                title = "New Product Transfer",
+                message = $"Transfer of {dto.Quantity} {product?.Name} to {toBranch?.Name} initiated.",
+                type = "Transfer"
+            });
+
+            return new StockTransferDTO
+            {
+                Id = transfer.Id,
+                ProductId = transfer.ProductId,
+                ProductName = product?.Name ?? string.Empty,
+                FromBranchId = transfer.FromBranchId,
+                ToBranchId = transfer.ToBranchId,
+                Quantity = transfer.Quantity,
+                Reason = transfer.Reason,
+                Status = transfer.Status,
+                RequestedAt = transfer.RequestedAt
+            };
         }
 
         // ================== Filter + Pagination ==================

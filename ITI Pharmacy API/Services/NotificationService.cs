@@ -24,8 +24,10 @@ public class NotificationService : INotificationService
     {
         var notification = new NotificationDTO
         {
-            Id = 1,
+            Id = new Random().Next(1, 10000),
             Message = dto.Message,
+            Title = dto.Title ?? "Notification",
+            Type = dto.Type ?? "General",
             IsRead = false,
             CreatedAt = DateTime.UtcNow
         };
@@ -35,6 +37,21 @@ public class NotificationService : INotificationService
 
 
         return notification;
+    }
+
+    public async Task SendNotificationToAllAsync(string title, string message, string type)
+    {
+        var notification = new NotificationDTO
+        {
+            Id = new Random().Next(1, 10000),
+            Message = message,
+            Title = title,
+            Type = type,
+            IsRead = false,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        await _hub.Clients.All.SendAsync("ReceiveNotification", notification);
     }
 
 

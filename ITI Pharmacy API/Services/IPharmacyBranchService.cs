@@ -13,6 +13,7 @@ namespace ITI.Pharmacy.API.Services
         Task<List<ProductStockDTO>> GetBranchStockAsync(int branchId);
         Task<ProductStockDTO> UpdateProductStockAsync(UpdateStockDTO dto);
         Task<List<StockTransferDTO>> GetBranchTransfersAsync(int branchId);
+        Task<StockTransferDTO?> InitiateTransferAsync(CreateStockTransferDTO dto, string requestedBy);
 
         Task<PaginationResponse<PharmacyBranchDTO>> FilterBranchesWithPaginationAsync(
             int page,
