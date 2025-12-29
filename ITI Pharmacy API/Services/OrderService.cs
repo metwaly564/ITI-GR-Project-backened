@@ -64,8 +64,8 @@ namespace ITI.Pharmacy.API.Services
                 AdminNotes = string.Empty, // Initialize AdminNotes to empty string
                 PrescriptionImageUrl = dto.PrescriptionImageUrl ?? string.Empty,
                 PaymentMethod = dto.PaymentMethod,
-                PaymentStatus = "Pending",
-                Status = "Pending",
+                PaymentStatus = dto.PaymentMethod == "Online" ? "Paid" : "Pending",
+                Status = dto.PaymentMethod == "Online" ? "Confirmed" : "Pending",
                 DeliveryFee = 5.00m, // Default delivery fee
                 CreatedAt = DateTime.UtcNow
             };

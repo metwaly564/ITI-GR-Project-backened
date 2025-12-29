@@ -54,5 +54,6 @@ namespace ITI.Pharmacy.API.Models
 
         public virtual Category Category { get; set; }
         public virtual ICollection<ProductStock> ProductStocks { get; set; } = new List<ProductStock>();
+        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

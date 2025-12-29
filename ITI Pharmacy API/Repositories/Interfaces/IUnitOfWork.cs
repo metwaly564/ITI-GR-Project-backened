@@ -11,6 +11,7 @@ namespace ITI.Pharmacy.API.Repositories.Interfaces
         IPharmacyBranchRepository PharmacyBranches { get; }
         IProductStockRepository ProductStocks { get; }
         IUserRepository Users { get; }
+        IReviewRepository Reviews { get; }
 
         // Generic repository access
         IGenericRepository<T> Repository<T>() where T : class;

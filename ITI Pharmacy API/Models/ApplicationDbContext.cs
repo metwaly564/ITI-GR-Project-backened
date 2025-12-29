@@ -23,10 +23,24 @@ namespace ITI.Pharmacy.API.Models
         public DbSet<PharmacyBranch> PharmacyBranches { get; set; }
         public DbSet<ProductStock> ProductStocks { get; set; }
         public DbSet<StockTransfer> StockTransfers { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            // --- Review Configuration ---
+            builder.Entity<Review>()
+                .HasOne(r => r.User)
+                .WithMany()
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Review>()
+                .HasOne(r => r.Product)
+                .WithMany(p => p.Reviews)
+                .HasForeignKey(r => r.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             var seedDate = new DateTime(2025, 11, 21);
 

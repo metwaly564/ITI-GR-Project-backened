@@ -112,6 +112,9 @@ builder.Services.AddScoped<ProductRecommender>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddScoped<IBackupService, BackupService>();
 builder.Services.AddScoped<ICategoryImportService, CategoryImportService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<DataSeederService>();
 
 // Unit of Work

@@ -18,6 +18,7 @@ namespace ITI.Pharmacy.API.Repositories.Implementations
         private IPharmacyBranchRepository? _pharmacyBranches;
         private IProductStockRepository? _productStocks;
         private IUserRepository? _users;
+        private IReviewRepository? _reviews;
 
         // Generic repositories cache
         private readonly Dictionary<Type, object> _repositories = new();
@@ -50,6 +51,9 @@ namespace ITI.Pharmacy.API.Repositories.Implementations
 
         public IUserRepository Users =>
             _users ??= new UserRepository(_context);
+
+        public IReviewRepository Reviews =>
+            _reviews ??= new ReviewRepository(_context);
 
         public IGenericRepository<T> Repository<T>() where T : class
         {

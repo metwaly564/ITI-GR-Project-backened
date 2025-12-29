@@ -50,5 +50,15 @@ namespace ITI.Pharmacy.API.Controllers.Admin
             var orders = await _orderService.GetOrdersByBranchAsync(branchId);
             return Ok(orders);
         }
+
+        [HttpPut("{id:int}/status")]
+        public async Task<IActionResult> UpdateOrderStatus(int id, [FromBody] UpdateOrderStatusDTO dto)
+        {
+            var result = await _orderService.UpdateOrderStatusAsync(id, dto);
+            if (!result)
+                return NotFound("Order not found.");
+
+            return Ok(new { message = "Order status updated successfully", status = dto.Status });
+        }
     }
 }
